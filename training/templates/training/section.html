@@ -92,8 +92,7 @@
         {% endif %}
 
         <div class="col-auto">
-          <p class="subtitle text-white-50 x-small">Author</p>
-          <h4 class="comment-name">{{ section.static_asset.author_name }}</h4>
+          {% include 'common/components/published_by.html' with static_asset=section.static_asset %}
         </div>
       </div>
 

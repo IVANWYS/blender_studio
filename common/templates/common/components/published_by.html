@@ -1,0 +1,7 @@
+{% if static_asset.author %}
+  <p class="subtitle text-white-50 x-small">Author</p>
+  <h4 class="comment-name mb-0">{{ static_asset.author.full_name }}</h4>
+{% else %}
+  <p class="subtitle text-white-50 x-small">Published by</p>
+  <h4 class="comment-name mb-0">{{ static_asset.user.full_name }}</h4>
+{% endif %}
