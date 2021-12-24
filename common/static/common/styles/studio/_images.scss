@@ -30,8 +30,6 @@
 
   @include media-breakpoint-up(md) {
     position: relative;
-    padding: 5vw 0;
-    margin: 10vw 0;
   }
 }
 
@@ -42,7 +40,6 @@
 .image-float {
   @include media-breakpoint-up(md) {
     position: absolute;
-    transform: translateY(-50%);
     max-width: 40vw;
   }
 
@@ -62,9 +59,6 @@
     margin-bottom: $spacer;
 
     @include media-breakpoint-up(md) {
-      position: absolute;
-      transform: translateY(-50%);
-      max-width: 70vw;
       right: 0;
       top: 50%;
       margin-bottom: 0;
