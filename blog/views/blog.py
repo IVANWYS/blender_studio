@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView
 from django.db.models.query import QuerySet
 
 from blog.models import Post, Like
+from blog.queries import get_posts
 from comments.models import Comment
 from comments.queries import get_annotated_comments
 from comments.views.common import comments_to_template_type
@@ -15,7 +16,9 @@ class PostList(ListView):
     paginate_by = 12
 
     def get_queryset(self) -> QuerySet:
-        return Post.objects.filter()
+        return get_posts(
+            user_pk=self.request.user.pk if self.request.user.is_authenticated else None
+        )
 
 
 class PostDetail(DetailView):

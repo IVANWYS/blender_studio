@@ -37,14 +37,14 @@
           </span>
         </p>
       {% endif %}
-      {% if post.likes.count > 0 %}
+      {% if post.number_of_likes > 0 %}
         <p class="card-subtitle">
           {% if post.liked %}
             <i class="material-icons icon-inline small text-primary">favorite</i>
           {% else %}
             <i class="material-icons icon-inline small">favorite_border</i>
           {% endif %}
-          {{ post.likes.count }}
+          {{ post.number_of_likes }}
         </p>
       {% endif %}
       {% if post.comments.count > 0 %}
