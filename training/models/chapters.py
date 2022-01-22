@@ -40,8 +40,7 @@ class Chapter(mixins.CreatedUpdatedMixin, models.Model):
     @property
     def url(self) -> str:
         return reverse(
-            'chapter',
-            kwargs={'training_slug': self.training.slug, 'chapter_slug': self.slug},
+            'chapter', kwargs={'training_slug': self.training.slug, 'chapter_slug': self.slug},
         )
 
     @property
