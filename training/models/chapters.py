@@ -37,6 +37,9 @@ class Chapter(mixins.CreatedUpdatedMixin, models.Model):
     def __str__(self) -> str:
         return f'{self.training.name} > {self.index:02.0f}. {self.name}'
 
+    def get_absolute_url(self) -> str:
+        return self.url
+
     @property
     def url(self) -> str:
         return reverse(

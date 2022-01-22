@@ -59,7 +59,7 @@ class SectionInline(admin.TabularInline):
 
 
 @admin.register(chapters.Chapter)
-class ChapterAdmin(admin.ModelAdmin):
+class ChapterAdmin(mixins.ViewOnSiteMixin, admin.ModelAdmin):
     save_on_top = True
     prepopulated_fields = {'slug': ('name',)}
     autocomplete_fields = ['training', 'user']
@@ -70,7 +70,11 @@ class ChapterAdmin(admin.ModelAdmin):
     list_filter = [
         'training',
     ]
-    list_display = ['__str__', 'is_published']
+    list_display = [
+        '__str__',
+        'is_published',
+        'view_link',
+    ]
     list_editable = ['is_published']
 
 
@@ -81,7 +85,7 @@ class StaticAssetInline(admin.TabularInline):
 
 
 @admin.register(sections.Section)
-class SectionAdmin(admin.ModelAdmin):
+class SectionAdmin(mixins.ViewOnSiteMixin, admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     list_display = [
         '__str__',
@@ -91,6 +95,7 @@ class SectionAdmin(admin.ModelAdmin):
         'is_published',
         'is_free',
         'is_featured',
+        'view_link',
     ]
     list_editable = ['is_published', 'is_free', 'is_featured']
     # inlines = [
