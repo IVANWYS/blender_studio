@@ -82,13 +82,6 @@
   {% endblock nested_nav_drawer_header %}
 
   <div class="drawer-nav-group">
-    <div class="drawer-nav-dropdown-wrapper">
-      <a class="drawer-nav-dropdown fw-bold" href="{{ navigation.overview_url }}" data-bs-tooltip="tooltip-overflow"
-        data-placement="top" title="{% firstof training.type.label training.type|capfirst %} Overview">
-        <i class="material-icons me-2">feed</i>
-        <span class="overflow-text">{% firstof training.type.label training.type|capfirst %} Overview</span>
-      </a>
-    </div>
     {% for page in training.flatpages.all %}
       <div class="drawer-nav-dropdown-wrapper">
         <a class="drawer-nav-dropdown h3" href="{{ page.url }}" data-bs-tooltip="tooltip-overflow" data-placement="top" title="{{ page.title }}">
