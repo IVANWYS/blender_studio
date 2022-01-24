@@ -12,7 +12,7 @@ from films.models import Film
 from films.queries import get_random_featured_assets
 from training.models import Training, Section
 from training.queries.sections import recently_watched
-from training.views.common import recently_watched_sections_to_template_type
+from training.views.common import recently_watched_sections_to_template
 
 
 @require_safe
@@ -46,7 +46,7 @@ def home(request: HttpRequest) -> HttpResponse:
     }
     if request.user.is_authenticated:
         recently_watched_sections = recently_watched(user_pk=request.user.pk)
-        context['recently_watched_sections'] = recently_watched_sections_to_template_type(
+        context['recently_watched_sections'] = recently_watched_sections_to_template(
             recently_watched_sections
         )
 

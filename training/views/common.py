@@ -1,69 +1,40 @@
 # noqa: D100
-import datetime
-from typing import Dict, List, Literal, Optional, Union
+from typing import Dict, List, Literal, Union
 
 from django.contrib.auth import get_user_model
 
 from common import markdown
 from common.types import assert_cast
-from training import typed_templates
-from training.models import chapters as chapters_models, sections as sections_models, trainings
-from training.typed_templates.types import (
+from training.models import (
+    chapters as chapters_models,
+    sections as sections_models,
+    trainings,
+    flatpages,
+)
+from training.types import (
     ChapterNavigation,
     Navigation,
     SectionNavigation,
 )
-from training.typed_templates.home import RecentlyWatchedSection
-import static_assets.models as models_static_assets
 
 User = get_user_model()
 
 
-def training_model_to_template_type(
-    training: trainings.Training, favorited: bool
-) -> typed_templates.types.Training:  # noqa: D103
-    thumbnail_s_url = '' if not training.thumbnail_s_url else training.thumbnail_s_url
-    thumbnail_m_url = '' if not training.thumbnail_m_url else training.thumbnail_m_url
-    picture_header = '' if not training.picture_header else training.picture_header.url
-    return typed_templates.types.Training(
-        id=training.pk,
-        name=training.name,
-        description=training.description,
-        summary=markdown.render_unsafe(training.summary),
-        type=trainings.TrainingType(training.type),
-        difficulty=trainings.TrainingDifficulty(training.difficulty),
-        tags=set(str(tag) for tag in training.tags.all()),
-        url=training.url,
-        admin_url=training.admin_url,
-        favorite_url=training.favorite_url,
-        date_updated=training.date_updated,
-        favorited=favorited,
-        thumbnail=thumbnail_s_url,
-        thumbnail_s_url=thumbnail_s_url,
-        thumbnail_m_url=thumbnail_m_url,
-        picture_header=picture_header,
-        is_free=training.is_free,
-        flatpages=training.flatpages,
-    )
+def training_model_to_template(training: trainings.Training, favorited: bool) -> trainings.Training:
+    training.favorited = favorited
+    training.summary_rendered = markdown.render_unsafe(training.summary)
+    training.tags_list = set(str(tag) for tag in training.tags.all())
+    training.picture_header_url = '' if not training.picture_header else training.picture_header.url
+    return training
 
 
-def video_model_to_template_type(
-    video: models_static_assets.Video, start_position: Optional[datetime.timedelta]
-) -> typed_templates.types.Video:  # noqa: D103
-    return typed_templates.types.Video(
-        url=video.source.url,
-        progress_url=video.progress_url,
-        start_position=None if start_position is None else start_position.total_seconds(),
-    )
-
-
-def navigation_to_template_type(
+def navigation_to_template(
     training: trainings.Training,
     chapters: List[chapters_models.Chapter],
     sections: List[sections_models.Section],
     *,
     user: User,
-    current: Union[Literal['overview'], sections_models.Section],
+    current: Union[Literal['overview'], sections_models.Section, flatpages.TrainingFlatPage],
 ) -> Navigation:  # noqa: D103
     sections_per_chapter: Dict[int, List[sections_models.Section]] = {}
     for section in sections:
@@ -138,26 +109,16 @@ def navigation_to_template_type(
     )
 
 
-def recently_watched_sections_to_template_type(
+def recently_watched_sections_to_template(
     recently_watched_sections: List[sections_models.Section],
-) -> List[RecentlyWatchedSection]:
-    """Return types Sections for use in templates."""
-    return [
-        RecentlyWatchedSection(
-            index=section.index,
-            name=section.name,
-            url=section.url,
-            training_name=getattr(section, 'training_name'),
-            chapter_index=getattr(section, 'chapter_index'),
-            chapter_name=getattr(section, 'chapter_name'),
-            progress_fraction=(
-                0
-                if getattr(section, 'video_position') is None
-                or getattr(section, 'video_duration') is None
-                else getattr(section, 'video_position') / getattr(section, 'video_duration')
-            ),
-            thumbnail_s_url=section.thumbnail_s_url,
-            thumbnail_m_url=section.thumbnail_m_url,
+) -> List[sections_models.Section]:
+    sections = []
+    for section in recently_watched_sections:
+        section.progress_fraction = (
+            0
+            if getattr(section, 'video_position') is None
+            or getattr(section, 'video_duration') is None
+            else getattr(section, 'video_position') / getattr(section, 'video_duration')
         )
-        for section in recently_watched_sections
-    ]
+        sections.append(section)
+    return sections

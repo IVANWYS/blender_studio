@@ -14,7 +14,9 @@
 
 {% block nexted_content %}
   <section>
-    <img src="{{ training.picture_header }}" class="img-fluid img-width-100 rounded mb-3" alt="{{ training.name }}">
+    {% if training.picture_header_url %}
+    <img src="{{ training.picture_header_url }}" class="img-fluid img-width-100 rounded mb-3" alt="{{ training.name }}">
+    {% endif %}
     <div class="row">
       <div class="col">
 
@@ -33,7 +35,7 @@
             <div class="button-toolbar-container">
 
               <div class="pills button-toolbar-pills">
-                {% for tag in training.tags %}
+                {% for tag in training.tags_list %}
                   {% include 'common/components/cards/pill.html' with label=tag %}
                 {% endfor %}
               </div>
@@ -71,7 +73,7 @@
           </div>
         </div>
 
-        <section class="mb-3 markdown-text">{% with_shortcodes training.summary %}</section>
+        <section class="mb-3 markdown-text">{% with_shortcodes training.summary_rendered %}</section>
       </div>
 
 
