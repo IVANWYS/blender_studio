@@ -1,10 +1,15 @@
-from unittest.mock import patch, call
+from unittest.mock import patch, call, Mock
 import datetime
 import mimetypes
 
 from django.test import TestCase
 
-from common.tests.factories.static_assets import StaticAssetFactory, VideoFactory
+from common.tests.factories.static_assets import (
+    StaticAssetFactory,
+    VideoFactory,
+    VideoVariationFactory,
+)
+from common.tests.factories.users import UserFactory
 from static_assets.models import StaticAsset, Video
 
 
@@ -70,3 +75,51 @@ class TestStaticAssetModel(TestCase):
 
         content_type, _ = mimetypes.guess_type('test.jpg')
         self.assertEqual(content_type, 'image/jpeg')
+
+    @patch('static_assets.views.is_free_static_asset', Mock(return_value=True))
+    def test_static_asset_source_used_in_download_url(self):
+        video = VideoFactory(
+            static_asset=StaticAssetFactory(
+                source_type='video', source='path/to/original-video.mp4'
+            )
+        )
+
+        self.assertEqual(video.static_asset.source.name, 'path/to/original-video.mp4')
+        self.assertIsNone(video.default_variation)
+        self.assertIsNotNone(video.static_asset.source.name)
+        self.assertEqual(
+            video.static_asset.download_url, '/download-source/path/to/original-video.mp4',
+        )
+
+        # Check that this URL redirects to storage/CDN, as expected
+        self.client.force_login(UserFactory())
+        res = self.client.get(video.static_asset.download_url)
+        self.assertEqual(res.status_code, 302)
+        self.assertTrue('path/to/original-video.mp4' in res['Location'])
+        self.assertFalse('login' in res['Location'])
+
+    @patch('static_assets.views.is_free_static_asset', Mock(return_value=True))
+    def test_no_source_video_variation_source_used_in_download_url(self):
+        video_variation = VideoVariationFactory(
+            source='path/to/video-variation-1080p.mp4',
+            video=VideoFactory(static_asset=StaticAssetFactory(source_type='video', source=None)),
+        )
+
+        self.assertEqual(video_variation.source.name, 'path/to/video-variation-1080p.mp4')
+        self.assertEqual(
+            video_variation.video.static_asset.download_source.name,
+            'path/to/video-variation-1080p.mp4',
+        )
+        self.assertIsNotNone(video_variation.video.default_variation)
+        self.assertIsNone(video_variation.video.static_asset.source.name)
+        self.assertEqual(
+            video_variation.video.static_asset.download_url,
+            '/download-source/path/to/video-variation-1080p.mp4',
+        )
+
+        # Check that this URL redirects to storage/CDN, as expected
+        self.client.force_login(UserFactory())
+        res = self.client.get(video_variation.video.static_asset.download_url)
+        self.assertEqual(res.status_code, 302)
+        self.assertTrue('path/to/video-variation-1080p.mp4' in res['Location'])
+        self.assertFalse('login' in res['Location'])

@@ -105,7 +105,10 @@ def video_track_view(request, pk: int, path: str):
 @login_required
 def download_view(request, source: str):
     """Redirect to a storage URL of the given source file, if found in static assets."""
-    static_asset = get_object_or_404(StaticAsset, source=source)
+    try:
+        static_asset = get_object_or_404(StaticAsset, source=source)
+    except Http404:
+        static_asset = get_object_or_404(StaticAsset, video__variations__source=source)
     can_dowload = has_active_subscription(request.user) or is_free_static_asset(static_asset.pk)
     if not can_dowload:
         raise Http404()

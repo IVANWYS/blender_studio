@@ -204,9 +204,10 @@ class StaticAsset(mixins.CreatedUpdatedMixin, mixins.StaticThumbnailURLMixin, mo
 
     @property
     def download_url(self) -> str:
-        if not self.source or not self.source.name:
+        download_source = self.download_source
+        if not download_source or not download_source.name:
             return ''
-        return reverse('download-source-url', kwargs={'source': self.source.name})
+        return reverse('download-source-url', kwargs={'source': download_source.name})
 
 
 class Video(models.Model):
