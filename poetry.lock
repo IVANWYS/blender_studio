@@ -115,7 +115,7 @@ webencodings = "*"
 
 [[package]]
 name = "blender-id-oauth-client"
-version = "0.9.5"
+version = "0.9.6"
 description = "Django app for using Blender ID as OAuth2 authentication service."
 category = "main"
 optional = false
@@ -130,7 +130,7 @@ requests-oauthlib = "^1.0"
 type = "git"
 url = "https://gitlab.com/blender-institute/blender-id-oauth-client.git"
 reference = "master"
-resolved_reference = "bf6b38d1af3754f9ba72229cc719deadf1a1027f"
+resolved_reference = "37ad8d285b9a7418546ec1367b1bcb02e21c63f0"
 
 [[package]]
 name = "boto3"

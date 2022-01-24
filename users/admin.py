@@ -8,7 +8,6 @@ from django.utils.translation import gettext_lazy as _
 import looper.admin
 import looper.models
 
-from blender_id_oauth_client.models import OAuthUserInfo, OAuthToken
 from users.models import Notification
 from training.models import progress
 
@@ -121,9 +120,7 @@ class UserAdmin(auth_admin.UserAdmin):
         ),
         (
             _('Permissions'),
-            {
-                'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
-            },
+            {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')},
         ),
         (
             _('Important dates'),
@@ -161,24 +158,3 @@ class NotificationAdmin(admin.ModelAdmin):
     search_fields = ['user__username', 'user__email', 'user__profile__full_name']
     list_display = ['__str__', 'user', 'action']
     raw_id_fields = ['user', 'action']
-
-
-@admin.register(OAuthUserInfo)
-class OAuthUserInfoAdmin(admin.ModelAdmin):
-    """Configure OAuthUserInfo admin, because blender_id_oauth_client doesn't."""
-
-    search_fields = ['user__email', 'user__username', 'oauth_user_id']
-    list_display = ['user', 'oauth_user_id']
-    raw_id_fields = ['user']
-
-
-admin.site.unregister(OAuthToken)
-
-
-@admin.register(OAuthToken)
-class OAuthTokenAdmin(admin.ModelAdmin):
-    """Configure OAuthToken admin, because otherwise it tried to load all users."""
-
-    search_fields = ['user__email', 'user__username']
-    list_display = ['user', 'oauth_user_id']
-    raw_id_fields = ['user']
