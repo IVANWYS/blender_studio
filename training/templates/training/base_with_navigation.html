@@ -106,11 +106,14 @@
             </span>
           {% endif %}
         </a>
+        {% if chapter_navigation.sections %}
         <a class="drawer-nav-dropdown icon {% if chapter_navigation.current %} active {% else %}collapsed{% endif %}"
           data-bs-toggle="collapse" data-bs-target="#nav-{{ chapter_navigation.slug }}">
           <i class="material-icons">keyboard_arrow_down</i>
         </a>
+        {% endif %}
       </div>
+      {% if chapter_navigation.sections %}
       <div id="nav-{{ chapter_navigation.slug }}"
         class="drawer-nav-list-wrapper collapse {% if chapter_navigation.current %}show{% endif %}">
         <ol class="drawer-nav-list training">
@@ -127,6 +130,7 @@
 
         </ol>
       </div>
+      {% endif %}
 
     {% endif %}
   {% endfor %}
