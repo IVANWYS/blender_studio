@@ -17,6 +17,9 @@
 
     {% stylesheet 'studio' %}
 
+    {% block head_style_extras %}
+    {% endblock head_style_extras %}
+
     {% block html_templates %}
       <template id="comment-template">
         {% include 'comments/components/comment.html' %}

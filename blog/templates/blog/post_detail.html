@@ -1,6 +1,11 @@
 {% extends 'common/base.html' %}
 {% load static %}
+{% load pipeline %}
 {% load common_extras %}
+
+{% block head_style_extras %}
+{% stylesheet 'vendor_highlight' %}
+{% endblock %}
 
 {% block title_prepend %}{{ post.title }} - Blog - {% endblock title_prepend %}
 {% block title_append %} - {% endblock title_append %}
@@ -42,3 +47,10 @@
   </section>
 
 {% endblock %}
+
+{% block scripts %}
+  {% javascript 'vendor_highlight' %}
+  <script>
+    hljs.highlightAll();
+  </script>
+{% endblock scripts %}

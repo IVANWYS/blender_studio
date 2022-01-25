@@ -4,6 +4,10 @@
 {% load pipeline %}
 {% load common_extras %}
 
+{% block head_style_extras %}
+{% stylesheet 'vendor_highlight' %}
+{% endblock %}
+
 {% block title_prepend %}{{ chapter.name }} - {{ training.name }} - {% endblock title_prepend %}
 
 {% block meta %}
@@ -87,10 +91,11 @@
 
   {% javascript 'training' %}
   {% javascript 'vendor_masonry' %}
+  {% javascript 'vendor_highlight' %}
 
   <script>
     makeGrid();
-
+    hljs.highlightAll();
   </script>
 
 {% endblock scripts %}

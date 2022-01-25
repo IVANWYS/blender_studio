@@ -228,11 +228,21 @@ PIPELINE = {
             'output_filename': 'js/subscriptions.js',
             'extra_context': {'async': False, 'defer': False},
         },
+        'vendor_highlight': {
+            'source_filenames': ['common/scripts/vendor/highlight.min.js'],
+            'output_filename': 'js/vendor_highlight.js',
+            'extra_context': {'async': False, 'defer': False},
+        },
     },
     'STYLESHEETS': {
         'studio': {
             'source_filenames': ('common/styles/studio/studio.scss',),
             'output_filename': 'css/studio.css',
+            'extra_context': {'media': 'screen'},
+        },
+        'vendor_highlight': {
+            'source_filenames': ('common/styles/vendor/highlight/monokai-sublime.min.css',),
+            'output_filename': 'css/highlight-monokai-sublime.css',
             'extra_context': {'media': 'screen'},
         },
     },
@@ -419,9 +429,7 @@ LOOPER_ORDER_RECEIPT_PDF_URL = 'subscriptions:receipt-pdf'
 LOOPER_PAY_EXISTING_ORDER_URL = 'subscriptions:pay-existing-order'
 LOOPER_MANAGER_MAIL = 'CHANGE_ME'
 
-LOOPER_USER_SEARCH_FIELDS = (
-    'user__full_name',
-)
+LOOPER_USER_SEARCH_FIELDS = ('user__full_name',)
 
 # By default, dump emails to the console instead of trying to actually send them.
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

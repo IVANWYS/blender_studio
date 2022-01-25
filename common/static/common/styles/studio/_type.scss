@@ -184,23 +184,22 @@ code {
   vertical-align: middle;
 }
 
+// Code style is overridden by highlight.js using the vendor_highlight PIPELINE
+
 pre {
-  background: rgba($pre-color, .1);
-  border: 0px solid $pre-color;
+  border: 0 solid $gray-800;
   border-radius: $border-radius;
   border-left-width: $border-radius;
-  padding: $spacer / 2;
   font-size: inherit;
-
-  @include scroll-bar(#2c1e24, rgba($pre-color, .5));
 
   code {
     background: none;
     border: none;
-    padding: 0;
     border-radius: 0;
-    color: lighten($code-color, 15%);
+    color: lighten($color-contrast-light, 15%);
+    display: inline-block;
     font-size: $code-font-size;
+    padding: 15px;
   }
 }
 
