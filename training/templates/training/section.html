@@ -90,7 +90,7 @@
         {% endif %}
 
         <div class="col-auto">
-          {% include 'common/components/published_by.html' with static_asset=section.static_asset %}
+          {% include 'common/components/published_by.html' with static_asset=section.static_asset fallback_user=section.user %}
         </div>
       </div>
 
