@@ -14,6 +14,7 @@ User = get_user_model()
 class TrainingType(models.TextChoices):
     workshop = 'workshop', 'Workshop'
     course = 'course', 'Course'
+    documentation = 'documentation', 'Documentation'
 
 
 class TrainingDifficulty(models.TextChoices):
@@ -42,7 +43,7 @@ class Training(mixins.CreatedUpdatedMixin, mixins.StaticThumbnailURLMixin, model
     tags = TaggableManager(blank=True)
 
     type = models.TextField(choices=TrainingType.choices)
-    difficulty = models.TextField(choices=TrainingDifficulty.choices)
+    difficulty = models.TextField(choices=TrainingDifficulty.choices, blank=True)
     picture_header = models.FileField(upload_to=get_upload_to_hashed_path, blank=True)
     thumbnail = models.FileField(upload_to=get_upload_to_hashed_path, blank=True)
 
