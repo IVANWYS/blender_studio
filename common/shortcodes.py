@@ -181,8 +181,10 @@ class YouTube:
         The first parameter must be the YouTube video ID or URL. The width and
         height can be passed in the equally named keyword arguments.
         """
-        width = kwargs.get('width', '560')
-        height = kwargs.get('height', '315')
+
+        # Default to a 16:9 aspect ratio.
+        width = kwargs.get('width', '720')
+        height = kwargs.get('height', '416')
 
         # Figure out the embed URL for the video.
         try:
