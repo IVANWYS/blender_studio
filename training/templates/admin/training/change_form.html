@@ -1,0 +1,18 @@
+{% extends "admin/change_form.html" %}
+{% load pipeline %}
+{% load static %}
+
+{% block field_sets %}
+<div style="display: flex">
+  <div>
+    {% for fieldset in adminform %}
+    {% include "admin/includes/fieldset.html" %}
+    {% endfor %}
+  </div>
+  <div id="markdown-preview-container">
+  </div>
+</div>
+
+{% javascript 'ajax' %}
+<script src="{% static 'common/scripts/admin/markdown_preview.js' %}"></script>
+{% endblock %}

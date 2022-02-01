@@ -233,6 +233,10 @@ PIPELINE = {
             'output_filename': 'js/vendor_highlight.js',
             'extra_context': {'async': False, 'defer': False},
         },
+        'ajax': {
+            'source_filenames': ['common/scripts/ajax.js'],
+            'output_filename': 'js/ajax.js',
+        },
     },
     'STYLESHEETS': {
         'studio': {

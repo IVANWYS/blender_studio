@@ -17,6 +17,7 @@ import users.urls
 import characters.urls
 
 from common.views.home import home as home_view, welcome as welcome_view
+from common.views.api.markdown_preview import markdown_preview as markdown_preview_view
 import common.views.errors as error_views
 from django.views.generic import TemplateView
 
@@ -35,6 +36,7 @@ urlpatterns = [
     path('films/', include(films.urls)),
     path('training/', include(training.urls)),
     path('blog/', include(blog.urls)),
+    path('api/markdown-preview', markdown_preview_view, name='api-markdown-preview'),
     path('', include(characters.urls)),
     path('search/', include(search.urls)),
     path('looper/', include((looper.urls), namespace='looper')),
