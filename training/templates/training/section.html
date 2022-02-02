@@ -68,10 +68,7 @@
               </a>
             {% endif %}
             {% if section.is_free %}
-              <p class="d-inline me-2 text-success">
-                <i class="material-icons icon-inline x-small">lock_open</i>
-                Free
-              </p>
+              {% include "common/components/cards/pill.html" with label='Free' %}
             {% endif %}
           </div>
         </div>

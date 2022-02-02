@@ -25,8 +25,7 @@
         <div class="col-12 col-md mb-2 mb-md-3">
           <p class="subtitle small">
             {% if training.is_free %}
-              <i class="material-icons icon-inline text-success" data-bs-toggle="tooltip" data-placement="top"
-                title="Free">lock_open</i>
+              {% include "common/components/cards/pill.html" with label='Free' %}
             {% endif %}
             {{ training.name }}
           </p>

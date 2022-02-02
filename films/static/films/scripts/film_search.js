@@ -149,7 +149,7 @@ const renderHits = (renderOptions, isFirstRender) => {
                       ${
                         item.is_free
                           ? `
-                        <p class="d-inline mr-2 text-success x-small"><i class="material-icons icon-inline x-small" >lock_open</i>&nbsp;Free</p>
+                        <span class="badge badge-pill">Free</span>
                       `
                           : ''
                       }

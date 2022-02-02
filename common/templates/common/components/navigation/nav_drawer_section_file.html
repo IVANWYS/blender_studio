@@ -6,7 +6,7 @@
     {% if published %}
       {% if free %}
         <span class="ms-auto">
-          <i class="material-icons icon-inline small text-success ms-1 me-0" data-bs-toggle="tooltip" data-placement="top" title="Free">lock_open</i>
+          {% include "common/components/cards/pill.html" with label='Free' %}
         </span>
       {% endif %}
     {% else %}

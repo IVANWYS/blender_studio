@@ -7,10 +7,6 @@
 
     <div class="drawer-nav-header">
       <p class="subtitle">
-        {% if training.is_free %}
-          <i class="material-icons icon-inline small text-success" data-bs-toggle="tooltip" data-placement="top"
-            title="Free">lock_open</i>
-        {% endif %}
         {% firstof training.type.label training.type|capfirst %}
       </p>
       <a class="h2" href="{{ navigation.overview_url }}">{{ training.name }}</a>
@@ -70,10 +66,6 @@
   {% block nested_nav_drawer_header %}
     <div class="drawer-nav-header">
       <p class="subtitle small mb-1">
-        {% if training.is_free %}
-          <i class="material-icons icon-inline small text-success" data-bs-toggle="tooltip" data-placement="top"
-            title="Free">lock_open</i>
-        {% endif %}
         {% firstof training.type.label training.type|capfirst %}
       </p>
       <a href="{{ navigation.overview_url }}" class="h3">{{ training.name }}</a>

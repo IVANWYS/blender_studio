@@ -66,10 +66,7 @@
                 </a>
               {% endif %}
               {% if character_showcase.is_free %}
-                <p class="d-inline me-2 text-success">
-                  <i class="material-icons icon-inline small">lock_open</i>
-                  Free
-                </p>
+                {% include "common/components/cards/pill.html" with label='Free' %}
               {% endif %}
               <p class="d-inline me-2 text-muted">
                 Blender Version: {{ character_showcase.min_blender_version }}

@@ -36,10 +36,7 @@
           </p>
         {% endif %}
         {% if showcase.is_free %}
-          <p class="d-inline me-2 text-success small">
-            <i class="material-icons icon-inline small">lock_open</i>
-            Free
-          </p>
+          {% include "common/components/cards/pill.html" with label='Free' %}
         {% endif %}
         {% if showcase.comments.count > 0 %}
           <p class="card-subtitle">

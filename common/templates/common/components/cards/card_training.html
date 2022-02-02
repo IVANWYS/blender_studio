@@ -32,10 +32,7 @@
         {{ training.get_difficulty_display }}
       </p>
       {% if training.is_free %}
-        <p class="d-inline me-2 text-success small">
-          <i class="material-icons icon-inline small text-success">lock_open</i>
-          Free
-        </p>
+        {% include "common/components/cards/pill.html" with label='Free' %}
       {% endif %}
     </div>
   </div>
