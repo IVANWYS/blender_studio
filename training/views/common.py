@@ -10,6 +10,7 @@ from training.models import (
     sections as sections_models,
     trainings,
     flatpages,
+    TrainingType,
 )
 from training.types import (
     ChapterNavigation,
@@ -22,6 +23,7 @@ User = get_user_model()
 
 def training_model_to_template(training: trainings.Training, favorited: bool) -> trainings.Training:
     training.favorited = favorited
+    training.type = TrainingType(training.type)
     training.summary_rendered = markdown.render_unsafe(training.summary)
     training.tags_list = set(str(tag) for tag in training.tags.all())
     training.picture_header_url = '' if not training.picture_header else training.picture_header.url
