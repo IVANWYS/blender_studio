@@ -178,12 +178,12 @@
 }
 
 .file-body {
+  align-items: center;
   color: $highlight-white-xstrong;
-  display: block;
+  display: flex;
   padding: $spacer / 2 $spacer / 4 0;
   position: relative;
   transition: $transition-base;
-  display: flex;
 
   i {
     line-height: 1;
@@ -203,6 +203,10 @@
 
   &:hover {
     text-decoration: none;
+  }
+
+  .badge {
+    margin-right: $spacer / 4;
   }
 }
 
