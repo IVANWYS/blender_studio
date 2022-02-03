@@ -20,20 +20,20 @@
     <div class="row">
       <div class="col">
 
-        <div class="row align-items-start">
-          <div class="col-12 col-md mb-2 mb-md-3">
+        <div class="row align-items-start mb-2">
+          <div class="col-12 col-md">
             <p class="subtitle">
-              {% if training.is_free %}
-                {% include "common/components/cards/pill.html" with label='Free' %}
-              {% endif %}
               {{ training.type.label }}
             </p>
-            <h2 class="mb-0">{{ training.name }}</h2>
+            <h1 class="mb-0">{{ training.name }}</h1>
           </div>
-          <div class="col-12 col-md-auto mb-2 mb-md-0 mt-0 mt-md-3">
+          <div class="col-12 col-md-auto align-self-end">
             <div class="button-toolbar-container">
 
-              <div class="pills button-toolbar-pills">
+              <div class="pills button-toolbar-pills ms-3">
+                {% if training.is_free %}
+                  {% include "common/components/cards/pill.html" with label='Free' %}
+                {% endif %}
                 {% for tag in training.tags_list %}
                   {% include 'common/components/cards/pill.html' with label=tag %}
                 {% endfor %}
