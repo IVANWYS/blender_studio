@@ -3,14 +3,41 @@
 {% load static %}
 
 {% block field_sets %}
-<div style="display: flex">
-  <div>
+<style>
+  .container {
+      display: flex;
+  }
+
+  section.editor-fieldset {
+      width: 60%;
+  }
+
+  #markdown-preview-container {
+      width: 40%;
+      padding: 10px 20px;
+  }
+
+  .colM .aligned .vLargeTextField {
+      width: calc(100% - 185px);
+      resize: vertical;
+  }
+
+  .field-description textarea {
+      height: 500px;
+      font-size: 110%;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  }
+
+
+</style>
+<div class="container">
+  <section class="editor-fieldset">
     {% for fieldset in adminform %}
     {% include "admin/includes/fieldset.html" %}
     {% endfor %}
-  </div>
-  <div id="markdown-preview-container">
-  </div>
+  </section>
+  <section id="markdown-preview-container">
+  </section>
 </div>
 
 {% javascript 'ajax' %}
