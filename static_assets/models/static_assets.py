@@ -67,6 +67,7 @@ class StaticAsset(mixins.CreatedUpdatedMixin, mixins.StaticThumbnailURLMixin, mo
     author.description = 'The actual author of the artwork/learning materials.'
     license = models.ForeignKey(
         License,
+        blank=True,
         null=True,
         default=_get_default_license_id,
         on_delete=models.SET_NULL,
