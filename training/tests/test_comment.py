@@ -73,8 +73,8 @@ class TestCommentEndpoint(TestCase):
                 'message_html': '<h1>Header</h1>\n'
                 '<p><strong>bold</strong> <em>italic</em> <div '
                 'class="embed-responsive embed-responsive-16by9"><iframe '
-                'class="shortcode youtube embed-responsive-item" width="560" '
-                'height="315" '
+                'class="shortcode youtube embed-responsive-item" width="720" '
+                'height="416" '
                 'src="https://www.youtube.com/embed/UbyxFZSZZ90?rel=0" '
                 'frameborder="0" allow="autoplay; encrypted-media" '
                 'allowfullscreen></iframe></div></p>\n',

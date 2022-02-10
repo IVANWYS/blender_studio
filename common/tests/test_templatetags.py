@@ -117,7 +117,7 @@ class CommonExtrasTest(TestCase):
 
         self.assertEqual(
             '<div class="embed-responsive embed-responsive-16by9">'
-            '<iframe class="shortcode youtube embed-responsive-item" width="560" height="315"'
+            '<iframe class="shortcode youtube embed-responsive-item" width="720" height="416"'
             ' src="https://www.youtube.com/embed/youtubeID?rel=0" frameborder="0"'
             ' allow="autoplay; encrypted-media" allowfullscreen>'
             '</iframe></div>',

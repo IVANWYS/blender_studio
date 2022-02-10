@@ -48,7 +48,7 @@ class YouTubeTest(TestCaseWithRequest):
     def test_id(self):
         self.assertEqual(
             '<div class="embed-responsive embed-responsive-16by9">'
-            '<iframe class="shortcode youtube embed-responsive-item" width="560" height="315" '
+            '<iframe class="shortcode youtube embed-responsive-item" width="720" height="416" '
             'src="https://www.youtube.com/embed/ABCDEF?rel=0" frameborder="0" '
             'allow="autoplay; encrypted-media" allowfullscreen>'
             '</iframe></div>',
@@ -58,7 +58,7 @@ class YouTubeTest(TestCaseWithRequest):
     def test_id_and_text_that_looks_like_shortcode_but_isnt(self):
         self.assertEqual(
             '<div class="embed-responsive embed-responsive-16by9">'
-            '<iframe class="shortcode youtube embed-responsive-item" width="560" height="315" '
+            '<iframe class="shortcode youtube embed-responsive-item" width="720" height="416" '
             'src="https://www.youtube.com/embed/ABCDEF?rel=0" frameborder="0" '
             'allow="autoplay; encrypted-media" allowfullscreen>'
             '</iframe></div> {notashortcode}',
@@ -68,7 +68,7 @@ class YouTubeTest(TestCaseWithRequest):
     def test_embed_url(self):
         self.assertEqual(
             '<div class="embed-responsive embed-responsive-16by9">'
-            '<iframe class="shortcode youtube embed-responsive-item" width="560" height="315" '
+            '<iframe class="shortcode youtube embed-responsive-item" width="720" height="416" '
             'src="https://www.youtube.com/embed/ABCDEF?rel=0" frameborder="0" '
             'allow="autoplay; encrypted-media" allowfullscreen>'
             '</iframe></div>',
@@ -78,7 +78,7 @@ class YouTubeTest(TestCaseWithRequest):
     def test_youtu_be(self):
         self.assertEqual(
             '<div class="embed-responsive embed-responsive-16by9">'
-            '<iframe class="shortcode youtube embed-responsive-item" width="560" height="315" '
+            '<iframe class="shortcode youtube embed-responsive-item" width="720" height="416" '
             'src="https://www.youtube.com/embed/NwVGvcIrNWA?rel=0" frameborder="0" '
             'allow="autoplay; encrypted-media" allowfullscreen>'
             '</iframe></div>',
@@ -88,7 +88,7 @@ class YouTubeTest(TestCaseWithRequest):
     def test_watch(self):
         self.assertEqual(
             '<div class="embed-responsive embed-responsive-16by9">'
-            '<iframe class="shortcode youtube embed-responsive-item" width="560" height="315" '
+            '<iframe class="shortcode youtube embed-responsive-item" width="720" height="416" '
             'src="https://www.youtube.com/embed/NwVGvcIrNWA?rel=0" frameborder="0" '
             'allow="autoplay; encrypted-media" allowfullscreen>'
             '</iframe></div>',
