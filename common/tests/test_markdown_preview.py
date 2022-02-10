@@ -34,7 +34,7 @@ class MarkdownPreviewAPITest(TestCase):
             reverse('api-markdown-preview'), self.markdown_payload, content_type='application/json'
         )
         self.assertEqual(response.status_code, 200)
-        expected_parsed_response = {'parsed_markdown': '<p><strong>Têsting endpoint</strong></p>\n'}
+        expected_parsed_response = {'html': '<p><strong>Têsting endpoint</strong></p>\n'}
         self.assertJSONEqual(response.content, expected_parsed_response)
 
     def test_post_validation_error_empty_markdown(self):
