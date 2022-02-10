@@ -6,7 +6,6 @@ from django.test import TestCase
 
 from common.tests.factories.static_assets import (
     StaticAssetFactory,
-    VideoFactory,
     VideoVariationFactory,
 )
 from common.tests.factories.users import UserFactory
@@ -30,7 +29,7 @@ class TestStaticAssetModel(TestCase):
     @patch('storages.backends.s3boto3.S3Boto3Storage.url', return_value='s3://file')
     def test_video_duration_label(self, mock_storage_url):
 
-        video: Video = VideoFactory()
+        video: Video = StaticAssetFactory(source_type='video').video
 
         video.duration = datetime.timedelta(seconds=10)
         self.assertEqual(video.duration_label, '0:10')
@@ -78,11 +77,7 @@ class TestStaticAssetModel(TestCase):
 
     @patch('static_assets.views.is_free_static_asset', Mock(return_value=True))
     def test_static_asset_source_used_in_download_url(self):
-        video = VideoFactory(
-            static_asset=StaticAssetFactory(
-                source_type='video', source='path/to/original-video.mp4'
-            )
-        )
+        video = StaticAssetFactory(source_type='video', source='path/to/original-video.mp4').video
 
         self.assertEqual(video.static_asset.source.name, 'path/to/original-video.mp4')
         self.assertIsNone(video.default_variation)
@@ -102,7 +97,7 @@ class TestStaticAssetModel(TestCase):
     def test_no_source_video_variation_source_used_in_download_url(self):
         video_variation = VideoVariationFactory(
             source='path/to/video-variation-1080p.mp4',
-            video=VideoFactory(static_asset=StaticAssetFactory(source_type='video', source=None)),
+            video=StaticAssetFactory(source_type='video', source=None).video,
         )
 
         self.assertEqual(video_variation.source.name, 'path/to/video-variation-1080p.mp4')

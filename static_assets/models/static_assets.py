@@ -155,6 +155,7 @@ class StaticAsset(mixins.CreatedUpdatedMixin, mixins.StaticThumbnailURLMixin, mo
 
     def save(self, *args, **kwargs):
         created = self.pk is None
+        self.full_clean()
         super().save(*args, **kwargs)
         if not created:
             return

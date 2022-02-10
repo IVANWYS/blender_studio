@@ -6,7 +6,7 @@ from django.urls import reverse
 from actstream.models import Action
 from comments.models import Comment
 from common.tests.factories.comments import CommentUnderSectionFactory
-from common.tests.factories.static_assets import VideoVariationFactory
+from common.tests.factories.static_assets import VideoVariationFactory, StaticAssetFactory
 from common.tests.factories.training import SectionFactory
 from common.tests.factories.users import UserFactory
 from stats.models import StaticAssetView
@@ -15,11 +15,13 @@ from stats.models import StaticAssetView
 @patch('sorl.thumbnail.base.ThumbnailBackend.get_thumbnail', Mock(url=''))
 class TestSection(TestCase):
     def test_section_video_variation_has_content_disposition(self):
-        video_variation = VideoVariationFactory(source='ts/testvideo/testvideo.mp4')
+        video_variation = VideoVariationFactory(
+            source='ts/testvideo/testvideo.mp4',
+            video=StaticAssetFactory(source_type='video').video,
+        )
         # Attach this video to a training section
         SectionFactory(
-            name='001. Test training section',
-            static_asset=video_variation.video.static_asset,
+            name='001. Test training section', static_asset=video_variation.video.static_asset,
         )
         self.assertIsNotNone(video_variation.video.static_asset.section)
 
@@ -29,7 +31,10 @@ class TestSection(TestCase):
         )
 
     def test_get_records_a_static_asset_view(self):
-        video_variation = VideoVariationFactory(source='ts/testvideo/testvideo.mp4')
+        video_variation = VideoVariationFactory(
+            source='ts/testvideo/testvideo.mp4',
+            video=StaticAssetFactory(source_type='video').video,
+        )
         # Attach this video to a training section
         section = SectionFactory(
             name='001. Test training section',
@@ -154,9 +159,7 @@ class TestSectionComments(TestCase):
         )
         # but training section's author should not be notified
         self.assertEqual(
-            list(Action.objects.notifications(self.section.user)),
-            [],
-            self.section.user,
+            list(Action.objects.notifications(self.section.user)), [], self.section.user,
         )
 
     def test_commenting_on_section_creates_notification_for_sections_author(self):

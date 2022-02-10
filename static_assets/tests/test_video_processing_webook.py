@@ -2,9 +2,9 @@ import datetime
 import json
 from django.test import TestCase
 from django.urls import reverse
-from unittest.mock import patch
+from unittest.mock import patch, PropertyMock
 
-from common.tests.factories.static_assets import VideoFactory
+from common.tests.factories.static_assets import StaticAssetFactory
 from common.tests.factories.training import SectionFactory
 from static_assets.models import Video, VideoVariation
 import static_assets.tasks
@@ -201,6 +201,7 @@ WEBHOOK_JOB_COMPLETED = {
 }
 
 
+@patch('django.db.models.fields.files.FieldFile.size', PropertyMock(return_value=1048576))
 class TestVideoProcessingWebhook(TestCase):
     @patch('storages.backends.s3boto3.S3Boto3Storage.url', return_value='s3://file')
     def test_coconut_webhook(self, mock_storage_url):
@@ -212,10 +213,9 @@ class TestVideoProcessingWebhook(TestCase):
         - a video variation is encoded
         - the job is marked as completed
         """
-        video: Video = VideoFactory()
-        video.static_asset.original_filename = 'video.mp4'
-        video.static_asset.thumbnail = ''
-        video.static_asset.save()
+        video: Video = StaticAssetFactory(
+            source_type='video', original_filename='video.mp4', thumbnail='',
+        ).video
         page_url = reverse('coconut-webhook', kwargs={'video_id': video.id})
         # Video was successfully uploaded to the processing platform
         response = self.client.post(
@@ -261,14 +261,12 @@ class TestVideoProcessingWebhook(TestCase):
         new=static_assets.tasks.move_blob_from_upload_to_storage.task_function,
     )
     def test_training_video_variation_file_has_content_disposition(self, mock_s3_client):
-        video: Video = VideoFactory(
-            static_asset__original_filename='video.mp4',
-            static_asset__thumbnail='',
-        )
+        video: Video = StaticAssetFactory(
+            source_type='video', original_filename='video.mp4', thumbnail='',
+        ).video
         # Attach this video to a training section
         SectionFactory(
-            name='001. Test training section.',
-            static_asset=video.static_asset,
+            name='001. Test training section.', static_asset=video.static_asset,
         )
 
         # Simulate a finished processing job
