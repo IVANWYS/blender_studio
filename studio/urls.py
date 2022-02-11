@@ -28,6 +28,7 @@ admin.site.enable_nav_sidebar = False
 
 urlpatterns = [
     path('admin/doc/', include('django.contrib.admindocs.urls')),
+    path('admin/', include('loginas.urls')),
     path('admin/', admin.site.urls),
     path('oauth/', include(blender_id_oauth_client.urls)),
     path('', home_view, name='home'),
@@ -47,7 +48,6 @@ urlpatterns = [
     path('activity/', include('actstream.urls')),
     re_path(r'^webhooks/', include('anymail.urls')),
     path('_nested_admin/', include('nested_admin.urls')),
-    path('admin/', include('loginas.urls')),
 ]
 
 handler400 = error_views.ErrorView.as_view(template_name='common/errors/400.html', status=400)
