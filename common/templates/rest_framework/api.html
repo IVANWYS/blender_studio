@@ -1,0 +1,34 @@
+{% extends "rest_framework/base.html" %}
+{% load static %}
+{% load pipeline %}
+{% block title %}Blender Studio - API Documentation{% endblock %}
+{% block branding %}
+  <style>
+    body {
+      font-family: "Heebo", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    }
+    .navbar {
+      background-color: #1f1f1f;
+      border-top: none;
+    }
+    .navbar-brand {
+      transform: translateY(-0.5em);
+    }
+    .navbar-brand h4 {
+      color: white;
+      font-weight: bold;
+    }
+    .breadcrumb li:first-child a {
+      text-transform: uppercase;
+    }
+  </style>
+  <span>
+    <a href="/" class="navbar-brand"><h4 class="mb-0 text-uppercase">Blender Studio</h4></a>
+  </span>
+{% endblock branding %}
+
+{% block content %}{{ block.super }}
+  {% if request.user.is_staff and request.user.auth_token %}
+    Your API token: <pre>{{ request.user.auth_token }}</pre>
+  {% endif %}
+{% endblock content %}

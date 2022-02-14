@@ -16,8 +16,6 @@ urlpatterns = [
         name='video-track',
     ),
     re_path(
-        r'download-source/(?P<source>[a-zA-Z0-9-/.]+)$',
-        download_view,
-        name='download-source-url',
+        r'download-source/(?P<source>[a-zA-Z0-9-/.]+)$', download_view, name='download-source-url',
     ),
 ]

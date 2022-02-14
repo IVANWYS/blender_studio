@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'nested_admin',
     'characters',
     'logentry_admin',
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -441,6 +443,19 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Allow missing feature flags and switches to be created
 WAFFLE_CREATE_MISSING_FLAGS = True
 WAFFLE_CREATE_MISSING_SWITCHES = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAdminUser',
+        'rest_framework.permissions.DjangoModelPermissions',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'PAGE_SIZE': 10
+}
 
 TESTS_IN_PROGRESS = 'test' in sys.argv
 if TESTS_IN_PROGRESS:

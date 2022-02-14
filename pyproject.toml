@@ -43,6 +43,8 @@ pyvat = {git = "https://github.com/iconfinder/pyvat.git", rev = "419abd659ae5a4a
 alphabetic-timestamp = "1.1.5"
 zeep = "^4.0.0"
 django-loginas = "^0.3.9"
+django-rest-framework = "^0.1.0"
+Markdown = "^3.3.6"
 
 [tool.poetry.dev-dependencies]
 black = {version = "*", allow-prereleases = true}

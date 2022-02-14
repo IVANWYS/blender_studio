@@ -1,9 +1,14 @@
 """Custom file storage classes."""
-from django.conf import settings
-from storages.backends.s3boto3 import S3Boto3Storage
-import boto3
-from botocore.client import Config
+import logging
 
+from botocore.client import Config
+from django.conf import settings
+import boto3
+import botocore.exceptions
+
+from storages.backends.s3boto3 import S3Boto3Storage
+
+logger = logging.getLogger(__name__)
 _s3_client = None
 
 
@@ -34,24 +39,61 @@ class S3Boto3CustomStorage(S3Boto3Storage):
         return params
 
 
+def _get_s3_client():
+    return boto3.client(
+        's3',
+        config=Config(signature_version='s3v4'),
+        aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+        aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+        region_name=settings.AWS_S3_REGION_NAME,
+    )
+
+
 def get_s3_url(path, expires_in_seconds=3600):
     """Generate a pre-signed S3 URL to a given path."""
     global _s3_client
     if not _s3_client:
-        _s3_client = boto3.client(
-            's3',
-            config=Config(signature_version='s3v4'),
-            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
-            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
-            region_name=settings.AWS_S3_REGION_NAME,
-        )
+        _s3_client = _get_s3_client()
 
     return _s3_client.generate_presigned_url(
         'get_object',
-        Params={
-            'Bucket': settings.AWS_STORAGE_BUCKET_NAME,
-            'Key': path,
-        },
+        Params={'Bucket': settings.AWS_STORAGE_BUCKET_NAME, 'Key': path},
         HttpMethod='GET',
         ExpiresIn=expires_in_seconds,
     )
+
+
+def get_s3_post_url_and_fields(
+    path,
+    bucket=settings.AWS_STORAGE_BUCKET_NAME,
+    fields=None,
+    conditions=None,
+    expires_in_seconds=3600,
+):
+    """Generate a presigned URL S3 POST request to upload a file to a given bucket and path.
+
+    :param path: string
+    :param bucket: string
+    :param fields: Dictionary of prefilled form fields
+    :param conditions: List of conditions to include in the policy
+    :param expires_in_seconds: Time in seconds for the presigned URL to remain valid
+    :return: Dictionary with the following keys:
+        url: URL to post to
+        fields: Dictionary of form fields and values to submit with the POST
+    :return: None if error.
+    """
+    global _s3_client
+    if not _s3_client:
+        _s3_client = _get_s3_client()
+
+    _s3_client = boto3.client('s3')
+    try:
+        response = _s3_client.generate_presigned_post(
+            bucket, str(path), Fields=fields, Conditions=conditions, ExpiresIn=expires_in_seconds,
+        )
+    except botocore.exceptions.ClientError as e:
+        logger.error(e)
+        return None
+
+    # The response contains the presigned URL and required fields
+    return response

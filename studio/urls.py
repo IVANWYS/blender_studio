@@ -3,6 +3,9 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.flatpages import views
 from django.urls import path, include, re_path
+from django.views.generic import TemplateView
+from rest_framework import routers
+
 import blender_id_oauth_client.urls
 
 import blog.urls
@@ -16,14 +19,23 @@ import static_assets.urls
 import users.urls
 import characters.urls
 
-from common.views.home import home as home_view, welcome as welcome_view
 from common.views.api.markdown_preview import markdown_preview as markdown_preview_view
+from common.views.home import home as home_view, welcome as welcome_view
 import common.views.errors as error_views
-from django.views.generic import TemplateView
+import static_assets.viewsets
+import training.viewsets
 
 admin.site.site_header = settings.ADMIN_SITE_HEADER
 admin.site.site_title = settings.ADMIN_SITE_TITLE
 admin.site.enable_nav_sidebar = False
+
+router = routers.DefaultRouter(trailing_slash=True)
+router.register(r'static-asset', static_assets.viewsets.StaticAssetViewSet)
+router.register(r'training/section', training.viewsets.SectionViewSet)
+# To leverage the docs boilerplate, a view set is used for single endpoint here too.
+router.register(r'upload', static_assets.viewsets.UploadViewSet, basename='upload')
+router.get_api_root_view().cls.__name__ = "API"
+router.get_api_root_view().cls.__doc__ = "Blender Studio API"
 
 
 urlpatterns = [
@@ -38,6 +50,7 @@ urlpatterns = [
     path('training/', include(training.urls)),
     path('blog/', include(blog.urls)),
     path('api/markdown-preview', markdown_preview_view, name='api-markdown-preview'),
+    path('api/', include((router.urls, 'api'), namespace='api')),
     path('', include(characters.urls)),
     path('search/', include(search.urls)),
     path('looper/', include((looper.urls), namespace='looper')),

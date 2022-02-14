@@ -4,12 +4,15 @@ from django.db.models import Count, Q
 from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
+from rest_framework.authtoken.admin import TokenAdmin
 
 import looper.admin
 import looper.models
 
 from users.models import Notification
 from training.models import progress
+
+TokenAdmin.raw_id_fields = ['user']
 
 
 def user_section_progress_link(obj):
