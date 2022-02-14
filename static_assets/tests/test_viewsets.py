@@ -5,6 +5,8 @@ from django.test import TestCase
 from django.urls import reverse_lazy
 from freezegun import freeze_time
 
+from looper import admin_log
+
 from common.tests.factories.static_assets import StaticAssetFactory, LicenseFactory
 from common.tests.factories.users import UserFactory
 from static_assets.models import StaticAsset
@@ -375,28 +377,46 @@ class StaticAssetsViewSetTestCase(TestCase):
         self.client.force_login(self.staff_user)
         permissions = Permission.objects.filter(codename__in={'change_staticasset'})
         self.staff_user.user_permissions.add(*permissions)
+        old_source = self.static_asset.source
 
         data = {'source_path': 'new/source/path/file.mp4'}
         response = self.client.patch(self.detail_url, data, content_type='application/json')
 
         self.assertEqual(response.status_code, 200)
         self.static_asset.refresh_from_db()
+        self.assertNotEqual(old_source, self.static_asset.source)
         self.assertEqual(self.static_asset.source.name, 'new/source/path/file.mp4')
         self.assertEqual(response.json()['source_path'], 'new/source/path/file.mp4')
+        entries_q = admin_log.entries_for(self.static_asset)
+        self.assertEqual(entries_q.count(), 1)
+        self.assertEqual(
+            entries_q.first().change_message,
+            f'Changed: "source" from "{old_source}" to "new/source/path/file.mp4"',
+        )
+        self.assertEqual(entries_q.first().user_id, self.staff_user.id)
 
     @patch('django.core.files.storage.default_storage.exists', Mock(return_value=True))
     def test_update_as_staff_with_permissions_set_thumbnail_path(self):
         self.client.force_login(self.staff_user)
         permissions = Permission.objects.filter(codename__in={'change_staticasset'})
         self.staff_user.user_permissions.add(*permissions)
+        old_thumbnail = self.static_asset.thumbnail
 
         data = {'thumbnail_path': 'new/source/path/file.png'}
         response = self.client.patch(self.detail_url, data, content_type='application/json')
 
         self.assertEqual(response.status_code, 200)
         self.static_asset.refresh_from_db()
+        self.assertNotEqual(old_thumbnail, self.static_asset.thumbnail)
         self.assertEqual(self.static_asset.thumbnail.name, 'new/source/path/file.png')
         self.assertEqual(response.json()['thumbnail_path'], 'new/source/path/file.png')
+        entries_q = admin_log.entries_for(self.static_asset)
+        self.assertEqual(entries_q.count(), 1)
+        self.assertEqual(
+            entries_q.first().change_message,
+            f'Changed: "thumbnail" from "{old_thumbnail}" to "new/source/path/file.png"',
+        )
+        self.assertEqual(entries_q.first().user_id, self.staff_user.id)
 
     def test_delete_as_anonymous_denied(self):
         response = self.client.delete(self.detail_url)

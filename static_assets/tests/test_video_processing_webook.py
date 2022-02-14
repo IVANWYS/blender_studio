@@ -8,6 +8,7 @@ from common.tests.factories.static_assets import StaticAssetFactory
 from common.tests.factories.training import SectionFactory
 from static_assets.models import Video, VideoVariation
 import static_assets.tasks
+import users.tests.util as util
 
 # Predefined values, used across the 3 webhook bodies below
 
@@ -213,6 +214,9 @@ class TestVideoProcessingWebhook(TestCase):
         - a video variation is encoded
         - the job is marked as completed
         """
+        # Create the admin user used for logging
+        self.admin_user = util.create_admin_log_user()
+
         video: Video = StaticAssetFactory(
             source_type='video', original_filename='video.mp4', thumbnail='',
         ).video

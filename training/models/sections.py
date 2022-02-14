@@ -6,6 +6,8 @@ from django.urls.base import reverse
 from taggit.managers import TaggableManager
 from typing import Optional
 
+import looper.model_mixins
+
 from comments.models import Comment
 from common import mixins
 from training.models import chapters
@@ -15,7 +17,13 @@ import static_assets.models as models_static_assets
 User = get_user_model()
 
 
-class Section(mixins.CreatedUpdatedMixin, mixins.StaticThumbnailURLMixin, models.Model):
+class Section(
+    mixins.CreatedUpdatedMixin,
+    mixins.StaticThumbnailURLMixin,
+    looper.model_mixins.RecordModificationMixin,
+    mixins.SaveAndRecordChangesMixin,
+    models.Model,
+):
     class Meta:
         ordering = ['index', 'name']
 
@@ -49,12 +57,25 @@ class Section(mixins.CreatedUpdatedMixin, mixins.StaticThumbnailURLMixin, models
     )
     tags = TaggableManager(blank=True)
 
+    record_modification_fields = {
+        'static_asset_id',
+        'is_free',
+        'is_published',
+        'is_featured',
+        'preview_youtube_link',
+        'name',
+    }
+
     def clean(self) -> None:
         super().clean()
         # TODO(fsiddi) Add background job to update file metadata for static_asset on the bucket
         if not self.slug:
             # TODO(fsiddi) Look into alphaid for a shorter slug
             self.slug = uuid.uuid4().hex
+
+    def save(self, *args, **kwargs):
+        """Record changes before saving."""
+        self.save_and_record_changes(*args, **kwargs)
 
     def __str__(self) -> str:
         return (

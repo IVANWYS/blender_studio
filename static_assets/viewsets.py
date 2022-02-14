@@ -7,6 +7,7 @@ from rest_framework.viewsets import ViewSet
 from common.storage import get_s3_post_url_and_fields
 from common.upload_paths import get_upload_to_hashed_path
 from static_assets.serializers import StaticAssetSerializer, UploadSerializer
+import common.mixins
 import static_assets.models
 
 
@@ -88,7 +89,7 @@ class UploadViewSet(ViewSet):
         )
 
 
-class StaticAssetViewSet(viewsets.ModelViewSet):
+class StaticAssetViewSet(common.mixins.SetModifiedByViewMixin, viewsets.ModelViewSet):
     """List, create, update or search static assets.
 
     To create or update static assets files,

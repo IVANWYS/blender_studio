@@ -3,6 +3,7 @@ from rest_framework import filters
 from rest_framework import viewsets
 from rest_framework import mixins
 
+import common.mixins
 import training.models.sections
 import training.serializers
 
@@ -11,6 +12,7 @@ class SectionViewSet(
     mixins.RetrieveModelMixin,
     mixins.UpdateModelMixin,
     mixins.ListModelMixin,
+    common.mixins.SetModifiedByViewMixin,
     viewsets.GenericViewSet,
 ):
     """List, update or search training sections."""

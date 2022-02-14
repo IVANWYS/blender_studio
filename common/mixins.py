@@ -10,6 +10,9 @@ from django.db.models.base import Model
 from django.http.request import HttpRequest
 from django.utils.safestring import mark_safe
 
+import looper.model_mixins
+import looper.admin_log
+
 from sorl.thumbnail import get_thumbnail
 
 log = logging.getLogger(__name__)
@@ -123,3 +126,48 @@ class ThumbnailMixin:
         return ''
 
     view_thumbnail.allow_tags = True
+
+
+class SaveAndRecordChangesMixin:
+    """Save and record changes happening to record_modification_fields."""
+
+    def save_and_record_changes(self, *args, **kwargs):
+        """Add a LogEntry if any of record_modification_fields have changed."""
+        was_changed, old_state = self.pre_save_record()
+
+        super().save(*args, **kwargs)
+
+        if self.pk is None:  # not logging changed when newly created
+            return
+        if not was_changed:
+            return
+
+        msgs = []
+        for field in self.record_modification_fields:
+            if field not in old_state:
+                continue
+            old_value = old_state[field]
+            new_value = getattr(self, field)
+            if old_value == new_value:
+                continue
+            msgs.append(f'Changed: "{field}" from "{old_value}" to "{new_value}"')
+        if not msgs:
+            return
+        user_id = None
+        if getattr(self, '_modified_by_user_id', None):
+            user_id = self._modified_by_user_id
+            # Unset the attribute in case this object happens to be reused between requests.
+            delattr(self, '_modified_by_user_id')
+        try:
+            looper.admin_log.attach_log_entry(self, '\n'.join(msgs), user_id=user_id)
+        except Exception:
+            log.exception('Unable to record change')
+
+
+class SetModifiedByViewMixin:
+    """Set a _modified_by_user_id attribute on an object retrieved by the API."""
+
+    def get_object(self, *args, **kwargs):  # noqa: 155
+        obj = super().get_object(*args, **kwargs)
+        obj._modified_by_user_id = self.request.user.pk
+        return obj

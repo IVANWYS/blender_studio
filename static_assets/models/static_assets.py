@@ -11,6 +11,8 @@ from django.template.defaultfilters import filesizeformat
 from django.urls.base import reverse
 from django.utils.text import slugify
 
+import looper.model_mixins
+
 from common import mixins
 from common.upload_paths import get_upload_to_hashed_path
 from static_assets.models import License
@@ -32,7 +34,13 @@ class StaticAssetFileTypeChoices(models.TextChoices):
     video = 'video', 'Video'
 
 
-class StaticAsset(mixins.CreatedUpdatedMixin, mixins.StaticThumbnailURLMixin, models.Model):
+class StaticAsset(
+    mixins.CreatedUpdatedMixin,
+    mixins.StaticThumbnailURLMixin,
+    looper.model_mixins.RecordModificationMixin,
+    mixins.SaveAndRecordChangesMixin,
+    models.Model,
+):
     class Meta:
         ordering = ['-date_created']
 
@@ -92,6 +100,14 @@ class StaticAsset(mixins.CreatedUpdatedMixin, mixins.StaticThumbnailURLMixin, mo
 
     view_count = models.PositiveIntegerField(default=0, editable=False)
     download_count = models.PositiveIntegerField(default=0, editable=False)
+
+    record_modification_fields = {
+        'source',
+        'source_type',
+        'original_filename',
+        'thumbnail',
+        'content_type',
+    }
 
     @property
     def author_name(self) -> str:
@@ -156,7 +172,7 @@ class StaticAsset(mixins.CreatedUpdatedMixin, mixins.StaticThumbnailURLMixin, mo
     def save(self, *args, **kwargs):
         created = self.pk is None
         self.full_clean()
-        super().save(*args, **kwargs)
+        self.save_and_record_changes(*args, **kwargs)
         if not created:
             return
         # Create related tables for video or image
