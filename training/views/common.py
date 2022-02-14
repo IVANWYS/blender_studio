@@ -81,7 +81,7 @@ def navigation_to_template(
                         progress_fraction=(
                             0
                             if getattr(section, 'video_position') is None
-                            or getattr(section, 'video_duration') is None
+                            or not getattr(section, 'video_duration')
                             else getattr(section, 'video_position')
                             / getattr(section, 'video_duration')
                         ),
