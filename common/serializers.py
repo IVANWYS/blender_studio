@@ -1,6 +1,21 @@
 """Commonly used API serializers."""
-from rest_framework import serializers
+from django.conf import settings
+from django.urls.base import reverse
 from rest_framework import relations
+from rest_framework import serializers
+
+
+def make_absolute_url(url: str) -> str:
+    """Turn a host-absolute URL into a fully absolute URL.
+
+    For simplicity, assumes we're using HTTPS, unless in DEBUG mode,
+    and not running on some URL prefix.
+    """
+    from django.contrib.sites.models import Site
+    from urllib.parse import urljoin
+
+    site: Site = Site.objects.get_current()
+    return urljoin(f'http{not settings.DEBUG and "s" or ""}://{site.domain}/', url)
 
 
 class IdManyRelatedField(serializers.ManyRelatedField):
@@ -50,6 +65,25 @@ class IdModelSerializer(serializers.ModelSerializer):
     """Change field names of related fields to FIELD_NAME_id/_ids."""
 
     serializer_related_field = IdPrimaryKeyRelatedField
+
+    admin_url = serializers.SerializerMethodField()
+    view_on_site_url = serializers.SerializerMethodField()
+
+    def get_admin_url(self, obj):
+        """Return an absolute admin URL of the object."""
+        url_name = f'admin:{obj._meta.app_label}_{obj.__class__.__name__.lower()}_change'
+        return make_absolute_url(reverse(url_name, args=[obj.pk]))
+
+    def get_view_on_site_url(self, obj):
+        """Return an absolute URL to the objects on the Studio website."""
+        obj_url = None
+        if hasattr(obj, 'get_absolute_url'):
+            obj_url = obj.get_absolute_url()
+        elif hasattr(obj, 'url'):
+            obj_url = obj.url
+        if not obj_url:
+            return None
+        return make_absolute_url(obj_url)
 
     def get_fields(self):  # noqa: D102
         fields = super().get_fields()

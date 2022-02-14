@@ -20,7 +20,8 @@ class SectionViewSetTestCase(TestCase):
         cls.staff_user = UserFactory(is_staff=True)
         cls.section = SectionFactory(
             name='00 - Blender Basics',
-            slug='legacy-slug',
+            chapter__training__slug='training-slug',
+            slug='section-slug',
             text='Introduction to Blender navigation and transformation for beginners.',
             user=cls.user,
         )
@@ -57,7 +58,7 @@ class SectionViewSetTestCase(TestCase):
                         'date_updated': '2022-02-08T18:12:20+01:00',
                         'index': self.section.index,
                         'name': '00 - Blender Basics',
-                        'slug': 'legacy-slug',
+                        'slug': 'section-slug',
                         'text': 'Introduction to Blender navigation and transformation for beginners.',
                         'is_free': False,
                         'is_published': False,
@@ -68,6 +69,10 @@ class SectionViewSetTestCase(TestCase):
                         'user_id': self.user.id,
                         'comments_ids': [],
                         'attachments_ids': [],
+                        'admin_url': (
+                            f'https://example.com/admin/training/section/{self.section.id}/change/'
+                        ),
+                        'view_on_site_url': 'https://example.com/training/training-slug/section-slug/',
                     }
                 ],
             },
@@ -99,7 +104,7 @@ class SectionViewSetTestCase(TestCase):
                 'date_updated': '2022-02-08T18:12:20+01:00',
                 'index': self.section.index,
                 'name': '00 - Blender Basics',
-                'slug': 'legacy-slug',
+                'slug': 'section-slug',
                 'text': 'Introduction to Blender navigation and transformation for beginners.',
                 'is_free': False,
                 'is_published': False,
@@ -110,6 +115,10 @@ class SectionViewSetTestCase(TestCase):
                 'user_id': self.user.id,
                 'comments_ids': [],
                 'attachments_ids': [],
+                'admin_url': (
+                    f'https://example.com/admin/training/section/{self.section.id}/change/'
+                ),
+                'view_on_site_url': 'https://example.com/training/training-slug/section-slug/',
             },
         )
 

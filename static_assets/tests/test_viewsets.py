@@ -160,6 +160,10 @@ class StaticAssetsViewSetTestCase(TestCase):
                 'results': [
                     {
                         'author_id': None,
+                        'admin_url': (
+                            'https://example.com/admin/static_assets'
+                            f'/staticasset/{self.static_asset.id}/change/'
+                        ),
                         'content_type': 'video/mp4',
                         'contributors_ids': [],
                         'date_created': '2022-02-08T18:12:20+01:00',
@@ -184,6 +188,7 @@ class StaticAssetsViewSetTestCase(TestCase):
                         'thumbnail_path': 'foo/bar/test-file.png',
                         'user_id': self.staff_user.id,
                         'view_count': 0,
+                        'view_on_site_url': None,
                     }
                 ],
             },
@@ -211,6 +216,10 @@ class StaticAssetsViewSetTestCase(TestCase):
             response.json(),
             {
                 'author_id': None,
+                'admin_url': (
+                    'https://example.com/admin/static_assets'
+                    f'/staticasset/{self.static_asset.id}/change/'
+                ),
                 'content_type': 'video/mp4',
                 'contributors_ids': [],
                 'date_created': '2022-02-08T18:12:20+01:00',
@@ -235,6 +244,7 @@ class StaticAssetsViewSetTestCase(TestCase):
                 'thumbnail_path': 'foo/bar/test-file.png',
                 'user_id': self.staff_user.id,
                 'view_count': 0,
+                'view_on_site_url': None,
             },
         )
 
@@ -297,6 +307,10 @@ class StaticAssetsViewSetTestCase(TestCase):
             response.json(),
             {
                 'author_id': None,
+                'admin_url': (
+                    'https://example.com/admin/static_assets'
+                    f'/staticasset/{static_asset.id}/change/'
+                ),
                 'content_type': 'video/mp4',
                 'contributors_ids': [],
                 'date_created': '2022-02-08T18:12:20+01:00',
@@ -321,6 +335,7 @@ class StaticAssetsViewSetTestCase(TestCase):
                 'thumbnail_path': 'foo/bar/new-test-file.png',
                 'user_id': self.staff_user.id,
                 'view_count': 0,
+                'view_on_site_url': None,
             },
         )
 
