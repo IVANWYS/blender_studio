@@ -1,3 +1,5 @@
+from datetime import datetime, timezone
+
 from actstream.models import Action
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
@@ -11,6 +13,7 @@ from common.tests.factories.comments import CommentUnderPostFactory
 from common.tests.factories.films import FilmFactory
 from common.tests.factories.helpers import create_test_image
 from common.tests.factories.users import UserFactory
+from freezegun import freeze_time
 
 User = get_user_model()
 
@@ -62,6 +65,33 @@ class TestPostCreation(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Post.objects.count(), initial_post_count)
+
+    @freeze_time('2022-02-08T18:12:20+01:00')
+    def test_updating_post_is_publish_also_sets_date_published_to_now(self):
+        post = PostFactory(is_published=False, date_published=None)
+        self.assertFalse(post.is_published)
+        self.assertIsNone(post.date_published)
+        initial_post_count = Post.objects.count()
+
+        post_change_url = reverse('admin:blog_post_change', kwargs={'object_id': post.pk})
+        change_data = {
+            'title': post.title,
+            'slug': post.slug,
+            'category': post.category,
+            'content': post.content,
+            'author': post.author_id,
+            # Publish the previously unpublished post
+            'is_published': True,
+        }
+        response = self.client.post(post_change_url, change_data, follow=True)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Post.objects.count(), initial_post_count)
+        post.refresh_from_db()
+        self.assertTrue(post.is_published)
+        self.assertIsNotNone(post.date_published)
+        # date_published should have been set to now
+        self.assertEqual(post.date_published, datetime(2022, 2, 8, 17, 12, 20, tzinfo=timezone.utc))
 
     def test_blog_author_cannot_be_deleted(self):
         post = PostFactory()

@@ -54,6 +54,9 @@ class Post(mixins.CreatedUpdatedMixin, mixins.StaticThumbnailURLMixin, models.Mo
         # Clean but preserve some of the HTML tags
         self.content = markdown.clean(self.content)
         self.content_html = markdown.render_unsafe(self.content)
+        # Set publish date if it's not set and the post is published
+        if not self.date_published and self.is_published:
+            self.date_published = timezone.now()
         super().save(*args, **kwargs)
 
     @property
