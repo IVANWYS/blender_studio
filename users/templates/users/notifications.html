@@ -4,12 +4,48 @@
 
 {% block content %}
   <div class="container-md my-4 text-center">
-    {% include "common/components/simple_header.html" with title="Notifications" subtitle="All the latest likes and replies to your content are here." %}
-    <button class="btn btn-dark btn-sm mb-3" data-mark-all-read-url="{% url 'api-notifications-mark-read' %}">
-      <i
-        class="material-icons {% if user.notifications_unread.count >= 1 %}unread{% endif %}">markunread_mailbox</i>
-      <span>Mark all as read</span>
-    </button>
+    {% with verbs=request.resolver_match.kwargs.verbs title="Notifications" %}
+      {% if not verbs %}
+        {% include "common/components/simple_header.html" with subtitle="All the latest likes, comments and replies to your content are here." %}
+      {% elif 'commented' in verbs and 'replied to' in verbs %}
+        {% include "common/components/simple_header.html" with subtitle="All the latest comments and replies to your content are here." %}
+      {% elif 'commented' in verbs %}
+        {% include "common/components/simple_header.html" with subtitle="All the latest comments about your content are here." %}
+      {% elif 'replied to' in verbs %}
+        {% include "common/components/simple_header.html" with subtitle="All the latest replies to your comments are here." %}
+      {% elif 'liked' in verbs %}
+        {% include "common/components/simple_header.html" with subtitle="All the latest likes of your content are here." %}
+      {% endif %}
+
+      {% url 'user-notification' as all_notifications_url %}
+      {% url 'user-notification' verbs='commented,replied to' as comments_and_replies_url %}
+      {% url 'user-notification' verbs='liked' as likes_url %}
+      <div class="row">
+        <div class="col-xl-8 mx-auto">
+          <div class="row justify-content-between">
+            <div class="col-auto">
+              <div class="row">
+                <div class="nav">
+                  <a class="btn btn-nav btn-secondary {% if request.path == all_notifications_url %}active{% endif %}" href="{{ all_notifications_url }}">All</a>
+                  <a class="btn btn-nav btn-secondary {% if request.path == comments_and_replies_url or 'commented' in verbs and 'replied to' in verbs %}active{% endif %}" href="{{ comments_and_replies_url }}">Comments and replies</a>
+                  <a class="btn btn-nav btn-secondary {% if request.path == likes_url %}active{% endif %}" href="{{ likes_url }}">Likes</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-auto">
+              <div class="row">
+                <button class="btn btn-dark btn-sm mb-3" data-mark-all-read-url="{% url 'api-notifications-mark-read' %}">
+                  <i class="material-icons {% if user.notifications_unread.count >= 1 %}unread{% endif %}">
+                    markunread_mailbox
+                  </i>
+                  <span>Mark all as read</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endwith %}
     <div class="row justify-content-center">
       <ul class="list-group activity-list col-xl-8">
 

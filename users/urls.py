@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import re_path, path, include
 
 from users.views.activity import Activity, Notifications
 from users.views.api import NotificationMarkReadView, NotificationsMarkReadView
@@ -7,7 +7,11 @@ import users.views.settings as settings
 
 urlpatterns = [
     path('webhooks/user-modified/', user_modified_webhook, name='webhook-user-modified'),
-    path('notifications/', Notifications.as_view(), name='user-notification'),
+    re_path(
+        r'^notifications/(?:(?P<verbs>[a-z ,]+)/)?',
+        Notifications.as_view(),
+        name='user-notification',
+    ),
     path('activity/', Activity.as_view(), name='user-activity'),
     path(
         'settings/',

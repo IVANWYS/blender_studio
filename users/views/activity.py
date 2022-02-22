@@ -17,7 +17,9 @@ class Notifications(LoginRequiredMixin, ListView):
 
     def get_queryset(self) -> QuerySet:
         """Return user notifications instead of all notifications."""
-        return self.request.user.notifications.all()
+        verbs = [_ for _ in self.request.resolver_match.kwargs.get('verbs', '').split(',') if _]
+        query = self.request.user.notifications
+        return query.filter(action__verb__in=verbs).distinct() if verbs else query.all()
 
 
 class Activity(LoginRequiredMixin, ListView):

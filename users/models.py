@@ -48,7 +48,9 @@ class User(AbstractUser):
     @property
     def notifications(self):
         return (
-            self.notifications.select_related('action').annotate(
+            self.notifications.select_related(
+                'action', 'user', 'action__target_content_type', 'action__target_object',
+            ).annotate(
                 unread=Case(
                     When(date_read__isnull=True, then=Value(0)),
                     default=Value(1),
