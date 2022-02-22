@@ -161,3 +161,4 @@ class NotificationAdmin(admin.ModelAdmin):
     search_fields = ['user__username', 'user__email', 'user__profile__full_name']
     list_display = ['__str__', 'user', 'action']
     raw_id_fields = ['user', 'action']
+    list_filter = ['action__verb']
