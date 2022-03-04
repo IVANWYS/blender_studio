@@ -309,11 +309,10 @@ DEFAULT_RANKING_RULES = [
     'words',
     'proximity',
     'attribute',
-    'wordsPosition',
     'exactness',
 ]
-DATE_DESC_RANKING_RULES = ['desc(timestamp)', *DEFAULT_RANKING_RULES]
-DATE_ASC_RANKING_RULES = ['asc(timestamp)', *DEFAULT_RANKING_RULES]
+DATE_DESC_RANKING_RULES = ['sort', 'timestamp:desc', *DEFAULT_RANKING_RULES]
+DATE_ASC_RANKING_RULES = ['sort', 'timestamp:asc', *DEFAULT_RANKING_RULES]
 MAIN_SEARCH = {
     'SEARCHABLE_ATTRIBUTES': [
         'model',
@@ -328,6 +327,12 @@ MAIN_SEARCH = {
         'summary',
         'content',
         'author_name',
+    ],
+    'SORTABLE_ATTRIBUTES': [
+        'timestamp',
+        'date_created',
+        'date_updated',
+        'date_published',
     ],
     'FACETING_ATTRIBUTES': ['model', 'film_title', 'license', 'media_type', 'free'],
     'RANKING_RULES': {
@@ -347,6 +352,12 @@ TRAINING_SEARCH = {
         'description',
         'summary',
         'author_name',
+    ],
+    'SORTABLE_ATTRIBUTES': [
+        'timestamp',
+        'date_created',
+        'date_updated',
+        'date_published',
     ],
     'FACETING_ATTRIBUTES': ['type', 'difficulty'],
     'RANKING_RULES': {

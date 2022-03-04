@@ -1,6 +1,9 @@
 # Search
 
 The search functionality uses [MeiliSearch](https://github.com/meilisearch/MeiliSearch).
+Studio is currently using `meilisearch` v0.25.2, a binary for which can be downloaded from
+the release page here:
+https://github.com/meilisearch/meilisearch/releases/tag/v0.25.2
 
 ## Overview
 There is the full-website search available everywhere by clicking on the magnifying

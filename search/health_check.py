@@ -27,7 +27,7 @@ def check_meilisearch(check_indexes: Optional[bool] = False) -> None:
             f'{settings.MEILISEARCH_API_ADDRESS}. Make sure that the server is running.'
         )
     if check_indexes:
-        index_uids = [i['name'] for i in indexes]
+        index_uids = [i.uid for i in indexes]
         missing_uids = [i for i in ALL_INDEX_UIDS if i not in index_uids]
         if missing_uids:
             raise MeiliSearchServiceError(

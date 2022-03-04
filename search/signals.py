@@ -29,7 +29,7 @@ def _is_indexed(index_uid: str, search_id: str) -> bool:
         settings.SEARCH_CLIENT.get_index(index_uid).get_document(search_id)
         return True
     except meilisearch.errors.MeiliSearchApiError as err:
-        if 'document_not_found' != err.error_code:
+        if 'document_not_found' != err.code:
             log.error(f'Unable to check if {search_id} is indexed by {index_uid}: {err}')
     except MeiliSearchServiceError as err:
         log.error(f'Unable to check if {search_id} is indexed by {index_uid}: {err}')
@@ -56,6 +56,7 @@ class BasePostSaveSearchIndexer(ABC):
 
     index_uids: List[str]
     searchable_attributes: List[str]
+    sortable_attributes: List[str]
     serializer: BaseSearchSerializer
 
     def _add_document_to_index(self, data_to_load: List[Any]) -> None:
@@ -67,6 +68,7 @@ class BasePostSaveSearchIndexer(ABC):
             # There seems to be no way in MeiliSearch v0.13.0 to disable adding new document
             # fields automatically to searchable attrs, so we update the settings to set them:
             index.update_searchable_attributes(self.searchable_attributes)
+            index.update_sortable_attributes(self.sortable_attributes)
 
     def _remove_document(self, sender: Type[SearchableModel], instance: SearchableModel) -> None:
         search_id = _search_id(sender, instance)
@@ -98,6 +100,7 @@ class MainPostSaveSearchIndexer(BasePostSaveSearchIndexer):
 
     index_uids = MAIN_INDEX_UIDS
     searchable_attributes = assert_cast(list, settings.MAIN_SEARCH['SEARCHABLE_ATTRIBUTES'])
+    sortable_attributes = assert_cast(list, settings.MAIN_SEARCH['SORTABLE_ATTRIBUTES'])
     serializer = MainSearchSerializer()
 
 
@@ -106,6 +109,7 @@ class TrainingPostSaveSearchIndexer(BasePostSaveSearchIndexer):
 
     index_uids = TRAINING_INDEX_UIDS
     searchable_attributes = assert_cast(list, settings.TRAINING_SEARCH['SEARCHABLE_ATTRIBUTES'])
+    sortable_attributes = assert_cast(list, settings.TRAINING_SEARCH['SORTABLE_ATTRIBUTES'])
     serializer = TrainingSearchSerializer()
 
 
