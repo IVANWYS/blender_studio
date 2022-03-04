@@ -44,6 +44,16 @@ Total
 '''
 
 
+def _fake_ap_date_format(date) -> str:
+    # Format a date matching Django's extended formatting options, such as "N"
+    # See https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#date
+    return (
+        date.strftime("%b. %-d, %Y")
+        if len(date.strftime('%B')) > 5
+        else date.strftime("%B %-d, %Y")
+    )
+
+
 @patch('looper.admin_log.attach_log_entry', Mock(return_value=None))
 class TestReceiptPDFView(TestCase):
     maxDiff = None
@@ -148,7 +158,7 @@ class TestReceiptPDFView(TestCase):
                 order=order,
                 expected_vatin='',
                 expected_external_reference='',
-                expected_date=order.paid_at.strftime("%b. %-d, %Y"),
+                expected_date=_fake_ap_date_format(order.paid_at),
                 expected_currency_symbol='•',
                 expected_team_prefix='',
                 expected_team_seats='',
@@ -190,7 +200,7 @@ class TestReceiptPDFView(TestCase):
                 order=order,
                 expected_vatin='\nVATIN: DE123456789',
                 expected_external_reference='',
-                expected_date=order.paid_at.strftime("%b. %-d, %Y"),
+                expected_date=_fake_ap_date_format(order.paid_at),
                 # FIXME(anna): PyPDF2's extractText() doesn't extract EUR sign for some reason
                 expected_currency_symbol='•',
                 expected_team_prefix='',
@@ -237,7 +247,7 @@ class TestReceiptPDFView(TestCase):
                 order=order,
                 expected_vatin='\nVATIN: NL123456789',
                 expected_external_reference='',
-                expected_date=order.paid_at.strftime("%b. %-d, %Y"),
+                expected_date=_fake_ap_date_format(order.paid_at),
                 # FIXME(anna): PyPDF2's extractText() doesn't extract EUR sign for some reason
                 expected_currency_symbol='•',
                 expected_team_prefix='',
@@ -272,7 +282,7 @@ class TestReceiptPDFView(TestCase):
                 order=order,
                 expected_vatin='',
                 expected_external_reference='',
-                expected_date=order.paid_at.strftime("%b. %-d, %Y"),
+                expected_date=_fake_ap_date_format(order.paid_at),
                 expected_currency_symbol='$',
                 expected_team_prefix='',
                 expected_team_seats='',
@@ -312,7 +322,7 @@ class TestReceiptPDFView(TestCase):
                 order=order,
                 expected_vatin='',
                 expected_external_reference='',
-                expected_date=order.paid_at.strftime("%b. %-d, %Y"),
+                expected_date=_fake_ap_date_format(order.paid_at),
                 expected_currency_symbol='$',
                 expected_team_prefix='Team ',
                 expected_team_seats='\nSeats: 4',
@@ -353,7 +363,7 @@ class TestReceiptPDFView(TestCase):
                 order=order,
                 expected_vatin='',
                 expected_external_reference='Invoice ref.: PO #9876\n',
-                expected_date=order.paid_at.strftime("%b. %-d, %Y"),
+                expected_date=_fake_ap_date_format(order.paid_at),
                 expected_currency_symbol='$',
                 expected_team_prefix='Team ',
                 expected_team_seats='\nSeats: 4',
