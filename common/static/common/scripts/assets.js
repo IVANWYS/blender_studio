@@ -178,10 +178,10 @@ window.asset = (function asset() {
 
       switch (e.key) {
         case 'ArrowRight':
-          rightArrow?.click();
+          if (rightArrow) rightArrow.click();
           break;
         case 'ArrowLeft':
-          leftArrow?.click();
+          if (leftArrow) leftArrow.click();
           break;
         case 'Escape':
           baseModal.hide();

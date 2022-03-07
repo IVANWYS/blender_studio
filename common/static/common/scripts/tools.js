@@ -238,15 +238,13 @@ function initVideo(container) {
         element.elements.controls
           .querySelector('.plyr__menu')
           .insertAdjacentHTML('afterend', loopButton);
-      }
 
-      if (dataElement.querySelector('video')?.hasAttribute('loop')) {
-        element.elements.controls
-          .querySelector('[data-plyr="loop"]')
-          .classList.add('plyr__control--pressed');
-      }
+        if (dataElement.querySelector('video').hasAttribute('loop')) {
+          element.elements.controls
+            .querySelector('[data-plyr="loop"]')
+            .classList.add('plyr__control--pressed');
+        }
 
-      if (dataElement.querySelector('video')) {
         element.elements.controls
           .querySelector('[data-plyr="loop"]')
           .addEventListener('click', (event) => {
@@ -341,20 +339,18 @@ document.addEventListener('DOMContentLoaded', () => {
   window.onscroll = () => {
     const currentScrollPos = window.pageYOffset;
     if (prevScrollpos > currentScrollPos) {
-      nav?.classList.add('scroll');
-      secondaryNav?.classList.add('scroll');
-      nestedNav?.classList.add('scroll');
+      if (nav) nav.classList.add('scroll');
+      if (secondaryNav) secondaryNav.classList.add('scroll');
+      if (nestedNav) nestedNav.classList.add('scroll');
     } else {
-      nav?.classList.remove('scroll');
-      secondaryNav?.classList.remove('scroll');
-      nestedNav?.classList.remove('scroll');
+      if (nav) nav.classList.remove('scroll');
+      if (secondaryNav) secondaryNav.classList.remove('scroll');
+      if (nestedNav) nestedNav.classList.remove('scroll');
     }
     prevScrollpos = currentScrollPos;
 
     if (window.pageYOffset > 40) {
-      navDrawer?.classList.add('scroll');
-    } else {
-      navDrawer?.classList.remove('scroll');
-    }
+      if (navDrawer) navDrawer.classList.add('scroll');
+    } else if (navDrawer) navDrawer.classList.remove('scroll');
   };
 });
