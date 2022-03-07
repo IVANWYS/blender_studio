@@ -295,6 +295,9 @@ search.addWidgets([
   customMenuSelect({
     container: document.querySelector('#searchFilm'),
     attribute: 'film_title',
+    // There's no way to have no limit for menu items and showMore makes no sense for a dropdown
+    // See https://www.algolia.com/doc/api-reference/widgets/menu/js/#widget-param-limit
+    limit: 999,
   }),
   // customMenuSelect({
   //   container: document.querySelector('#searchFree'),
