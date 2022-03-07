@@ -5,6 +5,28 @@ Studio is currently using `meilisearch` v0.25.2, a binary for which can be downl
 the release page here:
 https://github.com/meilisearch/meilisearch/releases/tag/v0.25.2
 
+## JS client: instantsearch.js
+
+Studio's front-end is using Algolia's [instantsearch.js](https://github.com/algolia/instantsearch.js)
+and [instant-meilisearch](https://github.com/meilisearch/instant-meilisearch),
+which provides compatibility with `meilisearch`.
+
+Studio doesn't use NPM or another package manager for its JS dependencies,
+instead all of them are downloaded pre-built and stored under `static/**/scripts/vendor`.
+
+### Upgrading JS client
+
+When upgrading `instantsearch.js`, check which releases are available for
+[instantsearch.js](https://github.com/algolia/instantsearch.js/releases)
+and [instant-meilisearch](https://github.com/meilisearch/instant-meilisearch/releases),
+and then download appropriate production builds from the CDN, e.g.:
+
+```
+cd common/static/common/scripts/vendor/
+curl https://cdn.jsdelivr.net/npm/instantsearch.js@4.39.1/dist/instantsearch.production.min.js > instantsearch.production.min.js
+curl https://cdn.jsdelivr.net/npm/@meilisearch/instant-meilisearch@0.6.0/dist/instant-meilisearch.umd.min.js  > instant-meilisearch.umd.min.js
+```
+
 ## Overview
 There is the full-website search available everywhere by clicking on the magnifying
 glass icon in the top right-hand corner of a page, and a training-specific search on the
