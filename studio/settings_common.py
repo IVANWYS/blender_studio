@@ -200,7 +200,7 @@ PIPELINE = {
         'vendor_instantsearch': {
             'source_filenames': [
                 'common/scripts/vendor/instant-meilisearch.umd.min.js',
-                'common/scripts/vendor/instantsearch.js',
+                'common/scripts/vendor/instantsearch.production.min.js',
             ],
             'output_filename': 'js/vendor_instantsearch.js',
             'extra_context': {'async': False, 'defer': False},
