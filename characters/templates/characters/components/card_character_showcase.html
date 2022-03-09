@@ -36,7 +36,9 @@
           </p>
         {% endif %}
         {% if showcase.is_free %}
-          {% include "common/components/cards/pill.html" with label='Free' %}
+          <p class="card-subtitle">
+            {% include "common/components/cards/pill.html" with label='Free' %}
+          </p>
         {% endif %}
         {% if showcase.comments.count > 0 %}
           <p class="card-subtitle">
