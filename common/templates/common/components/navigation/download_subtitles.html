@@ -1,0 +1,9 @@
+{% spaceless %}
+  {% for track in static_asset.video.tracks.all %}
+    <a href="{{ track.url }}"
+      target="_blank" download="{{ name }}_{{ track.language }}.vtt"
+      class="dropdown-item">
+      <span>Download {{ track.get_language_display }} Subtitles</span>
+    </a>
+  {% endfor %}
+{% endspaceless %}
