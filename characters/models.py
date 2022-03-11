@@ -19,6 +19,7 @@ class BlenderVersion(models.TextChoices):
     v280 = '2.80'
     v290 = '2.90'
     v300 = '3.0'
+    v310 = '3.1'
 
 
 class Character(mixins.CreatedUpdatedMixin, models.Model):
