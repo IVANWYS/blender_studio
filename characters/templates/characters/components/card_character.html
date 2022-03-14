@@ -37,7 +37,9 @@
             </p>
           {% endif %}
           {% if character_version.is_free %}
-            {% include "common/components/cards/pill.html" with label='Free' %}
+            <p class="card-subtitle">
+              {% include "common/components/cards/pill.html" with label='Free' %}
+            </p>
           {% endif %}
           {% if character.likes.count > 0 %}
             <p class="card-subtitle">
