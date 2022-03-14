@@ -5,6 +5,7 @@ from django.test import TestCase
 from looper.tests.test_preferred_currency import EURO_IPV4, USA_IPV4
 
 from common.tests.factories.characters import CharacterVersionFactory, CharacterShowcaseFactory
+from common.tests.factories.subscriptions import SubscriptionFactory
 from common.tests.factories.users import UserFactory
 from stats.models import StaticAssetView
 
@@ -151,3 +152,99 @@ class TestCharacterShowcase(TestCase):
             StaticAssetView.objects.get(user_id=another_user.pk).static_asset_id,
             showcase.static_asset_id,
         )
+
+
+@patch('storages.backends.s3boto3.S3Boto3Storage.url', Mock(return_value='https://bucket/file'))
+class TestCharacterVersionDownload(TestCase):
+    def test_cannot_download_non_free_when_anonymous(self):
+        character_version = CharacterVersionFactory(is_free=False)
+
+        response = self.client.get(character_version.static_asset.download_url)
+
+        self.assertEqual(response.status_code, 404)
+
+    def test_cannot_download_non_free_when_not_subscribed(self):
+        user = UserFactory()
+        character_version = CharacterVersionFactory(is_free=False)
+
+        self.client.force_login(user)
+        response = self.client.get(character_version.static_asset.download_url)
+
+        self.assertEqual(response.status_code, 404)
+
+    def test_can_download_non_free_when_subscribed(self):
+        user = UserFactory()
+        SubscriptionFactory(user=user, status='active')
+        character_version = CharacterVersionFactory(is_free=False)
+
+        self.client.force_login(user)
+        response = self.client.get(character_version.static_asset.download_url)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['Location'], 'https://bucket/file')
+
+    def test_can_download_free_when_anonymous(self):
+        character_version = CharacterVersionFactory(is_free=True)
+
+        response = self.client.get(character_version.static_asset.download_url)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['Location'], 'https://bucket/file')
+
+    def test_can_download_free_when_not_subscribed(self):
+        user = UserFactory()
+        character_version = CharacterVersionFactory(is_free=True)
+
+        self.client.force_login(user)
+        response = self.client.get(character_version.static_asset.download_url)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['Location'], 'https://bucket/file')
+
+
+@patch('storages.backends.s3boto3.S3Boto3Storage.url', Mock(return_value='https://bucket/file'))
+class TestCharacterShowcaseDownload(TestCase):
+    def test_cannot_download_non_free_when_anonymous(self):
+        character_showcase = CharacterShowcaseFactory(is_free=False)
+
+        response = self.client.get(character_showcase.static_asset.download_url)
+
+        self.assertEqual(response.status_code, 404)
+
+    def test_cannot_download_non_free_when_not_subscribed(self):
+        user = UserFactory()
+        character_showcase = CharacterShowcaseFactory(is_free=False)
+
+        self.client.force_login(user)
+        response = self.client.get(character_showcase.static_asset.download_url)
+
+        self.assertEqual(response.status_code, 404)
+
+    def test_can_download_non_free_when_subscribed(self):
+        user = UserFactory()
+        SubscriptionFactory(user=user, status='active')
+        character_showcase = CharacterShowcaseFactory(is_free=False)
+
+        self.client.force_login(user)
+        response = self.client.get(character_showcase.static_asset.download_url)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['Location'], 'https://bucket/file')
+
+    def test_can_download_free_when_anonymous(self):
+        character_showcase = CharacterShowcaseFactory(is_free=True)
+
+        response = self.client.get(character_showcase.static_asset.download_url)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['Location'], 'https://bucket/file')
+
+    def test_can_download_free_when_not_subscribed(self):
+        user = UserFactory()
+        character_showcase = CharacterShowcaseFactory(is_free=True)
+
+        self.client.force_login(user)
+        response = self.client.get(character_showcase.static_asset.download_url)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['Location'], 'https://bucket/file')

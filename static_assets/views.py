@@ -102,7 +102,6 @@ def video_track_view(request, pk: int, path: str):
 
 
 @require_GET
-@login_required
 def download_view(request, source: str):
     """Redirect to a storage URL of the given source file, if found in static assets."""
     try:
