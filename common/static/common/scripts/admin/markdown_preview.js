@@ -25,5 +25,5 @@ function initPreview(fieldId) {
 }
 
 let formElement = null;
-const possibleFieldIds = ['id_summary', 'id_text', 'id_description'];
+const possibleFieldIds = ['id_summary', 'id_text', 'id_description', 'id_content'];
 possibleFieldIds.forEach(initPreview);

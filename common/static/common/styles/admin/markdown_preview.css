@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+}
+
+section.editor-fieldset {
+  width: 60%;
+}
+
+#markdown-preview-container {
+  width: 40%;
+  padding: 10px 20px;
+}
+
+.colM .aligned .vLargeTextField {
+  width: calc(100% - 185px);
+  resize: vertical;
+}
+.field-content textarea,
+.field-description textarea,
+.field-text textarea {
+  height: 500px;
+  font-size: 110%;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
