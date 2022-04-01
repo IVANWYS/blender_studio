@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.staticfiles',
-    'waffle',
     'blender_id_oauth_client',
     'profiles',
     'debug_toolbar',
@@ -68,7 +67,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     'subscriptions.middleware.SetCurrencyMiddleware',
-    'waffle.middleware.WaffleMiddleware',
 ]
 
 ROOT_URLCONF = 'studio.urls'

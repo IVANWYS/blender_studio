@@ -34,7 +34,6 @@ django-background-tasks = "^1.2.5"
 django-anymail = {extras = ["mailgun"], version = "8.2"}
 django-nested-admin = "^3.3.3"
 cryptography = "3.3.2"
-django-waffle = "2.1.0"
 html5lib = "1.1"
 braintree = "4.12.0"
 python-stdnum = "^1.16"
