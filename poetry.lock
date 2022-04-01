@@ -912,7 +912,7 @@ six = ">=1.11.0"
 
 [[package]]
 name = "looper"
-version = "1.10.0rc4"
+version = "2.0.1"
 description = ""
 category = "main"
 optional = false
@@ -938,8 +938,8 @@ zeep = "4.0.0"
 [package.source]
 type = "git"
 url = "git://git.blender.org/looper.git"
-reference = "patched-bt-gateway-collection-methods"
-resolved_reference = "5a0e88ec67ea856abad32653bce5318fd1101266"
+reference = "master"
+resolved_reference = "a0fe7ea637b54e93435703fd5c3d4002eda15efe"
 
 [[package]]
 name = "lxml"
@@ -1727,7 +1727,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "26f3248f42cbb834f494f9bfbd637096054121ab20ab48204a9ad5317582a839"
+content-hash = "f68385ee3a71b5dfeb7c01d218bdc6df6a3582048544455a7469a14313075e84"
 
 [metadata.files]
 alphabetic-timestamp = [

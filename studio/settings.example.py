@@ -45,10 +45,13 @@ GATEWAYS = {
         'private_key': 'CHANGE_ME',
         # Merchant Account IDs for different currencies.
         # Configured in Braintree: Account → Merchant Account Info.
-        'merchant_account_ids': {'EUR': 'CHANGE_ME', 'USD': 'CHANGE_ME',},
+        'merchant_account_ids': {'EUR': 'CHANGE_ME', 'USD': 'CHANGE_ME'},
+        # Blender Studio allows both automatic and manual collection with Braintree:
+        'supported_collection_methods': {'automatic', 'manual'},
     },
-    # No settings, but a key is required here to activate the gateway.
-    'bank': {},
+    'bank': {
+        'supported_collection_methods': {'manual'},
+    },
 }
 
 # Collection of automatically renewing subscriptions will be attempted this
