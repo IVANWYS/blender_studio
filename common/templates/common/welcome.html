@@ -5,7 +5,7 @@
   <!-- Header Jumbotron-->
   <div class="jumbotron jumbotron-fluid jumbotron-overlay overlay-wide-content jumbotron header spacer-n">
     <div class="jumbotron-bg-wrapper">
-      <img class="jumbotron-bg" src="{% static "common/images/welcome/welcome-header-sprite.jpg" %}"
+      <img class="jumbotron-bg" src="{% static 'common/images/welcome/welcome-header.jpg' %}"
         alt="3D Render of the latest Blender Open Movie">
     </div>
     <div class="container-xxl">
@@ -14,7 +14,10 @@
           <div class="jumbotron-body">
             <div class="spacer"></div>
             <h1 class="mb-2">The Creators Who Share</h1>
-            <p>Blender Studio is the creative part of the Blender HQ. A dedicated team of artists and developers who challenge themselves with creative-technical targets to help Blender users and to drive Blender development forward. This happens in an open source production environment and by sharing everything they make in an open and free license.</p>
+            <p>Blender Studio is the creative part of the Blender HQ. A dedicated team of artists and developers who
+              challenge themselves with creative-technical targets to help Blender users and to drive Blender
+              development forward. This happens in an open source production environment and by sharing everything
+              they make in an open and free license.</p>
             <p class="mb-4">Want to know more? Join the studio today and help the team to create & share.</p>
             <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center">
               <a href="{% url 'subscriptions:join' %}"
@@ -34,9 +37,9 @@
     <section class="mb-4 mb-md-5">
       <div class="row justify-content-center mb-3">
         <div class="col-md-6 text-center">
-          <h2 class="mb-1">From A to UV, we’ve got it covered.</h2>
-          <p class="mb-0">With courses covering every major topic in Blender, you get the tools to learn, explore
-            and grow as an artist with the Blender Studio.</p>
+          <h2 class="mb-1">Sharing Production Knowledge</h2>
+          <p class="mb-0">With training and docs covering every major topic in Blender, the Blender Studio team
+          shares real production knowledge, which can be freely adopted in a CG pipeline.</p>
         </div>
       </div>
       <div class="row">
@@ -60,12 +63,12 @@
           {% endif %}
         {% endfor %}
         <div class="col-12 col-md-6 col-lg-5 offset-lg-1 d-flex flex-column justify-content-center">
-          <h2 class="mb-1">Learn from the Blender Team</h2>
-          <p>Whether it’s Blender Develop Dr. Sybren teaching <a href="/training/scripting-for-artists/">Scripting for
+          <h2 class="mb-1">The Blender Studio Team</h2>
+          <p>Whether it’s Blender Developer Dr. Sybren teaching <a href="/training/scripting-for-artists/">Scripting for
             Artists</a>, or Animation Director Hjalti teaching
-            <a href="/training/animation-fundamentals/">Animation Fundamentals</a> — you’re getting industry leading
-            training from the people in Blender.</p>
-          <p>Ask questions and receive replies from the Author, download resources and join the discussion.</p>
+            <a href="/training/animation-fundamentals/">Animation Fundamentals</a> — the Blender Studio team shares
+            actual production knowledge.</p>
+          <p>Ask questions and receive replies from the author, download resources and join the discussion.</p>
           <div class="button-group">
             <a href="{% url 'subscriptions:join' %}" class="btn btn-primary">Subscribe for €9.90/month</a>
             <a href="/training" class="btn btn-transparent">Explore Training</a>
@@ -74,27 +77,29 @@
       </div>
     </section>
 
-    <!-- Sprite Fright -->
+    <!-- Latest Project -->
     <section class="mb-5">
       <div class="row mb-3">
         <div class="col">
           <div class="jumbotron jumbotron-overlay overlay-wide-content jumbotron-inline header rounded">
             <div class="jumbotron-bg-wrapper">
-              <img class="jumbotron-bg" src="{% static "common/images/home/sf-background.jpg" %}"
+              <img class="jumbotron-bg" src="{% static 'common/images/home/header-background.jpg' %}"
                 alt="3D Render of the latest Blender Open Movie">
             </div>
             <div class="row">
               <div class="col-md-7 col-lg-6">
                 <div class="jumbotron-body">
-                  <img class="mb-3 film-logo" src="{% static "common/images/home/sf-logo_gradient.png" %}"
-                    alt="Sprite Fright Logo">
+                  <img class="mb-3 film-logo" src="{% static 'common/images/home/header-project-logo.png' %}"
+                    alt="Project Heist Logo">
                   {% comment %} <h1>Coffee Run</h1> {% endcomment %}
-                  <p class="mb-4">Blender Studio’s 13th open movie will be an 80’s-inspired horror comedy, set in Britain:
-                    When a group of rowdy teenagers trek into an isolated forest, they discover peaceful mushroom
-                    creatures that turn out to be an unexpected force of nature.</p>
+                  <p class="mb-4">Blender Studio’s 14th Open Movie is a high-visual-impact, action-packed
+                    2-minutes-long animation inspired by the game cinematics and realtime demos formats. <br>
+                    The goals of the project are to challenge Blender and the creative team to pursue realism
+                    and push Blender’s capabilities in the interactive PBR workflow, improving and developing new tools (EEVEE, texture painting, baking, etc.)
+                  </p>
                   <a href="{% url 'subscriptions:join' %}"
                     class="btn btn-primary mb-2 mb-md-0">Subscribe for €9.90/month</a>
-                  <a href="/films/sprite-fright" class="btn btn-transparent">Explore the Film</a>
+                  <a href="/films/heist" class="btn btn-transparent">Explore the Film</a>
                 </div>
               </div>
             </div>
@@ -135,8 +140,8 @@
         <div class="col">
           <div class="jumbotron jumbotron-overlay jumbotron-inline overlay-flipped header rounded">
             <div class="jumbotron-bg-wrapper">
-              <img class="jumbotron-bg" src="{% static "common/images/welcome/dweebs-bg.png" %}"
-                alt="A 3D cartoon dog enjoying tasty treats">
+              <img class="jumbotron-bg" src="{% static 'common/images/welcome/join-background.jpg' %}"
+                alt="A friendly cartoon character invites you to join Blender Studio.">
             </div>
             <div class="row">
               <div class="col-md-7 col-lg-6 offset-md-5 offset-lg-6">
