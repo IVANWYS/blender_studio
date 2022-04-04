@@ -79,38 +79,35 @@
       </div>
     </section>
 
-    <!-- Latest Project -->
+    <!-- Latest Project: latest of the featured films -->
     <section class="mb-5">
       <div class="row mb-3">
         <div class="col">
           <div class="jumbotron jumbotron-overlay overlay-wide-content jumbotron-inline header rounded">
-            <div class="jumbotron-bg-wrapper">
-              <img class="jumbotron-bg" src="{% static 'common/images/home/header-background.jpg' %}"
-                alt="3D Render of the latest Blender Open Movie">
-            </div>
-            <div class="row">
-              <div class="col-md-7 col-lg-6">
-                <div class="jumbotron-body">
-                  <img class="mb-3 film-logo" src="{% static 'common/images/home/header-project-logo.png' %}"
-                    alt="Project Heist Logo">
-                  {% comment %} <h1>Coffee Run</h1> {% endcomment %}
-                  <p class="mb-4">Blender Studio’s 14th Open Movie is a high-visual-impact, action-packed
-                    2-minutes-long animation inspired by the game cinematics and realtime demos formats. <br>
-                    The goals of the project are to challenge Blender and the creative team to pursue realism
-                    and push Blender’s capabilities in the interactive PBR workflow, improving and developing new tools (EEVEE, texture painting, baking, etc.)
-                  </p>
-                  <a href="{% url 'subscriptions:join' %}"
-                    class="btn btn-primary mb-2 mb-md-0">Subscribe for €9.90/month</a>
-                  <a href="/films/heist" class="btn btn-transparent">Explore the Film</a>
+            {% with latest_project=featured_films.0 %}
+              <div class="jumbotron-bg-wrapper">
+                <img class="jumbotron-bg" src="{{ latest_project.picture_header.url }}" alt="3D Render of the latest Blender Open Movie">
+              </div>
+              <div class="row">
+                <div class="col-md-7 col-lg-6">
+                  <div class="jumbotron-body">
+                    <img class="mb-3 film-logo" src="{{ latest_project.logo.url }}"
+                      alt="{{ latest_project.title }} Logo">
+                    <p class="mb-4">{{ latest_project.description|linebreaksbr }}</p>
+                    <a href="{% url 'subscriptions:join' %}" class="btn btn-primary mb-2 mb-md-0">
+                      Subscribe for €9.90/month
+                    </a>
+                    <a href="{{ latest_project.url }}" class="btn btn-transparent">Explore the Film</a>
+                  </div>
                 </div>
               </div>
-            </div>
+            {% endwith %}
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Films -->
+    <!-- Other featured films -->
     <section class="mb-4 mb-md-5">
       <div class="row justify-content-center mb-3">
         <div class="col-md-6 text-center">
@@ -120,7 +117,7 @@
         </div>
       </div>
       <div class="row">
-        {% for film in featured_films|slice:':3' %}
+        {% for film in featured_films|slice:'1:4' %}
           {% include "films/components/card_film.html" with film=film %}
         {% endfor %}
       </div>

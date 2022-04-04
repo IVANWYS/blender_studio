@@ -51,7 +51,9 @@ class Film(mixins.CreatedUpdatedMixin, mixins.StaticThumbnailURLMixin, models.Mo
     )
 
     class Meta:
-        ordering = ('-release_date',)
+        # Sort by release date descending,
+        # fall back to created date in case the film hasn't been released yet.
+        ordering = ('-release_date', '-date_created')
 
     def clean(self) -> None:
         super().clean()
