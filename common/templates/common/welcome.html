@@ -5,25 +5,25 @@
   <!-- Header Jumbotron-->
   <div class="jumbotron jumbotron-fluid jumbotron-overlay overlay-wide-content jumbotron header spacer-n">
     <div class="jumbotron-bg-wrapper">
-      <img class="jumbotron-bg" src="{% static 'common/images/welcome/welcome-header.jpg' %}"
-        alt="3D Render of the latest Blender Open Movie">
+      {% static 'common/images/welcome/welcome-header.jpg' as welcome_header_default %}
+      <img class="jumbotron-bg" src="{% firstof welcome_header.url welcome_header_default %}"
+        alt="{% firstof welcome_header.text '3D Render of the latest Blender Open Movie' %}">
     </div>
     <div class="container-xxl">
       <div class="row">
         <div class="col-lg-6 col-md-8">
           <div class="jumbotron-body">
             <div class="spacer"></div>
-            <h1 class="mb-2">The Creators Who Share</h1>
-            <p>Blender Studio is the creative part of the Blender HQ. A dedicated team of artists and developers who
-              challenge themselves with creative-technical targets to help Blender users and to drive Blender
-              development forward. This happens in an open source production environment and by sharing everything
-              they make in an open and free license.</p>
-            <p class="mb-4">Want to know more? Join the studio today and help the team to create & share.</p>
-            <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center">
-              <a href="{% url 'subscriptions:join' %}"
-                class="btn btn-lg btn-primary me-md-4 mb-2 mb-md-0">Join the Blender Studio</a>
+            <h1 class="mb-2">{{ welcome_title.text }}</h1>
+            {{ welcome_primary_text.text|linebreaks }}
+            {% url 'subscriptions:join' as join_url %}
+            <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center mt-4">
+              <a href="{% firstof welcome_button_url.text join_url %}"
+                class="btn btn-lg btn-primary me-md-4 mb-2 mb-md-0">
+                {% firstof welcome_button_text.text "Join the Blender Studio" %}
+              </a>
               <div class="d-inline-block">
-                <p class="mb-0">Access to all training, assets<br>and films for €9.90/month</p>
+                <p class="mb-0">{{ welcome_secondary_text.text|linebreaksbr }}</p>
               </div>
             </div>
           </div>

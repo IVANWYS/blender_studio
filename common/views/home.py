@@ -7,6 +7,7 @@ from django.shortcuts import redirect, render
 from django.views.decorators.http import require_safe
 
 import blog.models as models_blog
+from common.models import TemplateVariable
 from common.queries import get_latest_trainings_and_production_lessons
 from films.models import Film
 from films.queries import get_random_featured_assets
@@ -43,6 +44,7 @@ def home(request: HttpRequest) -> HttpResponse:
         'featured_film_assets': get_random_featured_assets(limit=8),
         'latest_posts': models_blog.Post.objects.filter(is_published=True)[:6],
         'recently_watched_sections': [],
+        **{entry.key: entry for entry in TemplateVariable.objects.all()},
     }
     if request.user.is_authenticated:
         recently_watched_sections = recently_watched(user_pk=request.user.pk)
@@ -72,6 +74,7 @@ def welcome(request: HttpRequest) -> HttpResponse:
         'featured_trainings': Training.objects.filter(is_featured=True),
         'featured_sections': Section.objects.filter(is_featured=True, is_published=True),
         'featured_film_assets': get_random_featured_assets(limit=8),
+        **{entry.key: entry for entry in TemplateVariable.objects.all()},
     }
     referrer = request.META.get('HTTP_REFERER')
     referred_path = urllib.parse.urlparse(referrer).path if referrer else None
