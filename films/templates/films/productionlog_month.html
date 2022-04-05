@@ -14,8 +14,7 @@
           <h1 class="mb-1">Production Logs</h1>
           <p>Follow the latest updates and progress on {{ film.title }} right here.</p>
         </div>
-        <div class="col-md-6 d-flex flex-column align-items-end">
-          {% include 'films/components/admin/production_log_manage.html' %}
+        <div class="col-md-6">
           {% with previous_month=date_list.1 %}
             {% include 'films/components/pagination_dates.html' %}
           {% endwith %}

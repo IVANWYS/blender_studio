@@ -37,6 +37,7 @@
         <a class="list-group-item {% if date_list or production_log.name %}active{% endif %}" href="{% url 'film-production-logs' film_slug=film.slug %}">
           Production Logs
         </a>
+        {% include 'films/components/admin/production_log_manage.html' %}
       {% endif %}
       {% if user_has_production_credit or credit %}
 
