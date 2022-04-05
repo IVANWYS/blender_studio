@@ -14,18 +14,8 @@
 {% block content %}
   <div class="container-xxl pt-4">
     <section class="mb-5">
-      <!-- Latest Updates -->
-      <div class="row justify-content-center">
-
-        <div class="col-md-12 mb-3 text-center">
-          <p class="subtitle">
-            {% if production_log.start_date %}{{ production_log.start_date|date:'M jS Y' }} | {% endif %}{{ film.title }}</p>
-          <h1 class="mb-0">{{ production_log.name }}</h1>
-        </div>
-      </div>
-
       <div class="production-logs">
-        {% include 'films/components/production_log_entry.html' with production_log_link="false" header="false" %}
+        {% include 'films/components/production_log_entry.html' %}
       </div>
 
       {% include 'films/components/production_log_pagination.html' %}

@@ -10,7 +10,17 @@
   @include media-breakpoint-down(sm) {
     padding-bottom: 0;
   }
+
+  .btn-admin {
+    opacity: 0;
+  }
+
+  .production-log-week-header:hover .btn-admin,
+  .production-log-individual-files:hover .btn-admin{
+    opacity: 1;
+  }
 }
+
 
 .production-log-week-header {
   position: relative;
@@ -23,18 +33,13 @@
 }
 
 .production-log-header-summary {
-  @extend .row;
 }
 
 .production-log-individual {
-  @extend .row;
-  margin-bottom: $spacer / 2;
   padding: $spacer;
   position: relative;
 
   &-summary {
-    @extend .col-md-4;
-    @extend .col-lg-3;
 
     position: relative;
 
@@ -65,38 +70,21 @@
     }
   }
 
-  &::before {
-    content: close-quote;
-    pointer-events: none;
-    top: 0;
-    position: absolute;
-    width: calc(100% - #{$spacer});
-    height: 100%;
-    left: $spacer / 2;
-    background: $highlight-black-strong;
-
-    @include media-breakpoint-down(sm) {
-      // width: calc(100% + #{$spacer});
-      // left: - $spacer / 2;
-      border-radius: 0;
-    }
-  }
 }
 
-.production-log-individual-wrapper {}
+.production-log-individual-wrapper {
+  background-color: $body-bg;
+  border-bottom-left-radius: $border-radius;
+  border-bottom-right-radius: $border-radius;
+}
 
 .production-log-individual-files {
-  @extend .col-md-8;
-  @extend .col-lg-9;
-
   >a {
     display: inline-block;
   }
 }
 
 .production-log-header-summary-text {
-  @extend .col-md-6;
-  @extend .col-lg-7;
 
   margin-bottom: $spacer;
 
@@ -114,8 +102,6 @@
 }
 
 .production-log-header-summary-image {
-  @extend .col-md-6;
-  @extend .col-lg-5;
 
   @include media-breakpoint-down(sm) {
     margin: #{-$spacer} #{-$spacer} 0 #{-$spacer};
@@ -153,6 +139,8 @@
     align-self: flex-start;
     flex-shrink: 0;
     padding: 0;
+    height: 40px;
+    width: 40px;
   }
 
   .profile-name {

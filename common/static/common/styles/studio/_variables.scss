@@ -47,7 +47,7 @@ $highlight-white-strong:    rgba($white, .25) !default;
 $highlight-black-strong:    rgba($black, .25) !default;
 $highlight-white-xstrong:   rgba($white, .5) !default;
 $highlight-black-xstrong:   rgba($black, .5) !default;
-$highlight-white-xxstrong:  rgba($white, .75) !default;
+$highlight-white-xxstrong:  $gray-100 !default;
 $highlight-black-xxstrong:  rgba($black, .75) !default;
 
 // scss-docs-start color-variables
@@ -558,7 +558,7 @@ $border-color:                $input-gray !default;
 // scss-docs-end border-variables
 
 // scss-docs-start border-radius-variables
-$border-radius:               8px !default;
+$border-radius:               6px !default;
 $border-radius-sm:            $border-radius / 2 !default;
 $border-radius-lg:            $border-radius * 2 !default;
 $border-radius-pill:          50rem !default;
