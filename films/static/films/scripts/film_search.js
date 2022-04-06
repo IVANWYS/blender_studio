@@ -190,9 +190,16 @@ const customConfigure = instantsearch.connectors.connectConfigure(renderConfigur
 
 // -------- RENDER -------- //
 
+let timerId;
 search.addWidgets([
   customSearchBox({
     container: document.querySelector('#search-container'),
+    queryHook(query, refine) {
+      clearTimeout(timerId);
+      // Throttle search requests to avoid search lagging in non-ideal network conditions.
+      // (Or in case Studio is too slow to respond to a search request.)
+      timerId = setTimeout(() => refine(query), 500);
+    },
   }),
   customHits({
     container: document.querySelector('#hits'),
