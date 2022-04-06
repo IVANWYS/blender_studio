@@ -157,7 +157,7 @@ const renderHits = (renderOptions, isFirstRender) => {
         }
         ${
           item.is_free
-            ? `<span class="badge badge-pill">Free</span>`
+            ? `<p class="card-subtitle"><span class="badge badge-pill">Free</span></p>`
             : ''
         }
         </p>
