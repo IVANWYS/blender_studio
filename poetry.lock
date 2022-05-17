@@ -904,7 +904,7 @@ six = ">=1.11.0"
 
 [[package]]
 name = "looper"
-version = "2.0.2"
+version = "2.0.3"
 description = ""
 category = "main"
 optional = false
@@ -931,7 +931,7 @@ zeep = "4.0.0"
 type = "git"
 url = "git://git.blender.org/looper.git"
 reference = "master"
-resolved_reference = "1123bb9ece9c4fb80426085c4cf94dc2ee423a65"
+resolved_reference = "b20bdd473a5dd65fcfc59baaf1c2d1f61ee3e2a4"
 
 [[package]]
 name = "lxml"
