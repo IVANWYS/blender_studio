@@ -9,7 +9,7 @@
 {% block meta %}
   {% static 'training/images/placeholders/opengraph.jpg' as image_path %}
   {% absolute_url image_path as image_url %}
-  {% with title="Training" description="Learn from our expert team. Courses, workshops and production lessons with .blend files included." %}
+  {% with title="Training" description="Learn by example. Courses, workshops and production lessons with .blend files included." %}
     {% include 'common/components/meta.html' %}
   {% endwith %}
 {% endblock %}
@@ -18,7 +18,7 @@
   <!-- z-index is due to negative bottom margin causing second section not to be clickable -->
   <div class="jumbotron jumbotron-fluid jumbotron-overlay header spacer-n mb-n5" style="z-index:-1;">
     <div class="jumbotron-bg-wrapper">
-      <img class="jumbotron-bg" src="{% static "training/images/training-header-primitive.jpg" %}">
+      <img class="jumbotron-bg" src="{% static 'training/images/header.jpg' %}">
     </div>
     <div class="container-xxl pb-5">
       <div class="row">
@@ -27,7 +27,7 @@
             <div class="spacer"></div>
             <h1>Training</h1>
             <p class="mb-0">
-              Learn from our expert team. Courses, workshops and production lessons with .blend files included.
+              Learn by example. Courses, workshops and production lessons with .blend files included.
             </p>
           </div>
         </div>
