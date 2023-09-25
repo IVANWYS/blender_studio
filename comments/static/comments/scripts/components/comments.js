@@ -47,7 +47,7 @@ window.comments = (function comments() {
     }
 
     get commentLikesCountElement() {
-      return this.element.querySelector('.likes-count');
+      return this.element.querySelector('.js-likes-count');
     }
 
     get commentSection() {
@@ -231,11 +231,11 @@ window.comments = (function comments() {
             delete likeButton.dataset.checked;
           }
 
-          if (likeButton.querySelector('.likes-count')) {
+          if (likeButton.querySelector('.js-likes-count')) {
             // eslint-disable-next-line no-param-reassign
-            likeButton.querySelector('.likes-count').innerText = data.number_of_likes;
+            likeButton.querySelector('.js-likes-count').innerText = data.number_of_likes;
           } else {
-            const likeCountHTML = `<span class="likes-count">${data.number_of_likes}</span>`;
+            const likeCountHTML = `<span class="js-likes-count">${data.number_of_likes}</span>`;
             likeButton.insertAdjacentHTML('beforeend', likeCountHTML);
           }
         });
@@ -392,7 +392,7 @@ window.comments = (function comments() {
     element.querySelector('.comment-name').innerText = fullName;
     element.querySelector('.comment-date').innerText = dateString;
     element.querySelector('.comment-text').innerHTML = messageHtml;
-    element.querySelector('.likes-count').innerText = likes;
+    element.querySelector('.js-likes-count').innerText = likes;
     if (liked) {
       element.querySelector('.checkbox-like').dataset.checked = 'checked';
     } else {

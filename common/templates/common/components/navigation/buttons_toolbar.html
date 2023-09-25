@@ -1,24 +1,28 @@
 {% load common_extras %}
+{% load i18n %}
+
 <div class="button-toolbar-container">
   <div class="button-toolbar">
     {% firstof item.like_url like_url as like_url %}
     {% firstof item.liked liked as liked %}
     {% firstof item.likes.count likes_count as likes_count %}
+
     {% if like_url %}
       <button data-like-url="{{ like_url }}"
-        class="btn btn-dark btn-sm btn-icon comment-material-button checkbox-like {% if not user.is_authenticated %}disabled{% endif%}"
+        class="btn btn-dark btn-sm btn-icon btn-like comment-material-button checkbox-like {% if not user.is_authenticated %}disabled{% endif%}"
         {% if not user.is_authenticated %}disabled{% endif%} {% if liked %}data-checked="checked" {% endif %}>
-        <i class="material-icons checkbox-like-icon-checked text-primary">favorite</i>
-        <i class="material-icons checkbox-like-icon-unchecked">favorite_border</i>
+        <i class="i-heart-filled checkbox-like-icon-checked"></i>
+        <i class="i-heart checkbox-like-icon-unchecked"></i>
         {% if likes_count != 0 %}
-          <span class="likes-count">{{ likes_count }}</span>
+          <span class="js-likes-count">{{ likes_count }}</span>
         {% endif %}
       </button>
     {% endif %}
+
     {% if user.is_anonymous and not item.is_free %}
-      <button disabled class="btn disabled btn-sm btn-dark"><i class="material-icons">lock</i> Login to Download</button>
+      <button disabled class="btn disabled btn-sm btn-dark"><i class="i-lock"></i> {% blocktrans %}Login to Download{% endblocktrans %}</button>
     {% elif not item.is_free and not request.user|has_active_subscription %}
-      <button disabled class="btn disabled btn-sm btn-dark"><i class="material-icons">lock</i> Subscribe to Download</button>
+      <button disabled class="btn disabled btn-sm btn-dark"><i class="i-lock"></i> {% blocktrans %}Subscribe to Download{% endblocktrans %}</button>
     {% elif request.user|has_active_subscription or item.is_free %}
       {% firstof "" item.preview_video_static_asset.video.tracks.count as preview_video_has_subtitles %}
       {% firstof "" item.static_asset.video.tracks.count as has_subtitles %}
@@ -26,10 +30,10 @@
       {% if item.preview_video_static_asset and item.static_asset or preview_video_has_subtitles or has_subtitles %}
         <div class="btn-group">
           {% include "common/components/navigation/download_button.html" with static_asset=item.static_asset %}
-          <button data-bs-toggle="dropdown" data-bs-target="#downloadDropdown" class="btn btn-sm btn-icon btn-dark rounded-right dropdown-toggle" >
-            <i class="material-icons">arrow_drop_down</i>
+          <button data-bs-toggle="dropdown" data-bs-target="#downloadDropdown" class="btn btn-sm btn-icon btn-dark rounded-right dropdown-toggle">
+            <i class="i-chevron-down"></i>
           </button>
-          <div class="dropdown-menu dropdown-menu-right" id="downloadDropdown">
+          <div class="dropdown-menu dropdown-menu-end" id="downloadDropdown">
             {% if item.preview_video_static_asset %}
               {% include "common/components/navigation/download_button.html" with static_asset=item.preview_video_static_asset additional_download="video" %}
             {% endif %}
@@ -49,19 +53,20 @@
     {% if user.is_staff %}
       {% firstof item.character.admin_url item.admin_url as admin_url %}
       <a href="{{ admin_url }}" class="btn btn-sm btn-icon btn-dark">
-        <i class="material-icons btn-material-icons">create</i>
+        <i class="i-edit btn-material-icons"></i>
+        <span>{% blocktrans %}Edit{% endblocktrans %}</span>
       </a>
     {% endif %}
 
-    <div class="ms-2">
+    <div>
       <button data-bs-toggle="dropdown" class="btn btn-sm btn-icon btn-dark">
         <i class="material-icons">more_horiz</i>
       </button>
-      <div class="dropdown-menu dropdown-menu-right">
-        <a href="https://developer.blender.org/maniphest/task/edit/form/15/" target="_blank"
+      <div class="dropdown-menu dropdown-menu-end">
+        <a href="https://projects.blender.org/studio/blender-studio/issues/new" target="_blank"
           class="dropdown-item">
-          <i class="material-icons">flag</i>
-          <span>Report Problem</span>
+          <i class="i-flag"></i>
+          <span>{% blocktrans %}Report Problem{% endblocktrans %}</span>
         </a>
       </div>
     </div>

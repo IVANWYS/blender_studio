@@ -25,7 +25,9 @@ urlpatterns = [
                     settings.ProductionCreditsView.as_view(),
                     name='user-settings-production-credits',
                 ),
+                path('cloud-archive/', settings.CloudArchiveView.as_view(), name='cloud-archive'),
                 path('delete/', settings.DeleteView.as_view(), name='user-settings-delete'),
+                path('record/', settings.SubscriptionRecord, name='user-settings-record'),
             ]
         ),
     ),

@@ -1,0 +1,9 @@
+[Unit]
+Description=call write_stats command to record stats for {{ project_name }}
+
+[Service]
+Type=oneshot
+User={{ user }}
+Group={{ group }}
+ExecStart={{ dir.source }}/.venv/bin/python {{ dir.source }}/manage.py write_stats -v 3
+SyslogIdentifier={{ service_name }}

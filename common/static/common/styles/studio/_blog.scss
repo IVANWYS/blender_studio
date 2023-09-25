@@ -5,21 +5,25 @@
   position: relative;
   margin-top: $spacer;
 
-
-
   @include media-breakpoint-up(lg) {
 
     &::before {
-      content: close-quote;
-      position: absolute;
-      top: -$spacer * 2;
+      background: var(--body-bg);
+      border-radius: var(--border-radius-lg);
+      box-shadow: 0 0 30px var(--body-bg), 0 0 50px var(--body-bg);
+      content: '';
       height: 100%;
-      width: calc(100% + #{$spacer * 8});
-      left: -$spacer * 4;
-      background: $dark;
+      left: calc(var(--spacer-xl) / -2);
+      position: absolute;
+      top: calc(var(--spacer) * -2);
+      width: calc(100% + var(--spacer-xl));
       z-index: -2;
-      border-radius: $border-radius;
     }
+  }
+
+  h1 {
+    line-height: 1.1;
+    margin-top: var(--spacer);
   }
 }
 
@@ -39,16 +43,6 @@
     }
 
   }
-
-  &.jumbotron-overlay {
-    &.overlay-blog {
-      .jumbotron-bg-wrapper {
-        &::before {
-          // background: $highlight-black-xstrong;
-        }
-      }
-    }
-  }
 }
 
 // Layout
@@ -59,7 +53,6 @@ hr {
 }
 
 .editorial-text-area {
-
   p,
   a,
   ul,
@@ -75,18 +68,11 @@ hr {
     font-size: .9rem;
   }
 
-  p {
-    margin-bottom: $spacer * .75;
-    color: $highlight-white-xxstrong;
-  }
-
   blockquote {
-    text-align: left;
-    border-left: 1px solid $input-gray;
-    padding-left: $spacer;
+    border-left: 4px solid $input-gray;
+    margin: var(--spacer) 0;
+    padding: var(--spacer);
     width: 100%;
-    max-width: calc(100% - #{$spacer * 2});
-    margin: $spacer 0;
 
     @include media-breakpoint-up(md) {
       max-width: fit-content;

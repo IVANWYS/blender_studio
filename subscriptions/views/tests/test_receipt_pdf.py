@@ -5,6 +5,7 @@ from unittest.mock import patch, Mock
 from PyPDF2 import PdfFileReader
 from django.test.testcases import TestCase
 from django.urls import reverse
+from freezegun import freeze_time
 
 from looper.tests.factories import PaymentMethodFactory, OrderFactory
 import looper.taxes
@@ -15,8 +16,7 @@ from common.tests.factories.subscriptions import (
 )
 from common.tests.factories.users import UserFactory
 
-expected_text_tmpl = '''
-Invoice
+expected_text_tmpl = '''Invoice
 Blender Studio B.V.
 Buikslotermeerplein 161
 1025 ET Amsterdam, the Netherlands
@@ -35,13 +35,9 @@ Blender Studio Subscription
 {expected_team_prefix}Subscription #: {order.subscription_id}
 Renewal type: Automatic
 Renewal period: Monthly{expected_team_seats}
-1
-{expected_currency_symbol} {expected_price}{expected_additional_note}
-Subtotal
-{expected_currency_symbol} {expected_subtotal}{expected_vat}
-Total
-{expected_currency_symbol} {expected_total}
-'''
+1 {expected_currency_symbol} {expected_price}{expected_additional_note}
+Subtotal {expected_currency_symbol} {expected_subtotal}{expected_vat}
+Total {expected_currency_symbol} {expected_total}'''
 
 
 def _fake_ap_date_format(date) -> str:
@@ -80,7 +76,16 @@ class TestReceiptPDFView(TestCase):
         pdf = PdfFileReader(BytesIO(response.content))
         self.assertEqual(1, pdf.getNumPages())
         pdf_page = pdf.getPage(0)
-        return pdf_page.extractText()
+        return (
+            # FIXME: PyPDF2 extracts text with a lot of additional newlines
+            pdf_page.extract_text()
+            .replace('\n\n', '\n')
+            .replace('\n ', ' ')
+            .replace('\n:', ':')
+            .replace('\n• \n', ' • ')
+            .replace('\n$ \n', ' $ ')
+            .strip()
+        )
 
     def test_get_pdf_unpaid_order_not_found(self):
         unpaid_order = OrderFactory(
@@ -129,6 +134,7 @@ class TestReceiptPDFView(TestCase):
 
         self._extract_text_from_pdf(response)
 
+    @freeze_time('2022-02-08T14:03:20+01:00')
     def test_get_pdf_total_vat_charged(self):
         taxable = looper.taxes.Taxable(
             looper.money.Money('EUR', 1490),
@@ -165,11 +171,12 @@ class TestReceiptPDFView(TestCase):
                 expected_price='12.52',
                 expected_additional_note='',
                 expected_subtotal='12.52 (ex. VAT)',
-                expected_vat='\nVAT (19%)\n• 2.38',
+                expected_vat='\nVAT (19%) • 2.38',
                 expected_total='14.90',
             ),
         )
 
+    @freeze_time('2022-02-08T18:02:20+01:00')
     def test_get_pdf_total_vat_reverse_charged(self):
         taxable = looper.taxes.Taxable(
             looper.money.Money('EUR', 1490),
@@ -201,7 +208,7 @@ class TestReceiptPDFView(TestCase):
                 expected_vatin='\nVATIN: DE123456789',
                 expected_external_reference='',
                 expected_date=_fake_ap_date_format(order.paid_at),
-                # FIXME(anna): PyPDF2's extractText() doesn't extract EUR sign for some reason
+                # FIXME(anna): PyPDF2's extract_text() doesn't extract EUR sign for some reason
                 expected_currency_symbol='•',
                 expected_team_prefix='',
                 expected_team_seats='',
@@ -217,6 +224,7 @@ class TestReceiptPDFView(TestCase):
             ),
         )
 
+    @freeze_time('2022-02-08T18:03:20+01:00')
     def test_get_pdf_total_vat_charged_nl(self):
         taxable = looper.taxes.Taxable(
             looper.money.Money('EUR', 1490),
@@ -248,18 +256,19 @@ class TestReceiptPDFView(TestCase):
                 expected_vatin='\nVATIN: NL123456789',
                 expected_external_reference='',
                 expected_date=_fake_ap_date_format(order.paid_at),
-                # FIXME(anna): PyPDF2's extractText() doesn't extract EUR sign for some reason
+                # FIXME(anna): PyPDF2's extract_text() doesn't extract EUR sign for some reason
                 expected_currency_symbol='•',
                 expected_team_prefix='',
                 expected_team_seats='',
                 expected_price='12.31',
                 expected_subtotal='12.31 (ex. VAT)',
                 expected_additional_note='',
-                expected_vat='\nVAT (21%)\n• 2.59',
+                expected_vat='\nVAT (21%) • 2.59',
                 expected_total='14.90',
             ),
         )
 
+    @freeze_time('2022-02-08T11:12:20+01:00')
     def test_get_pdf_total_no_vat(self):
         order = OrderFactory(
             price=1000,
@@ -294,6 +303,7 @@ class TestReceiptPDFView(TestCase):
             ),
         )
 
+    @freeze_time('2022-02-08T18:12:20+01:00')
     def test_get_pdf_total_team_no_vat(self):
         team = TeamFactory(
             seats=4,
@@ -334,6 +344,7 @@ class TestReceiptPDFView(TestCase):
             ),
         )
 
+    @freeze_time('2022-02-08T18:13:20+01:00')
     def test_get_pdf_total_team_invoice_reference_becomes_order_external_reference(self):
         team = TeamFactory(
             seats=4,

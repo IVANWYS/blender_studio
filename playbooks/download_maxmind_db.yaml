@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Creating download directory
+      ansible.builtin.file:
+        path: "{{ maxminddb_download_path }}"
+        mode: u+rwx
+        state: directory
+      register: ttt
+      tags:
+        - maxminddb
+
+    - name: Downloading and extracting MaxMind database from {{ maxminddb_url }}
+      ansible.builtin.unarchive:
+        src: "{{ maxminddb_url }}?suffix=tar.gz&license_key={{ maxminddb_license_key }}&edition_id={{ maxminddb_edition }}"
+        dest: "{{ maxminddb_download_path }}"
+        remote_src: true
+      tags:
+        - maxminddb

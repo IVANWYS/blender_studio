@@ -1,0 +1,16 @@
+[Unit]
+Description={{ project_name }} background worker
+After=syslog.target
+
+[Service]
+User={{ user }}
+Group={{ group }}
+ExecStart={{ dir.source }}/.venv/bin/python {{ dir.source }}/manage.py process_tasks
+Restart=always
+KillSignal=SIGQUIT
+Type=idle
+SyslogIdentifier={{ service_name }}
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target

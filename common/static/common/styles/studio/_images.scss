@@ -2,28 +2,6 @@
   width: 100%;
 }
 
-//
-// Porifle Pictures
-//
-
-.contributors {
-  .profile.rounded-circle {
-    margin-right: -4px;
-    width: 24px;
-    height: 24px;
-  }
-}
-
-.profile {
-  // align-self: center;
-  background: center / cover;
-  border-radius: $border-radius-sm;
-  height: $profile-size;
-  width: $profile-size;
-  // to hide alt text if the image is missing.
-  font-size: 0;
-}
-
 // Sprite Fright Landing Page
 .image-float-section {
   margin: 0 0 $spacer * 2;

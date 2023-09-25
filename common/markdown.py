@@ -27,6 +27,8 @@ ALLOWED_TAGS_EXTRA = {
     'img': ['alt', 'src', 'class'],
     'p': ['class'],
     'source': ['src', 'type'],
+    'sub': [],
+    'sup': [],
     'table': ['class'],
     'tbody': ['class'],
     'td': ['class', 'colspan', 'headers', 'rowspan'],

@@ -20,12 +20,12 @@
   </a>
   {% if user_can_edit_asset %}
     <a href="{{ asset.admin_url }}" target="_blank" class="btn btn-secondary btn-xs btn-icon btn-float">
-      <i class="material-icons btn-material-icons">create</i>
+      <i class="i-edit btn-material-icons"></i>
     </a>
   {% endif %}
 
   <a class="file-body" href="{{ film_asset.url }}" data-bs-tooltip="tooltip-overflow" data-placement="top"
     title="{{ asset.name }}" data-url="{% url 'api-asset' film_asset.id %}?site_context={{ site_context }}">
-    <p class="overflow-text h4">{{ film_asset.name }}</p>
+    <span class="overflow-text">{{ film_asset.name }}</span>
   </a>
 </div>

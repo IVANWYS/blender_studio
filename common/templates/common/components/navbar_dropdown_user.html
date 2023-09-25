@@ -1,0 +1,78 @@
+{% load static %}
+{% load i18n %}
+{% load common_extras %}
+
+<div>
+  <div data-bs-toggle="dropdown" class="position-relative btn-profile">
+    {% include 'users/components/avatar.html' with user=request.user %}
+
+    {% if request.user|has_group:"demo"  %}
+      <i class="profile-subscription-badge demo i-check"></i>
+    {% elif request.user|has_active_subscription %}
+      <i class="profile-subscription-badge subscriber i-heart-filled"></i>
+    {% else %}
+      <i class="profile-subscription-badge unsubscribed i-heart"></i>
+    {% endif %}
+  </div>
+
+  <div class="dropdown-menu dropdown-menu-end">
+    {% if user.is_superuser or user.is_staff %}
+      <a href="/admin" class="dropdown-item">
+        <i class="i-shield"></i>
+        <span>Admin</span>
+      </a>
+      <a href="/source_upload" class="dropdown-item">
+        <i class="i-plus-square"></i>
+        <span>Upload</span>
+      </a>
+      <div class="dropdown-divider"></div>
+    {% endif %}
+
+    {% if request.user.is_authenticated %}
+      {% if request.user|has_group:"demo" %}
+        <a href="{% url 'user-settings-record' %}" class="dropdown-item text-blue">
+          <i class="i-check"></i>
+          <span>{% blocktrans %}Free Account{% endblocktrans %}</span>
+        </a>
+      {% elif request.user|has_active_subscription %}
+        <a href="{% url 'user-settings-record' %}" class="dropdown-item text-green">
+          <i class="i-heart-filled"></i>
+          <span>{% blocktrans %}Subscription Active{% endblocktrans %}</span>
+        </a>
+      {% else %}
+        <a href="{% url 'user-settings-record' %}" class="dropdown-item text-red">
+          <i class="i-alert-triangle"></i>
+          <span>{% blocktrans %}Subscription Inactive{% endblocktrans %}</span>
+        </a>
+      {% endif %}
+    {% endif %}
+
+    <a href="{% url 'user-activity' %}" class="dropdown-item">
+      <i class="i-activity"></i>
+      <span>{% blocktrans %}My Activity{% endblocktrans %}</span>
+    </a>
+
+    <a href="/settings/profile" class="dropdown-item">
+      <i class="i-settings"></i>
+      <span>{% blocktrans %}Settings{% endblocktrans %}</span>
+    </a>
+
+    <div class="dropdown-divider"></div>
+
+    <a href="{% url 'oauth:logout' %}" class="dropdown-item">
+      <i class="i-log-out"></i>
+      <span>{% blocktrans %}Sign Out{% endblocktrans %}</span>
+    </a>
+
+    {# For exiing a "Login-As" switcheroo #}
+    {% if is_impersonated_session %}
+    <div class="dropdown-divider"></div>
+      {% with warn="(!) You are currently using login-as to impersonate someone else's session" %}
+        <a class="dropdown-item" title="{{ warn }}" href="{% url 'loginas-logout' %}">
+          <i class="text-warning i-refresh"></i>
+          <span class="text-warning">Switch back</span>
+        </a>
+      {% endwith %}
+    {% endif %}
+  </div>
+</div>

@@ -15,6 +15,7 @@ import looper.signals
 import subscriptions.models
 import subscriptions.queries as queries
 import subscriptions.tasks as tasks
+import subscriptions.validators
 import users.tasks
 
 User = get_user_model()
@@ -132,10 +133,14 @@ def add_to_teams(sender, instance: User, created, **kwargs):
     """Add newly created user to teams containing their email."""
     if not created:
         return
-    email_domain = instance.email.lower().split('@')[-1]
-    for team in subscriptions.models.Team.objects.filter(
-        Q(emails__contains=[instance.email]) | Q(email_domain=email_domain)
-    ):
+    email_q = Q(emails__contains=[instance.email])
+    domains = subscriptions.validators.extract_domains(instance.email)
+    if not domains:
+        logger.error('Failed to extract domain from %s, user pk=%s', instance.email, instance.pk)
+    for domain in domains:
+        email_q |= Q(email_domain=domain)
+    for team in subscriptions.models.Team.objects.filter(email_q):
+        assert team.email_matches(instance.email)
         team.add(instance)
 
 
@@ -147,18 +152,14 @@ def set_team_users(sender, instance: subscriptions.models.Team, **kwargs):
     current_team_users_ids = {_.pk for _ in current_team_users}
     # Remove all users that are neither on the emails list, nor have emails that match email domain
     for user in current_team_users:
-        if (
-            user.email.lower() in emails
-            or instance.email_domain
-            and instance.email_domain.lower() in user.email.lower()
-        ):
+        if instance.email_matches(user.email):
             continue
         instance.remove(user)
 
     # Add all users that are either on the emails list, or have emails that match the email domain
     email_q = Q(email__in=emails)
     if instance.email_domain:
-        email_q = email_q | Q(email__contains=f'@{instance.email_domain}')
+        email_q = email_q | Q(email__iregex=fr'@(.*\.)?{instance.email_domain}$')
     matching_users = User.objects.filter(email_q)
     for user in matching_users:
         if user.pk in current_team_users_ids:

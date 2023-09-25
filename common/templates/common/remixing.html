@@ -1,0 +1,48 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+  <div class="content-holder navdrawer-offset">
+    <div class="container-fluid pt-4">
+      <section class="flat-page-content mb-4">
+        <div class="row justify-content-center mb-3">
+          <div class="col-md-6 text-center">
+            <h1 class="mb-0">{% blocktrans %}Remixing Content{% endblocktrans %}</h1>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <p>{% blocktrans %}Blender Studio content is generally released under Creative Commons Attribution License (CC-BY), with copyright © Blender Foundation. Each asset published on the Blender Studio website is presented with a text snippet specifying the license. If you have any doubt about content licensing, reach out to cloudsupport@blender.org.{% endblocktrans %}</p>
+            <h2>{% blocktrans %}Music and Sound{% endblocktrans %}</h2>
+            <p>{% blocktrans %}If you are a sound designer or a musician looking for film versions to rescore or edit, here is the content currently available:{% endblocktrans %}</p>
+            <ul>
+              <li>
+                {% blocktrans %}Charge{% endblocktrans %} - <a href="https://studio.blender.org/films/charge/3b5dcd31d4bd6e/?asset=6293">{% blocktrans %}All tracks{% endblocktrans %}</a>
+              </li>
+              <li>
+                {% blocktrans %}Spring{% endblocktrans %} - <a href="https://cloud.blender.org/films/spring/5b43223037203e365f7687f7?asset=539">{% blocktrans %}FX without music{% endblocktrans %}</a>
+              </li>
+              <li>
+                {% blocktrans %}Cosmos Laundromat{% endblocktrans %} - <a href="https://cloud.blender.org/films/cosmos-laundromat/55f35f8e2beb3300960bb5d3?asset=1497">{% blocktrans %}All tracks and full sound mix{% endblocktrans %}</a>
+              </li>
+              <li>
+                {% blocktrans %}Caminandes 3{% endblocktrans %} - <a href="https://cloud.blender.org/films/caminandes-3/56718105c379cf0007b31710?asset=2489">{% blocktrans %}FX without music{% endblocktrans %}</a>
+              </li>
+              <li>
+                {% blocktrans %}Glass Half{% endblocktrans %} - <a href="https://cloud.blender.org/films/glass-half/5627bb22f0e7220061109c9a?asset=195">{% blocktrans %}All tracks{% endblocktrans %}</a>
+              </li>
+              <li>
+                {% blocktrans %}Sintel{% endblocktrans %} - <a href="https://cloud.blender.org/films/sintel/55f338f92beb3300c4ff99f9?asset=1172">{% blocktrans %}Only soundtrack (without voices){% endblocktrans %}</a>
+              </li>
+              <li>
+                {% blocktrans %}Sprite Fright{% endblocktrans %} - <a href="https://studio.blender.org/films/sprite-fright/3a1d600a950842/?asset=5879">{% blocktrans %}All tracks{% endblocktrans %}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+{% endblock %}

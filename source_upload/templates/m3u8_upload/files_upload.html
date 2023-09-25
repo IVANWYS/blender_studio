@@ -1,0 +1,143 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="content-holder navdrawer-offset">
+  <div class="container-fluid pt-4">
+    {% if user.is_superuser or user.is_staff %}
+    <section class="flat-page-content mb-4">
+      <div class="row justify-content-center mb-3">
+        <div class="col-md-6 text-center">
+          <h1 class="mb-0">{% blocktrans %}Source Upload{% endblocktrans %}</h1>
+        </div>
+      </div>
+    </section>
+    <!---->
+    <div class="container-xxl" >
+        <form
+          action="{% url 'send_files' %}"
+          method="POST"
+          enctype="multipart/form-data"
+          onsubmit="uploading_form()"
+        >
+  
+        <table class="table table-borderless">
+          <tr>
+            <td>
+              <p class="text-capitalize h3">Title :</p>
+              <input type="text" class="form-control" name="filename">
+            </td>
+            <td>
+              <p class="text-capitalize h3">EN Track :</p>
+              <input class="form-control" type="file" name="uploadTrack_EN">
+            </td>
+            <td>
+              <p class="text-capitalize h3">M3U8 Playlist :</p>
+              <input class="form-control" type="file" id="back" name="upload_M3U8_Playlist">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p class="text-capitalize h3">Video :</p>
+              <input class="form-control" type="file" id="file" name="upload_Video" required>
+            </td>
+            <td>
+              <p class="text-capitalize h3">CN Track :</p>
+              <input class="form-control" type="file" name="uploadTrack_CN">
+            </td>
+            <td>
+              <p class="text-capitalize h3">M3U8 Video Folder :</p>
+              <input class="form-control" type="file" name="upload_M3U8_Video" multiple webkitdirectory>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p class="text-capitalize h3">Thumbnail :</p>
+              <input class="form-control" type="file" name="uploadThumbnail" required>
+            </td>
+            <td>
+              <p class="text-capitalize h3">HK Track :</p>
+              <input class="form-control" type="file" name="uploadTrack_HK">
+            </td>
+            <td>
+              <p class="text-capitalize h3">M3U8 Audio Folder :</p>
+              <input class="form-control" type="file" name="upload_M3U8_Audio" multiple webkitdirectory>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p class="text-capitalize h3">Duration :</p>
+              <input type="text" class="form-control" name="duration" placeholder=" e.g. 0 5 12 --> 00:05:12 ">
+            </td>
+            {% csrf_token %}
+            <td colspan="2"><br>
+              <div class="d-grid gap-2">
+                <button class="btn btn-lg btn-success" type="submit">
+                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" style="display: none;"></span>
+                    <span class="btn-text">Submit</span>  
+                </button>
+              </div>
+            </td>
+          </tr>
+        </table>
+        </form>
+    </div>
+    <!---->
+    
+    {% if messages %}
+    {% for message in messages %}
+    <div class="container" id="msg">
+      <div
+        class="alert alert-{{message.tags}} alert-dismissable text-center"
+        role="alert"
+      >
+        <strong>
+          {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} Error : {% else %}
+          {{message.tags | title}} {% endif %}
+        </strong>
+        {{message}}
+      </div>
+      <script>
+        var message_ele = document.getElementById("msg");
+      
+        setTimeout(function(){ 
+           message_ele.style.display = "none"; 
+        }, 3000);
+      </script>
+    </div>
+    {% endfor %} {% endif %}
+    <br><br>
+    
+    <!---->
+    <script>
+      function uploading_form() {
+        $(".btn .spinner-grow").show();
+        $(".btn .btn-text").html("Loading...");
+        $(".btn").addClass('disabled');
+      }
+
+      let file = document.getElementById("file");
+      let back = document.getElementById("back");
+
+      file.addEventListener('change', function() {
+        let files = this.files;
+        let dt = new DataTransfer();
+        for(let i=0; i<files.length; i++) {
+          let f = files[i];
+          dt.items.add(
+            new File(
+              [f.slice(0, f.size, f.type)],
+              f.name
+          ));
+        }
+        back.files = dt.files;
+      });
+    </script>
+    <!---->
+    {% else %}
+    <meta http-equiv="REFRESH" content="0; url=/">
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

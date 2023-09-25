@@ -9,7 +9,7 @@ repos:
     -   id: trailing-whitespace
     -   id: end-of-file-fixer
   - repo: https://github.com/ambv/black
-    rev: 19.10b0
+    rev: 22.6.0
     hooks:
       - id: black
 

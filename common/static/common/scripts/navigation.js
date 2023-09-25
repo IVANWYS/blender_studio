@@ -23,17 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
     .forEach((link) => {
       link.classList.add('active');
     });
-
-  // adds active class to main-nav item if it matches the start of the current url
-  document.querySelectorAll('.navbar-main-nav a.btn-nav').forEach((link) => {
-    if (url.startsWith('/training/pipeline-and-tools/') && link.pathname === '/training/') {
-      // Skip the 'Training' nav entry, since its child 'Pipeline and Tools' is also in the menu
-      // and will be highlighted
-    }
-    else if (url.startsWith(link.pathname)) {
-      link.classList.add('active');
-    }
-  });
 });
 
 // Allow side-scroll drag on desktop

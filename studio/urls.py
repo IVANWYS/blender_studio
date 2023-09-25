@@ -18,12 +18,19 @@ import training.urls
 import static_assets.urls
 import users.urls
 import characters.urls
+import source_upload.urls
+import payments.urls
 
 from common.views.api.markdown_preview import markdown_preview as markdown_preview_view
 from common.views.home import home as home_view, welcome as welcome_view
+from common.views.home import terms_and_conditions as terms_and_conditions_view, privacy as privacy_view, contact as contact_view, remixing as remixing_view
 import common.views.errors as error_views
 import static_assets.viewsets
 import training.viewsets
+
+# Translation
+from django.conf.urls.i18n import i18n_patterns
+from django.views.i18n import JavaScriptCatalog
 
 admin.site.site_header = settings.ADMIN_SITE_HEADER
 admin.site.site_title = settings.ADMIN_SITE_TITLE
@@ -39,21 +46,29 @@ router.get_api_root_view().cls.__doc__ = "Blender Studio API"
 
 
 urlpatterns = [
+    
+    path("i18n/", include("django.conf.urls.i18n")),
     path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('admin/', include('loginas.urls')),
     path('admin/', admin.site.urls),
     path('oauth/', include(blender_id_oauth_client.urls)),
+    #path('payments/', include((payments.urls, 'payments'), namespace='payments')),
+    path('payments/', include(payments.urls)),
+]
+
+urlpatterns += i18n_patterns(
     path('', home_view, name='home'),
     path('welcome/', welcome_view, name='welcome'),
     path('comments/', include(comments.urls)),
     path('films/', include(films.urls)),
     path('training/', include(training.urls)),
     path('blog/', include(blog.urls)),
+    path('search/', include(search.urls)),
     path('api/markdown-preview', markdown_preview_view, name='api-markdown-preview'),
     path('api/', include((router.urls, 'api'), namespace='api')),
     path('', include(characters.urls)),
-    path('search/', include(search.urls)),
     path('looper/', include((looper.urls), namespace='looper')),
+    path('source_upload/', include(source_upload.urls)),
     path('', include((subscriptions.urls), namespace='subscriptions')),
     path('', include(users.urls)),
     path('', include(static_assets.urls)),
@@ -61,7 +76,13 @@ urlpatterns = [
     path('activity/', include('actstream.urls')),
     re_path(r'^webhooks/', include('anymail.urls')),
     path('_nested_admin/', include('nested_admin.urls')),
-]
+    
+    path('terms-and-conditions/', terms_and_conditions_view, name='terms_and_conditions'),
+    path('privacy/', privacy_view, name='privacy'),
+    path('contact/', contact_view, name='contact'),
+    path('remixing/', remixing_view, name='remixing'),
+    path("jsi18n/", JavaScriptCatalog.as_view(), name="javascript-catalog"),
+)
 
 handler400 = error_views.ErrorView.as_view(template_name='common/errors/400.html', status=400)
 handler403 = error_views.ErrorView.as_view(template_name='common/errors/403.html', status=403)

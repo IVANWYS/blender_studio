@@ -1,0 +1,6 @@
+[Unit]
+Description=restart {{ project_name }} background worker
+
+[Service]
+Type=oneshot
+ExecStart=/bin/systemctl restart {{ background_service_name }}.service

@@ -1,11 +1,12 @@
 {% extends 'common/base.html' %}
+{% load i18n %}
 
-{% block title_prepend %}Blog - {% endblock title_prepend %}
+{% block title_prepend %}{% blocktrans %}Blog{% endblocktrans %} - {% endblock title_prepend %}
 
 {% block bodyclasses %}spacer{% endblock bodyclasses %}
 
 {% block meta %}
-  {% with title="Blog" description="Follow the latest updates from the Blender Studio." %}
+  {% with title=_("Blog") description=_("Follow the latest updates from the Blender Studio.") %}
     {% include 'common/components/meta.html' %}
   {% endwith %}
 {% endblock %}
@@ -13,7 +14,7 @@
 {% block content %}
 
   <div class="container-xxl pt-4">
-    {% include "common/components/simple_header.html" with title="Blog" subtitle="Follow the latest updates from the Blender Studio." %}
+    {% include "common/components/simple_header.html" with title=_("Blog") subtitle=_("Follow the latest updates from the Blender Studio.") %}
 
     <div class="row justify-content-center mb-3">
       <div class="col-auto text-center">
@@ -21,13 +22,14 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 gy-4">
       {% for post in posts %}
         {% if post.is_published or user.is_superuser or user.is_staff %}
-          {% include 'blog/card_blog.html' %}
+        <div class="col">
+          {% include 'common/components/cards/card_blog.html' %}
+        </div>
         {% endif %}
       {% endfor %}
-
     </div>
 
     <div class="row justify-content-center mb-4">

@@ -1,0 +1,11 @@
+<div class="profile-card">
+  {% include 'users/components/avatar.html' with user=user %}
+
+  <div class="profile-details">
+    <span class="profile-name">{{ user.full_name }}</span>
+
+    {% if title %}
+    <small class="profile-title">{{ title }}</small>
+    {% endif %}
+  </div>
+</div>

@@ -2,3 +2,4 @@
 from static_assets.models.licenses import *  # noqa: F401,F403
 from static_assets.models.static_assets import *  # noqa: F401,F403
 from static_assets.models.progress import *  # noqa: F401,F403
+from static_assets.models.m3u8_assets import *  # add m3u8 model

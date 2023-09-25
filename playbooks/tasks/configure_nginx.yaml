@@ -1,0 +1,27 @@
+---
+- import_tasks: common/tasks/nginx/remove_default_site.yaml
+- import_tasks: common/tasks/nginx/disable_server_tokens.yaml
+
+- name: Copying nginx config snippets
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: "{{ dir.config }}/{{ item|basename }}"
+    mode: 0644
+    backup: true
+  with_fileglob:
+    - ../templates/nginx/snippets/*
+
+- name: Copying nginx configs
+  ansible.builtin.template:
+    src: templates/nginx/http.conf
+    dest: "{{ nginx_conf_dir }}/sites-available/{{ service_name }}.conf"
+    mode: 0644
+    backup: true
+  register: nginx_config
+
+- import_tasks: common/tasks/nginx/enable_site.yaml
+  vars:
+    config_file: "{{ service_name }}.conf"
+  notify:
+    - test nginx
+    - reload nginx

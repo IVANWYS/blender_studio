@@ -1,19 +1,23 @@
 {% load pipeline %}
 {% load static %}
+{% load i18n %}
 <div class="comment-input row {{ div_class }}" onkeydown="event.stopPropagation()">
   <div class="col-auto pe-0 d-flex">
-    {% if request.user.is_authenticated and request.user.image_url %}
-      <div style="background-image:url('{{ request.user.image_url }}');" class="profile"></div>
-    {% else %}
-      <div style="background-image:url('{% static 'common/images/blank-profile-pic.png' %}');" class="profile"></div>
-    {% endif %}
+    {% include 'users/components/avatar.html' with user=request.user %}
   </div>
   <div class="col">
-    <div class="comment-input-div form-control" contenteditable="true"></div>
+    <div class="def-content comment-input-div form-control" contenteditable="true" data-placeholder={% blocktrans %}"Leave a comment"{% endblocktrans %} ></div>
+    <style>
+      .def-content:empty:before {
+        content:attr(data-placeholder);
+        color:gray
+      }
+    </style> 
   </div>
   <div class="comment-send col-auto ps-0">
     <button class="btn-input btn-sm btn btn-sm btn-icon">
-      <i class="material-icons">send</i>
+      <i class="i-send"></i>
+      <span>{% blocktrans %}Comment{% endblocktrans %}</span>
     </button>
   </div>
 </div>

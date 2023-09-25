@@ -10,11 +10,13 @@ from django.db import models
 from django.template.defaultfilters import filesizeformat
 from django.urls.base import reverse
 from django.utils.text import slugify
+from django.utils.translation import gettext_lazy as _
 
 import looper.model_mixins
 
 from common import mixins
 from common.upload_paths import get_upload_to_hashed_path
+from common.upload_paths import shortuid
 from static_assets.models import License
 from static_assets.tasks import create_video_processing_job, create_video_transcribing_job
 import common.storage
@@ -29,9 +31,9 @@ def _get_default_license_id() -> Optional[int]:
 
 
 class StaticAssetFileTypeChoices(models.TextChoices):
-    file = 'file', 'File'
-    image = 'image', 'Image'
-    video = 'video', 'Video'
+    file = 'file', _('File')
+    image = 'image', _('Image')
+    video = 'video', _('Video')
 
 
 class StaticAsset(
@@ -56,7 +58,7 @@ class StaticAsset(
         default=StaticAssetFileTypeChoices.file,
     )
     # TODO(Natalia): source type validation
-    original_filename = models.CharField(max_length=128, editable=False)
+    original_filename = models.CharField(max_length=255, editable=False)
     size_bytes = models.BigIntegerField(editable=False)
 
     user = models.ForeignKey(
@@ -94,7 +96,7 @@ class StaticAsset(
     )
 
     # Reference to legacy Blender Cloud file
-    slug = models.SlugField(blank=True)
+    slug = models.SlugField(default=shortuid, blank=True)
 
     content_type = models.CharField(max_length=256, blank=True)
 
@@ -237,6 +239,7 @@ class Video(models.Model):
     duration.description = 'Video duration in the format [DD] [[HH:]MM:]ss[.uuuuuu]'
     play_count = models.PositiveIntegerField(default=0, editable=False)
     loop = models.BooleanField(default=False)
+    slug = models.SlugField(default=shortuid, blank=True)
 
     @property
     def duration_label(self):
@@ -345,19 +348,18 @@ class VideoVariation(models.Model):
 
 class VideoTrackLanguageCodeChoices(models.TextChoices):
     en_US = 'en-US', 'English'
-    nl_NL = 'nl-NL', 'Nederlands'
-    de_DE = 'de-DE', 'Deutsch'
-    fr_FR = 'fr-FR', 'Français'
-    ru_RU = 'ru-RU', 'Русский'
+    zh_hans = 'zh-hans', '简体中文'
+    zh_hant = 'zh-hant', '繁體中文'
 
 
 class VideoTrack(models.Model):
     video = models.ForeignKey(Video, on_delete=models.CASCADE, related_name='tracks')
     language = models.CharField(
-        blank=False, null=False, max_length=5, choices=VideoTrackLanguageCodeChoices.choices
+        blank=False, null=False, max_length=10, choices=VideoTrackLanguageCodeChoices.choices
     )
     source = models.FileField(upload_to=get_upload_to_hashed_path, blank=True, max_length=256)
-
+    slug = models.SlugField(default=shortuid, blank=True)
+    
     @property
     def url(self) -> str:
         return reverse('video-track', kwargs={'pk': self.pk, 'path': self.source.name})

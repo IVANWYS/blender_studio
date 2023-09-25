@@ -61,14 +61,14 @@ class TestAssetComments(TestCase):
         # No notifications for the user who replied to the comment
         self.assertEqual(list(Action.objects.notifications(self.user)), [], self.user)
         # A notification for the author of the comment they replied to
+        comment = Comment.objects.get(pk=response.json()['id'])
         self.assertEqual(
             [str(_) for _ in Action.objects.notifications(self.asset_comment.user)],
-            [f'{self.user} replied to {self.asset_comment} on {self.asset} 0 minutes ago'],
+            [f'{self.user} replied to {comment} on {self.asset_comment} 0 minutes ago'],
             self.asset_comment.user,
         )
         # A notification for the author of the film asset
         asset_author = self.asset.static_asset.author or self.asset.static_asset.user
-        comment = Comment.objects.get(pk=response.json()['id'])
         self.assertEqual(
             [str(_) for _ in Action.objects.notifications(asset_author)],
             [f'{self.user} commented {comment} on {self.asset} 0 minutes ago'],

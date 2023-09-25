@@ -2,6 +2,7 @@
 {% load static %}
 {% load pipeline %}
 {% load common_extras %}
+{% load i18n %}
 
 {% block title_prepend %}{{ training.name }} - {% endblock title_prepend %}
 
@@ -10,21 +11,24 @@
   {% javascript 'training' %}
 {% endblock scripts %}
 
-
+{% block training_header_image %}
+{% if training.picture_header_url %}
+<div class="container-xxl nested-navigation">
+  <div class="row mt-3">
+    <div class="col">
+      <img src="{{ training.picture_header_url }}" class="img-fluid img-width-100 rounded" alt="{{ training.name }}">
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endblock training_header_image %}
 
 {% block nexted_content %}
   <section>
-    {% if training.picture_header_url %}
-    <img src="{{ training.picture_header_url }}" class="img-fluid img-width-100 rounded mb-3" alt="{{ training.name }}">
-    {% endif %}
     <div class="row">
       <div class="col">
-
         <div class="row align-items-start mb-2">
           <div class="col-12 col-md">
-            <p class="subtitle">
-              {{ training.type.label }}
-            </p>
             <h1 class="mb-0">{{ training.name }}</h1>
           </div>
           <div class="col-12 col-md-auto align-self-end">
@@ -43,16 +47,17 @@
                 {% if request.user.is_authenticated %}
                   <a class="btn btn-sm save-button {% if not training.favorited %}btn-dark{% else %}btn-primary{% endif %}"
                     data-favorite-url="{{ training.favorite_url }}" {% if training.favorited %}data-checked="checked"
-                    {% endif %} data-bs-toggle="tooltip" {% if training.favorited %}title="Save for later"
-                    {% else %}title=" Remove from saved for later" {% endif %}>
-                    <i class="material-icons">{% if not training.favorited %}add{% else %}check{% endif %}</i>
-                    <span>{% if not training.favorited %}Save{% else %}Saved{% endif %}</span>
+                    {% endif %} data-bs-toggle="tooltip" {% if training.favorited %}title={% blocktrans %}"Save for later"{% endblocktrans %}
+                    {% else %}title={% blocktrans %}" Remove from saved for later"{% endblocktrans %} {% endif %}>
+                    <i class="i-{% if not training.favorited %}plus{% else %}check{% endif %}"></i>
+                    <span>{% if not training.favorited %}{% blocktrans %}Save{% endblocktrans %}{% else %}{% blocktrans %}Saved{% endblocktrans %}{% endif %}</span>
                   </a>
                 {% endif %}
 
                 {% if user.is_staff %}
                   <a href="{{ training.admin_url }}" class="btn btn-sm btn-icon btn-dark">
-                    <i class="material-icons btn-material-icons">create</i>
+                    <i class="i-edit btn-material-icons"></i>
+                    <span>{% blocktrans %}Edit{% endblocktrans %}</span>
                   </a>
                 {% endif %}
 
@@ -60,10 +65,10 @@
                   <i class="material-icons btn-material-icons">more_horiz</i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
-                  <a href="https://developer.blender.org/maniphest/task/edit/form/15/" target="_blank"
+                  <a href="https://projects.blender.org/studio/blender-studio/issues/new" target="_blank"
                     class="dropdown-item">
-                    <i class="material-icons">flag</i>
-                    <span>Report Problem</span>
+                    <i class="i-flag"></i>
+                    <span>{% blocktrans %}Report Problem{% endblocktrans %}</span>
                   </a>
                 </div>
 
@@ -87,7 +92,7 @@
                 <div class="col-md-6">
                   <div class="row mb-2">
                     <div class="col-auto pe-0">
-                      <img src="{% static 'common/images/blank-profile-pic.jpg' %}" class="profile">
+                      <img src="{% static 'common/images/blank-profile-pic.jpg' %}" class="profile-avatar">
                     </div>
                     <div class="col-auto">
                       <h4 class="comment-name mb-0">Mike Newbon</h4>
@@ -116,7 +121,7 @@
                       </tr>
                       <tr>
                         <td class="fw-bold">Last updated</td>
-                        <td class="text-end">{{ training.date_updated|date:"jS F Y" }}</td>
+                        <td class="text-end">{{ training.date_updated|date:"N jS, Y" }}</td>
                       </tr>
                       <tr>
                         <td class="fw-bold">Estimated duration</td>

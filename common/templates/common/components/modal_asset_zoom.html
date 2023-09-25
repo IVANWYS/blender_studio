@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="modal-dialog" role="document">
   <div class="modal-content bg-dark">
     <div class="modal-header p-0">
@@ -7,7 +8,7 @@
           {% if not user.is_authenticated %}disabled{% endif%} {% if asset.liked %}data-checked="checked" {% endif %}>
           <i class="material-icons checkbox-like-icon-checked text-primary">favorite</i>
           <i class="material-icons checkbox-like-icon-unchecked">favorite_border</i>
-          {% if asset.likes.count != 0 %}<span class="likes-count">{{ asset.likes.count }}</span>{% endif %}
+          {% if asset.likes.count != 0 %}<span class="js-likes-count">{{ asset.likes.count }}</span>{% endif %}
         </button>
         <a href="{{ asset.static_asset.download_url }}" download onclick="setTimeout(resetProgress, 100)"
           class="btn btn-sm btn-dark">Download{% if asset.static_asset.download_size != "" %} <span
@@ -16,9 +17,9 @@
           <i class="material-icons">more_horiz</i>
         </button>
         <div class="dropdown-menu dropdown-menu-end">
-          <a href="https://developer.blender.org/maniphest/task/edit/form/15/" target="_blank" class="dropdown-item">
-            <i class="material-icons">flag</i>
-            <span>Report Problem</span>
+          <a href="https://projects.blender.org/studio/blender-studio/issues/new" target="_blank" class="dropdown-item">
+            <i class="i-flag"></i>
+            <span>{% blocktrans %}Report Problem{% endblocktrans %}</span>
           </a>
         </div>
         <button data-bs-dismiss="modal" class="btn btn-sm btn-icon btn-dark">

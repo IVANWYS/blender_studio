@@ -33,6 +33,7 @@ class _StaticAssetVisitMixin(models.Model):
     static_asset = models.ForeignKey(
         'static_assets.StaticAsset', null=False, on_delete=models.CASCADE
     )
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     @classmethod
     def create_from_request(cls, request: HttpRequest, static_asset_id: int):
@@ -58,7 +59,7 @@ class _StaticAssetVisitMixin(models.Model):
             .values('static_asset_id')
             .annotate(count=models.Count('static_asset_id'))
         )
-        if not static_asset_id_count:  # nothing to to
+        if not static_asset_id_count:  # nothing to do
             return
 
         all_static_asset_ids = {_['static_asset_id'] for _ in static_asset_id_count}

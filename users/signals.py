@@ -102,11 +102,11 @@ def create_notification(sender: object, instance: Action, created: bool, **kwarg
     verb = instance.verb
     target = instance.target
 
-    # Notify about replies and comments likes
+    # Notify about comment likes
     if (
         action_object
         and getattr(action_object, 'user', None)
-        and verb in [Action.objects.verb_replied, Action.objects.verb_liked]
+        and verb in [Action.objects.verb_liked]
     ):
         users.add(action_object.user)
 
@@ -118,8 +118,8 @@ def create_notification(sender: object, instance: Action, created: bool, **kwarg
                 # Separate clause otherwise likes on related comments also end up in notifications
                 users.add(target_author)
 
-            # Notify about comments and likes on
-            if verb in [Action.objects.verb_commented]:
+            # Notify about comments and replies
+            if verb in [Action.objects.verb_commented, Action.objects.verb_replied]:
                 users.add(target_author)
 
     if not users:
@@ -129,6 +129,30 @@ def create_notification(sender: object, instance: Action, created: bool, **kwarg
     for user in users:
         # Don't notify yourself about your own actions: they can be viewed in activity
         if user == instance.actor:
+            continue
+        # Don't notify about the action from the same user on the same action object twice
+        # (e.g. reply to your own comment under your own post)
+        if (
+            instance.action_object_object_id
+            and instance.action_object_content_type_id
+            and Notification.objects.filter(
+                user=user,
+                action__verb=instance.verb,
+                action__actor_object_id=instance.actor_object_id,
+                action__action_object_object_id=instance.action_object_object_id,
+                action__action_object_content_type_id=instance.action_object_content_type_id,
+            ).exists()
+        ) or (
+            instance.target_object_id
+            and instance.target_content_type_id
+            and Notification.objects.filter(
+                user=user,
+                action__verb=instance.verb,
+                action__actor_object_id=instance.actor_object_id,
+                action__target_object_id=instance.target_object_id,
+                action__target_content_type_id=instance.target_content_type_id,
+            ).exists()
+        ):
             continue
         notification = Notification(user=user, action=instance)
         notification.save()

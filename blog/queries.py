@@ -21,7 +21,7 @@ def set_post_like(*, post_pk: int, user_pk: int, like: bool) -> int:
 
 def get_posts(user_pk: Optional[int] = None) -> 'QuerySet[models.Post]':
     """Return a blog.Posts queryset, annotated with likes flags for given user ID."""
-    posts_q = models.Post.objects.prefetch_related('author', 'film', 'likes')
+    posts_q = models.Post.objects.prefetch_related('author', 'film', 'likes', 'comments')
     annotations = {'number_of_likes': Count('likes__id')}
     if user_pk:
         annotations.update(

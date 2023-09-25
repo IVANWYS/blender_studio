@@ -63,7 +63,13 @@ def download_file_from_storage(
     def download_to_file(
         file_doc, file_path, file_dir_path: pathlib.Path
     ) -> Optional[pathlib.Path]:
-        destination_filepath = file_dir_path / pathlib.Path(file_path).name
+        file_name = file_doc['filename']
+        import re
+
+        file_name = re.sub(r'\.\w+$', '', file_name)
+        destination_filepath = file_dir_path / pathlib.Path(
+            file_name + '-' + pathlib.Path(file_path).name
+        )
 
         if file_doc["backend"] == "gcs":
             if download_blob_to_file(file_doc["project"], file_path, destination_filepath):

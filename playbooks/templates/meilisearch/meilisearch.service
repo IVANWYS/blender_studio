@@ -1,0 +1,27 @@
+[Unit]
+Description=MeiliSearch
+After=systemd-user-sessions.service
+StartLimitIntervalSec=500
+StartLimitBurst=5
+
+[Service]
+User={{ meilisearch_user }}
+Group={{ meilisearch_group }}
+Type=simple
+Environment=MEILI_DB_PATH={{ meilisearch_database }}
+Environment=MEILI_MASTER_KEY={{ meili_master_key }}
+Environment=SENTRY_ENVIRONMENT={{ env }}
+{% if sentry_dsn is defined %}Environment=SENTRY_DSN={{ sentry_dsn }}
+{% endif %}
+ExecStart={{ meilisearch_bin_path }} --no-analytics true --http-addr {{ meilisearch_host }} --env {{ env }}
+SyslogIdentifier=meilisearch
+Restart=on-failure
+RestartSec=5s
+
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=full
+CapabilityBoundingSet=~CAP_SYS_ADMIN
+
+[Install]
+WantedBy=default.target

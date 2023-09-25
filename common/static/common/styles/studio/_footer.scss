@@ -6,17 +6,20 @@ footer.container-nav {
   }
 
   @include media-breakpoint-down(lg) {
-    margin: $spacer;
+    margin: var(--spacer);
     width: calc(100% - #{$spacer * 2});
   }
 
-  border: 1px solid $input-gray;
-  border-radius: $border-radius-lg;
-  background: $navigation-gray;
-  padding: $spacer;
-  margin-bottom: $spacer;
+  background-color: var(--component-bg-dark);
+  color: var(--body-color-secondary);
+  font-size: var(--font-size-sm);
+  padding: var(--spacer);
   margin-top: auto;
   z-index: 1;
+
+  a {
+    color: var(--body-color-secondary);
+  }
 
   ul {
     @include list-unstyled;

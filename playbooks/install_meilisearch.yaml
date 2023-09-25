@@ -1,0 +1,63 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Downloading {{ meilisearch_download_url }}
+      ansible.builtin.get_url:
+        url: "{{ meilisearch_download_url }}"
+        dest: ./{{ meilisearch_bin }}
+        mode: u+rwx
+      tags:
+        - meilisearch
+
+- hosts: http
+  gather_facts: false
+  become: true
+  tasks:
+    - name: Creating user "{{ meilisearch_user }}:{{ meilisearch_group }}"
+      ansible.builtin.user:
+        name: "{{ meilisearch_user }}"
+        group: "{{ meilisearch_group }}"
+        create_home: true
+        home: "{{ meilisearch_home }}"
+      tags:
+        - meilisearch
+
+    - name: Copying {{ meilisearch_bin }} to {{ meilisearch_bin_path }}
+      ansible.builtin.copy:
+        src: meilisearch-{{ meilisearch_version }}
+        dest: "{{ meilisearch_bin_path }}"
+        owner: "{{ meilisearch_user }}"
+        group: "{{ meilisearch_group }}"
+        mode: u+rwx
+      tags:
+        - meilisearch
+
+    - name: Creating {{ meilisearch_database }}
+      ansible.builtin.file:
+        path: "{{ meilisearch_database }}"
+        state: directory
+        owner: "{{ meilisearch_user }}"
+        group: "{{ meilisearch_group }}"
+        recurse: true
+      tags:
+        - meilisearch
+
+    - name: Copying systemd service
+      ansible.builtin.template:
+        src: templates/meilisearch/meilisearch.service
+        dest: /etc/systemd/system/meilisearch.service
+        mode: 0644
+        backup: true
+      tags:
+        - meilisearch
+
+    - name: Enabling systemd service
+      ansible.builtin.systemd:
+        name: meilisearch.service
+        state: restarted
+        enabled: true
+        daemon_reload: true
+      tags:
+        - meilisearch

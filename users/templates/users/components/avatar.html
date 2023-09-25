@@ -1,0 +1,10 @@
+{% load static %}
+
+{% if user %}
+  {% static 'common/images/blank-profile-pic.png' as default_avatar_url %}
+  {% firstof user.image_url default_avatar_url as avatar_url %}
+
+  <div class="profile-avatar avatar-{% firstof size size 'md' %}">
+    <img src="{{ avatar_url }}" alt="{{ user.full_name }}" title="{{ user.full_name }}">
+  </div>
+{% endif %}

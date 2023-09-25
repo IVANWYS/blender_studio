@@ -1,0 +1,13 @@
+{% load i18n %}
+<div class="input-group {% if sm %}input-group-sm{% endif %}" id="search-container">
+  <span class="input-group-text">
+    <i class="material-icons">search</i>
+  </span>
+  <input type="text" id="searchInput" class="form-control"
+    placeholder={% blocktrans %}"Search tags and keywords"{% endblocktrans %}
+    autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"
+  />
+
+  <button id="clearSearchBtn" class="btn btn-icon btn-input {% if sm %}btn-sm{% endif %}"><i class="material-icons">close</i></button>
+  <button id="searchBtn" type="button" class="btn btn-secondary {% if sm %}btn-sm{% endif %}"><i class="material-icons">search</i></button>
+</div>

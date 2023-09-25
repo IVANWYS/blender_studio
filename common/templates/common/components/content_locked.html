@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 {% load common_extras %}
 
 <div class="content-locked">
@@ -8,18 +9,14 @@
 
   <div class="content-locked-text">
     {% if not request.user.is_authenticated %}
-      <h3>You need to login to view this content</h3>
-      <p class="mb-3">You can join Blender Studio for €9.90/month and get access to all of our training & film content
-        instantly!</p>
-      <a href="{% url 'oauth:login' %}" class="btn btn-transparent btn-nav login-button">Login</a>
-      <a href="{% url 'subscriptions:join' %}" class="btn btn-primary">Join Blender
-        Studio</a>
+      <h3>{% blocktrans %}You need to login to view this content{% endblocktrans %}</h3>
+      <p class="mb-3">{% blocktrans %}You can join Blender Studio for €11.50/month and get access to all of our training & film content instantly!{% endblocktrans %}</p>
+      <a href="{% url 'oauth:login' %}" class="btn btn-transparent btn-nav login-button">{% blocktrans %}Login{% endblocktrans %}</a>
+      <a href="{% url 'stripe' %}" class="btn btn-primary">{% blocktrans %}Join Blender Studio{% endblocktrans %}</a>
     {% else %}
-      <h3>You need to subscribe to view this content</h3>
-      <p class="mb-3">You can join Blender Studio for €9.90/month and get access to all of our training & film content
-        instantly!</p>
-      <a href="{% url 'subscriptions:join' %}" class="btn btn-primary">Join Blender
-        Studio</a>
+      <h3>{% blocktrans %}You need to subscribe to view this content{% endblocktrans %}</h3>
+      <p class="mb-3">{% blocktrans %}You can join Blender Studio for €11.50/month and get access to all of our training & film content instantly!{% endblocktrans %}</p>
+      <a href="{% url 'stripe' %}" class="btn btn-primary">{% blocktrans %}Join Blender Studio{% endblocktrans %}</a>
     {% endif %}
   </div>
 

@@ -3,13 +3,14 @@ from datetime import datetime, timezone
 from actstream.models import Action
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
+from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 from django.urls import reverse
 
 from blog.models import Post
 from comments.models import Comment
 from common.tests.factories.blog import PostFactory
-from common.tests.factories.comments import CommentUnderPostFactory
+from common.tests.factories.comments import CommentFactoryWithSignals, CommentUnderPostFactory
 from common.tests.factories.films import FilmFactory
 from common.tests.factories.helpers import create_test_image
 from common.tests.factories.users import UserFactory
@@ -131,17 +132,208 @@ class TestPostComments(TestCase):
         # No notifications for the user who replied to the comment
         self.assertEqual(list(Action.objects.notifications(self.user)), [], self.user)
         # A notification for the author of the comment they replied to
+        comment = Comment.objects.get(pk=response.json()['id'])
         self.assertEqual(
             [str(_) for _ in Action.objects.notifications(self.post_comment.user)],
-            [f'{self.user} replied to {self.post_comment} on {self.post} 0 minutes ago'],
+            [f'{self.user} replied to {comment} on {self.post_comment} 0 minutes ago'],
             self.post_comment.user,
         )
         # A notification for the author of the blog post
-        comment = Comment.objects.get(pk=response.json()['id'])
         self.assertEqual(
             [str(_) for _ in Action.objects.notifications(self.post.author)],
             [f'{self.user} commented {comment} on {self.post} 0 minutes ago'],
         )
+
+    def test_reply_to_comment_deleted_deletes_notification(self):
+        # No activity yet
+        self.assertEqual(Action.objects.count(), 0)
+
+        self.client.force_login(self.user)
+        data = {'message': 'Comment message', 'reply_to': self.post_comment.pk}
+        response = self.client.post(self.post_url, data, content_type='application/json')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Action.objects.count(), 2)
+
+        # No notifications for the user who replied to the comment
+        self.assertEqual(list(Action.objects.notifications(self.user)), [], self.user)
+        # A notification for the author of the comment they replied to
+        comment = Comment.objects.get(pk=response.json()['id'])
+        self.assertEqual(
+            [str(_) for _ in Action.objects.notifications(self.post_comment.user)],
+            [f'{self.user} replied to {comment} on {self.post_comment} 0 minutes ago'],
+            self.post_comment.user,
+        )
+        # A notification for the author of the blog post
+        self.assertEqual(
+            [str(_) for _ in Action.objects.notifications(self.post.author)],
+            [f'{self.user} commented {comment} on {self.post} 0 minutes ago'],
+        )
+
+        # A notifications should be deleted along with the reply
+        comment.delete()
+        self.assertEqual(Action.objects.count(), 0)
+
+    def test_comment_deleted_deletes_notifications(self):
+        # No activity yet
+        self.assertEqual(Action.objects.count(), 0)
+        # Create an unrelated notification that must remain after comment is deleted
+        [
+            CommentFactoryWithSignals(
+                reply_to=CommentUnderPostFactory(comment_post__post=PostFactory())
+            )
+            for _ in range(2)
+        ]
+        self.assertEqual(Action.objects.count(), 2)
+
+        self.client.force_login(self.user)
+        data = {'message': 'Comment message', 'reply_to': self.post_comment.pk}
+        response = self.client.post(self.post_url, data, content_type='application/json')
+
+        self.assertEqual(response.status_code, 200)
+        comment = Comment.objects.get(pk=response.json()['id'])
+        # Two more notifications were created
+        self.assertEqual(Action.objects.count(), 4)
+        # Post author was notified about a comment
+        self.assertEqual(
+            Action.objects.filter(
+                verb='commented',
+                action_object_object_id=comment.pk,
+                action_object_content_type_id=ContentType.objects.get_for_model(Comment).pk,
+            ).count(),
+            1,
+        )
+        # Comment author was notified about a reply to comment
+        self.assertEqual(
+            Action.objects.filter(
+                verb='replied to',
+                target_object_id=self.post_comment.pk,
+                target_content_type_id=ContentType.objects.get_for_model(Comment).pk,
+            ).count(),
+            1,
+        )
+
+        # No notifications for the user who replied to the comment
+        self.assertEqual(list(Action.objects.notifications(self.user)), [], self.user)
+        # A notification for the author of the comment they replied to
+        self.assertEqual(
+            [str(_) for _ in Action.objects.notifications(self.post_comment.user)],
+            [f'{self.user} replied to {comment} on {self.post_comment} 0 minutes ago'],
+            self.post_comment.user,
+        )
+        # A notification for the author of the blog post
+        self.assertEqual(
+            [str(_) for _ in Action.objects.notifications(self.post.author)],
+            [f'{self.user} commented {comment} on {self.post} 0 minutes ago'],
+        )
+
+        # Notifications should be deleted along with the post comment
+        self.post_comment.delete()
+        self.assertEqual(
+            Action.objects.filter(action_object_object_id=self.post_comment.pk).count(), 0
+        )
+        self.assertEqual(list(Action.objects.notifications(self.post_comment.user)), [])
+        self.assertEqual(list(Action.objects.notifications(self.post.author)), [])
+        # Other notifications remained as is
+        self.assertEqual(Action.objects.count(), 2)
+
+    def test_reply_to_comment_soft_deleted_deletes_notification(self):
+        # No activity yet
+        self.assertEqual(Action.objects.count(), 0)
+
+        self.client.force_login(self.user)
+        data = {'message': 'Comment message', 'reply_to': self.post_comment.pk}
+        response = self.client.post(self.post_url, data, content_type='application/json')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Action.objects.count(), 2)
+
+        # No notifications for the user who replied to the comment
+        self.assertEqual(list(Action.objects.notifications(self.user)), [], self.user)
+        # A notification for the author of the comment they replied to
+        comment = Comment.objects.get(pk=response.json()['id'])
+        self.assertEqual(
+            [str(_) for _ in Action.objects.notifications(self.post_comment.user)],
+            [f'{self.user} replied to {comment} on {self.post_comment} 0 minutes ago'],
+            [str(_) for _ in Action.objects.notifications(self.post_comment.user)],
+        )
+        # A notification for the author of the blog post
+        self.assertEqual(
+            [str(_) for _ in Action.objects.notifications(self.post.author)],
+            [f'{self.user} commented {comment} on {self.post} 0 minutes ago'],
+        )
+
+        # A notifications should be deleted along with the reply
+        comment.soft_delete()
+        self.assertEqual(list(Action.objects.notifications(self.post_comment.user)), [])
+        self.assertEqual(list(Action.objects.notifications(self.post.author)), [])
+        self.assertEqual(Action.objects.count(), 0)
+
+    def test_comment_soft_deleted_deletes_notifications(self):
+        # No activity yet
+        self.assertEqual(Action.objects.count(), 0)
+        # Create an unrelated notification that must remain after comment is deleted
+        [
+            CommentFactoryWithSignals(
+                reply_to=CommentUnderPostFactory(comment_post__post=PostFactory())
+            )
+            for _ in range(2)
+        ]
+        self.assertEqual(Action.objects.count(), 2)
+
+        self.client.force_login(self.user)
+        data = {'message': 'Comment message', 'reply_to': self.post_comment.pk}
+        response = self.client.post(self.post_url, data, content_type='application/json')
+
+        self.assertEqual(response.status_code, 200)
+        comment = Comment.objects.get(pk=response.json()['id'])
+        # Two more notifications were created
+        self.assertEqual(Action.objects.count(), 4)
+        # Post's author was notified about a comment
+        self.assertEqual(
+            Action.objects.filter(
+                verb='commented',
+                action_object_object_id=comment.pk,
+                action_object_content_type_id=ContentType.objects.get_for_model(Comment).pk,
+            ).count(),
+            1,
+        )
+        # Comment's author was notified about a reply to comment
+        self.assertEqual(
+            Action.objects.filter(
+                verb='replied to',
+                target_object_id=self.post_comment.pk,
+                target_content_type_id=ContentType.objects.get_for_model(Comment).pk,
+            ).count(),
+            1,
+        )
+
+        # No notifications for the user who replied to the comment
+        self.assertEqual(list(Action.objects.notifications(self.user)), [], self.user)
+        # A notification for the author of the comment they replied to
+        self.assertEqual(
+            [str(_) for _ in Action.objects.notifications(self.post_comment.user)],
+            [f'{self.user} replied to {comment} on {self.post_comment} 0 minutes ago'],
+            self.post_comment.user,
+        )
+        # A notification for the author of the blog post
+        self.assertEqual(
+            [str(_) for _ in Action.objects.notifications(self.post.author)],
+            [f'{self.user} commented {comment} on {self.post} 0 minutes ago'],
+        )
+
+        # Notifications should be deleted along with the post comment
+        self.post_comment.soft_delete_tree()
+        self.assertEqual(
+            Action.objects.filter(action_object_object_id=self.post_comment.pk).count(), 0
+        )
+        self.assertEqual(list(Action.objects.notifications(self.post_comment.user)), [])
+        self.assertEqual(
+            list(Action.objects.notifications(self.post.author)),
+            [],
+        )
+        # Other notifications remained as is
+        self.assertEqual(Action.objects.count(), 2)
 
     def test_reply_to_your_own_comment_does_not_create_notification(self):
         # No activity yet
@@ -188,6 +380,66 @@ class TestPostComments(TestCase):
         )
         # but blog post's author should not be notified
         self.assertEqual(list(Action.objects.notifications(self.post.author)), [], self.post.author)
+
+    def test_delete_post_comment_deletes_notifications_for_likes(self):
+        # No activity yet
+        self.assertEqual(Action.objects.count(), 0)
+
+        self.client.force_login(self.user)
+        response = self.client.post(
+            self.post_comment.like_url, {'like': True}, content_type='application/json'
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Action.objects.count(), 1)
+        action = Action.objects.first()
+        self.assertEqual(action.action_object, self.post_comment)
+        self.assertEqual(action.actor, self.user)
+        self.assertEqual(action.target, self.post)
+        self.assertFalse(action.public)
+
+        self.assertNotEqual(self.post.author, self.post_comment.user)
+        # Comment's author should be notified about the like on their comment
+        self.assertEqual(
+            [str(_) for _ in Action.objects.notifications(self.post_comment.user)],
+            [f'{self.user} liked {self.post_comment} on {self.post} 0 minutes ago'],
+        )
+        # but blog post's author should not be notified
+        self.assertEqual(list(Action.objects.notifications(self.post.author)), [], self.post.author)
+
+        # Notifications should be deleted along with the comment
+        self.post_comment.delete()
+        self.assertEqual(Action.objects.count(), 0)
+
+    def test_soft_delete_post_comment_deletes_notifications_for_likes(self):
+        # No activity yet
+        self.assertEqual(Action.objects.count(), 0)
+
+        self.client.force_login(self.user)
+        response = self.client.post(
+            self.post_comment.like_url, {'like': True}, content_type='application/json'
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Action.objects.count(), 1)
+        action = Action.objects.first()
+        self.assertEqual(action.action_object, self.post_comment)
+        self.assertEqual(action.actor, self.user)
+        self.assertEqual(action.target, self.post)
+        self.assertFalse(action.public)
+
+        self.assertNotEqual(self.post.author, self.post_comment.user)
+        # Comment's author should be notified about the like on their comment
+        self.assertEqual(
+            [str(_) for _ in Action.objects.notifications(self.post_comment.user)],
+            [f'{self.user} liked {self.post_comment} on {self.post} 0 minutes ago'],
+        )
+        # but blog post's author should not be notified
+        self.assertEqual(list(Action.objects.notifications(self.post.author)), [], self.post.author)
+
+        # Notifications should be deleted along with the comment
+        self.post_comment.soft_delete()
+        self.assertEqual(Action.objects.count(), 0)
 
     def test_commenting_on_post_creates_notification_for_posts_author(self):
         # No activity yet

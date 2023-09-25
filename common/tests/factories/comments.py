@@ -22,6 +22,14 @@ class CommentFactory(DjangoModelFactory):
     message = factory.Faker('sentence')
 
 
+class CommentFactoryWithSignals(DjangoModelFactory):
+    class Meta:
+        model = Comment
+
+    user = factory.SubFactory(UserFactory)
+    message = factory.Faker('sentence')
+
+
 @factory.django.mute_signals(search_signals.post_save)
 class PostCommentFactory(DjangoModelFactory):
     class Meta:

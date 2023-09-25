@@ -1,0 +1,16 @@
+---
+- name: Adding {{ mailto }} to /etc/aliases
+  ansible.builtin.lineinfile:
+    path: /etc/aliases
+    regexp: "^{{ user }}: "
+    line: "{{ user }}: {{ mailto }}"
+    state: present
+    backup: true
+  tags:
+    - aliases
+
+- name: Calling newaliases
+  ansible.builtin.command: newaliases
+  changed_when: false
+  tags:
+    - aliases

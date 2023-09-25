@@ -4,11 +4,14 @@
   display: block;
   margin-bottom: 0;
   position: relative;
-  border: 1px solid $input-gray;
   padding: $spacer * 2;
 
   .card-pills {
     margin-top: $spacer;
+  }
+
+  &.rounded {
+    border-radius: var(--border-radius-lg) !important;
   }
 
   .film-logo {
@@ -42,13 +45,12 @@
       .jumbotron-bg-wrapper::after {
         display: block;
         content: close-quote;
-
         position: absolute;
         left: 0;
         bottom: 0;
         height: 100%;
         width: 100%;
-        background: radial-gradient(94.11% 100% at 50% 0%, rgba(31, 31, 31, 0) 76.84%, $dark 100%);
+        background: radial-gradient(94% 100% at 50% 0%, rgba(31, 31, 31, 0) 50%, var(--body-bg) 100%);
       }
     }
   }

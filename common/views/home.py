@@ -83,3 +83,24 @@ def welcome(request: HttpRequest) -> HttpResponse:
         return redirect('home')
 
     return render(request, 'common/welcome.html', context)
+
+
+@require_safe
+def terms_and_conditions(request: HttpRequest) -> HttpResponse:
+    
+    return render(request, 'common/terms-and-conditions.html')
+
+@require_safe
+def privacy(request: HttpRequest) -> HttpResponse:
+    
+    return render(request, 'common/privacy.html')
+
+@require_safe
+def contact(request: HttpRequest) -> HttpResponse:
+    
+    return render(request, 'common/contact.html')
+
+@require_safe
+def remixing(request: HttpRequest) -> HttpResponse:
+    
+    return render(request, 'common/remixing.html')

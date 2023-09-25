@@ -1,0 +1,39 @@
+---
+- name: Installing required packages
+  ansible.builtin.apt: name={{ item }} state=present
+  with_items:
+    - certbot
+    - git
+    - nginx
+    - python3-certbot-nginx
+  tags:
+    - nginx
+    - certbot
+
+- name: Registering certbot
+  ansible.builtin.shell: >
+    certbot -n register --agree-tos --email {{ certbot.email }} &&
+    touch /etc/letsencrypt/.registered-{{ certbot.email }}
+  args:
+    creates: /etc/letsencrypt/.registered-{{ certbot.email }}
+  tags:
+    - nginx
+    - certbot
+    - register
+
+- name: Getting a certificate for {{ domain }}
+  changed_when: true
+  ansible.builtin.command: >
+    certbot -n --nginx -d {{ domain }} --redirect
+  # N.B.: in certain cases certbot ignores systemd nginx
+  # (see https://github.com/certbot/certbot/issues/5486),
+  # which can be fixed with addition of the following hooks, but these hooks, in turn,
+  # produce a noticeable downtime for all services, leaving previous uwsgi connections
+  # producing "Connection reset"s until upstream uwsgi is restarted.
+  #  --pre-hook "nginx -t && systemctl stop nginx"
+  #  --post-hook "nginx -t && killall nginx; systemctl start nginx"
+  ignore_errors: false
+  tags:
+    - nginx
+    - certbot
+    - issue

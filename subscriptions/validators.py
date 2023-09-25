@@ -1,10 +1,12 @@
 """Custom validators for subscription-related forms."""
+from typing import Set
 import logging
 import re
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+import tldextract
 
 from stdnum.eu import vat
 import stdnum.exceptions
@@ -95,3 +97,20 @@ def validate_invoice_reference(value: str) -> str:
             'letters (A-Z, a-z), digits (0-9), -, _, # and blank space.'
         )
     return value
+
+
+def extract_domains(value: str) -> Set[str]:
+    """Return FQDN and all its subdomains, extracted from a given value."""
+    domain = tldextract.extract(value)
+    if not domain.registered_domain:
+        return {}
+    fqdn = domain.fqdn.lower()
+    sld = domain.registered_domain.lower()
+    result = {sld, fqdn}
+    subdomains = domain.subdomain.lower().split('.')
+    if len(subdomains) > 1:
+        prefix = ''
+        for sub in subdomains:
+            prefix += sub + '.'
+            result.add(fqdn.replace(prefix, ''))
+    return result

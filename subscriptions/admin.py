@@ -12,9 +12,6 @@ User = get_user_model()
 manager_link = looper.admin.create_admin_fk_link(
     'manager', 'manager', looper.admin._get_admin_url_name(User)
 )
-team_member_link = looper.admin.create_admin_fk_link(
-    'user', 'view in admin', looper.admin._get_admin_url_name(User)
-)
 
 # Blender Studio subscriptions override Plan and Subscription, adding team properties
 admin.site.unregister(looper.models.Plan)
@@ -26,7 +23,8 @@ class TeamPlanPropertiesInlineAdmin(admin.TabularInline):
     extra = 0
 
 
-class TeamInlineAdmin(admin.TabularInline):
+class TeamInlineAdmin(admin.StackedInline):
+    show_change_link = True
     model = models.Team
     formfield_overrides = {ArrayField: {'widget': django.forms.Textarea}}
     extra = 0
@@ -46,7 +44,13 @@ class TeamUserInlineAdmin(
     looper.admin.mixins.NoAddDeleteMixin, looper.admin.mixins.NoChangeMixin, admin.TabularInline
 ):
     model = models.TeamUsers
+    raw_id_fields = ['user', 'team']
     verbose_name = 'team member'
     verbose_name_plural = 'team members'
-    readonly_fields = [team_member_link]
     extra = 0
+
+
+@admin.register(models.Team)
+class TeamAdmin(admin.ModelAdmin):
+    raw_id_fields = ['subscription']
+    inlines = [TeamUserInlineAdmin]

@@ -1,28 +1,39 @@
 {% load common_extras %}
-<div class="drawer-nav-dropdown-wrapper fw-bold">
+{% load i18n %}
+
+<div class="drawer-nav-dropdown-wrapper">
   <a class="drawer-nav-dropdown" href="{% url 'user-settings'%}">
     <i class="material-icons me-2">person</i>
-    <span>Profile</span>
+    <span>{% blocktrans %}Profile{% endblocktrans %}</span>
   </a>
 </div>
 
-<div class="drawer-nav-dropdown-wrapper fw-bold">
+<div class="drawer-nav-dropdown-wrapper">
   <a class="drawer-nav-dropdown" href="{% url 'user-settings-emails' %}">
     <i class="material-icons me-2">email</i>
-    <span>Emails</span>
+    <span>{% blocktrans %}Emails{% endblocktrans %}</span>
   </a>
 </div>
 
 {% if  request.user.production_credits.all %}
-  <div class="drawer-nav-dropdown-wrapper fw-bold">
+  <div class="drawer-nav-dropdown-wrapper">
     <a class="drawer-nav-dropdown" href="{% url 'user-settings-production-credits' %}">
       <i class="material-icons me-2">recent_actors</i>
-      <span>Production Credits</span>
+      <span>{% blocktrans %}Production Credits{% endblocktrans %}</span>
     </a>
   </div>
 {% endif %}
 
-<div class="drawer-nav-dropdown-wrapper fw-bold">
+<div class="drawer-nav-dropdown-wrapper">
+  <a class="drawer-nav-dropdown" href="{% url 'user-settings-record' %}">
+    <i class="material-icons me-2">credit_card</i>
+    <span>{% blocktrans %}Subscription{% endblocktrans %}</span>
+  </a>
+</div>
+
+
+{% comment "billing" %}
+<div class="drawer-nav-dropdown-wrapper">
   <a class="drawer-nav-dropdown" href="{% url 'user-settings-billing' %}">
     <i class="material-icons me-2">credit_card</i>
     <span>Subscription</span>
@@ -31,7 +42,6 @@
     <i class="material-icons">keyboard_arrow_down</i>
   </a>
 </div>
-
 
 <div class="drawer-nav-list-wrapper collapse show" id="subscription-collapse">
   <ol class="drawer-nav-list">
@@ -55,10 +65,22 @@
     </li>
   </ol>
 </div>
+{% endcomment %}
+
+{% comment "Download Cloud Files" %}
+{% if user.get_cloud_archive_url %}
+  <div class="drawer-nav-dropdown-wrapper fw-bold">
+    <a class="drawer-nav-dropdown" href="{% url 'cloud-archive' %}">
+      <i class="material-icons me-2">download</i>
+      <span>Download Cloud Files</span>
+    </a>
+  </div>
+{% endif %}
+{% endcomment %}
 
 <div class="drawer-nav-dropdown-wrapper fw-bold">
   <a class="drawer-nav-dropdown" href="{% url 'user-settings-delete' %}">
     <i class="material-icons me-2">delete</i>
-    <span>Delete account</span>
+    <span>{% blocktrans %}Delete account{% endblocktrans %}</span>
   </a>
 </div>

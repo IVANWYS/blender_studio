@@ -15,7 +15,6 @@ __pycache__/
 # Distribution / packaging
 node_modules/
 
-/studio/settings.py
 /public/
 /yarn-error.log
 .venv/
@@ -26,4 +25,5 @@ data.ms/
 .vscode
 **/*.pem
 
-venv
+.env
+99_vault.yaml

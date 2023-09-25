@@ -15,6 +15,13 @@ from django.utils.html import format_html
 from films.models import assets, collections, films
 from static_assets.models import static_assets
 from common import mixins
+from modeltranslation.admin import TranslationAdmin
+
+# Data import export
+from films.resource import FilmResource, CollectionResource, AssetResource
+
+from import_export.admin import ImportExportModelAdmin
+
 import search.signals
 
 User = get_user_model()
@@ -22,7 +29,10 @@ logger = logging.getLogger(__name__)
 
 
 asset_fieldsets = (
-    (None, {'fields': (('name', 'view_link'), 'description')}),
+    #(None, {'fields': (('name', 'view_link'), 'description')}),
+    (None, {'fields': (('name', 'view_link'),)}),
+    (None, {'fields': (('name_en', 'name_zh_hans', 'name_zh_hant'),)}),
+    (None, {'fields': (('description', 'description_en', 'description_zh_hans', 'description_zh_hant'),)}),
     (None, {'fields': (('film', 'collection'),)}),
     (
         None,
@@ -43,7 +53,7 @@ def _clear_messages(request):
 
 
 @admin.register(assets.Asset)
-class AssetAdmin(mixins.ThumbnailMixin, mixins.ViewOnSiteMixin, admin.ModelAdmin):
+class AssetAdmin(ImportExportModelAdmin, mixins.ThumbnailMixin, mixins.ViewOnSiteMixin, admin.ModelAdmin):
     # asset slugs aren't currently in use and were prepopulate
     # during import from previous version of Blender Cloud
     # prepopulated_fields = {'slug': ('name',)}
@@ -95,11 +105,13 @@ class AssetAdmin(mixins.ThumbnailMixin, mixins.ViewOnSiteMixin, admin.ModelAdmin
             kwargs['queryset'] = collections.Collection.objects.filter(film=film).distinct()
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
-    actions = [search.signals.reindex]
+    # actions = [search.signals.reindex]
+
+    resource_class = AssetResource
 
 
 @admin.register(collections.Collection)
-class CollectionAdmin(mixins.ViewOnSiteMixin, admin.ModelAdmin):
+class CollectionAdmin(ImportExportModelAdmin, mixins.ViewOnSiteMixin, admin.ModelAdmin):
     list_display = ['__str__', 'film', 'order', 'parent', 'view_link']
     list_filter = ['film']
     search_fields = ['name', 'film__title', 'slug']
@@ -108,7 +120,10 @@ class CollectionAdmin(mixins.ViewOnSiteMixin, admin.ModelAdmin):
     ordering = ('-date_created',)
     fieldsets = (
         (None, {'fields': (('film', 'parent'),)}),
-        (None, {'fields': (('name', 'thumbnail_aspect_ratio'), 'text')}),
+        (None, {'fields': (('name', 'thumbnail_aspect_ratio'),)}),
+        (None, {'fields': (('name_en', 'name_zh_hans','name_zh_hant'),)}),
+        (None, {'fields': (('text', 'text_en'),)}),
+        (None, {'fields': (('text_zh_hans','text_zh_hant'),)}),
         (None, {'fields': ('thumbnail',)}),
         (None, {'fields': (('user', 'order'),)}),
         (None, {'fields': ('slug',)}),
@@ -129,6 +144,8 @@ class CollectionAdmin(mixins.ViewOnSiteMixin, admin.ModelAdmin):
             _clear_messages(request)
             return redirect(obj.url)
         return response
+    
+    resource_class = CollectionResource
 
 
 class FilmCrewInlineAdmin(admin.TabularInline):
@@ -138,11 +155,13 @@ class FilmCrewInlineAdmin(admin.TabularInline):
 
 
 @admin.register(films.Film)
-class FilmAdmin(mixins.ViewOnSiteMixin, admin.ModelAdmin):
+class FilmAdmin(TranslationAdmin, ImportExportModelAdmin, mixins.ViewOnSiteMixin, admin.ModelAdmin):
     search_fields = ['title', 'slug']
     list_display = ('title', 'view_link')
     prepopulated_fields = {'slug': ('title',)}
     inlines = (FilmCrewInlineAdmin,)
+
+    resource_class = FilmResource
 
 
 class AssetFromFileInline(

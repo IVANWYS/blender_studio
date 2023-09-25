@@ -1,14 +1,13 @@
+{% load i18n %}
 <section class="{{ classes }}">
   <div class="row justify-content-center mb-3">
     <div class="col-md-6 text-center">
-      <h2 class="mb-1">Frequently Asked Questions</h2>
-      <p class="mb-0">If you have questions about the Studio, please contact one of the team on
-        <a href="https://blender.chat/channel/blender-cloud">Blender Chat</a> by logging in with your Blender ID.</p>
+      <h1>{% blocktrans %}Frequently Asked Questions{% endblocktrans %}</h1>
     </div>
   </div>
   <div class="row">
     <div class="col-md-6">
-      <h3 class="text-center">General</h3>
+      <h3 class="text-center">{% blocktrans %}General{% endblocktrans %}</h3>
 
       <div class="accordion mb-3" id="faqGeneral">
 
@@ -17,13 +16,13 @@
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
               data-bs-target="#faqCollapseWhatIsBlenderStudio" aria-expanded="false"
               aria-controls="faqCollapseWhatIsBlenderStudio">
-              <span>What is Blender Studio?</span>
+              <span>{% blocktrans %}What is Blender Studio?{% endblocktrans %}</span>
             </button>
           </h5>
           <div id="faqCollapseWhatIsBlenderStudio" class="accordion-collapse collapse" aria-labelledby="faqHeadingWhatIsBlenderStudio"
             data-parent="#faqGeneral">
             <div class="accordion-body small">
-              Blender Studio is a Film and Training publishing platform for everything produced by the Studio team.
+              {% blocktrans %}Blender Studio is a Film and Training publishing platform for everything produced by the Studio team.{% endblocktrans %}
             </div>
           </div>
         </div>
@@ -33,15 +32,15 @@
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
               data-bs-target="#faqCollapseHowIsMyMoneySpent" aria-expanded="false"
               aria-controls="faqCollapseHowIsMyMoneySpent">
-              <span>How is my money spent?</span>
+              <span>{% blocktrans %}How is my money spent?{% endblocktrans %}</span>
             </button>
           </h5>
           <div id="faqCollapseHowIsMyMoneySpent" class="accordion-collapse collapse" aria-labelledby="faqHeadingHowIsMyMoneySpent"
             data-parent="#faqGeneral">
             <div class="accordion-body small">
-              The money Blender Studio makes through subscriptions is used to keep our services running, and to make
+              {% blocktrans %}The money Blender Studio makes through subscriptions is used to keep our services running, and to make
               open source and open content productions possible. Throughout the production cycle our team produce
-              training, rigs and assets for publishing to Blender Studio subscribers.
+              training, rigs and assets for publishing to Blender Studio subscribers.{% endblocktrans %}
             </div>
           </div>
         </div>
@@ -51,15 +50,15 @@
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
               data-bs-target="#faqCollapseHowSupportBlender" aria-expanded="false"
               aria-controls="faqCollapseHowSupportBlender">
-              <span>How does Blender Studio support Blender?</span>
+              <span>{% blocktrans %}How does Blender Studio support Blender?{% endblocktrans %}</span>
             </button>
           </h5>
           <div id="faqCollapseHowSupportBlender" class="accordion-collapse collapse" aria-labelledby="faqHeadingHowSupportBlender"
             data-parent="#faqGeneral">
             <div class="accordion-body small">
-              The Blender Studio funds the Blender Studio team, who rigorously tests and use Blender in the Open Movie
+              {% blocktrans %}The Blender Studio website funds the Blender Studio team, who rigorously tests and use Blender in the Open Movie
               productions. The team works with core Blender developers at the Blender Institute to plan, design and
-              test core Blender features.
+              test core Blender features.{% endblocktrans %}
             </div>
           </div>
         </div>
@@ -69,7 +68,7 @@
     </div>
 
     <div class="col-md-6">
-      <h3 class="text-center">Payment & Billing</h3>
+      <h3 class="text-center">{% blocktrans %}Payment & Billing{% endblocktrans %}</h3>
 
       <div class="accordion mb-3" id="faqPayment">
         <div class="accordion-item">
@@ -78,14 +77,14 @@
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
               data-bs-target="#faqCollapsePaymentMethod" aria-expanded="false"
               aria-controls="faqCollapsePaymentMethod">
-              <span>What payment methods do you accept?</span>
+              <span>{% blocktrans %}What payment methods do you accept?{% endblocktrans %}</span>
             </button>
 
           </h5>
           <div id="faqCollapsePaymentMethod" class="accordion-collapse collapse" aria-labelledby="faqHeadingPaymentMethod"
             data-parent="#faqPayment">
             <div class="accordion-body small">
-              Blender Studio offers payment through major credit cards, PayPal or direct bank transfer.
+              {% blocktrans %}Blender Studio offers payment through major credit cards, PayPal or direct bank transfer.{% endblocktrans %}
             </div>
           </div>
         </div>
@@ -95,23 +94,23 @@
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
               data-bs-target="#faqCollapseCancelSubscription" aria-expanded="false"
               aria-controls="faqCollapseCancelSubscription">
-              <span>How easy is it to cancel my subscription?</span>
+              <span>{% blocktrans %}How easy is it to cancel my subscription?{% endblocktrans %}</span>
             </button>
 
           </h5>
           <div id="faqCollapseCancelSubscription" class="accordion-collapse collapse" aria-labelledby="faqHeadingCancelSubscription"
             data-parent="#faqPayment">
             <div class="accordion-body small">
-              You may cancel your subscription at any time via your personal account page, or by contacting us at
+              {% blocktrans %}You may cancel your subscription at any time via your personal account page, or by contacting us at{% endblocktrans %}
               <a href="mailto:{{ ADMIN_MAIL }}">{{ ADMIN_MAIL }}</a>.<br><br>
 
-              In case of suspected fraud or abuse of the service after registration and membership payment, the
+              {% blocktrans %}In case of suspected fraud or abuse of the service after registration and membership payment, the
               account owner will be contacted and asked for clarification. Failure to alleviate charges of fraud may
-              result in the termination of the member’s account.<br><br>
+              result in the termination of the member’s account.{% endblocktrans %}<br><br>
 
-              Upon termination, all licenses granted by the Blender Studio will terminate. In the event of account
+              {% blocktrans %}Upon termination, all licenses granted by the Blender Studio will terminate. In the event of account
               deletion for any reason, content that you submitted may no longer be available. The Blender Studio shall
-              not be responsible for the loss of such content.
+              not be responsible for the loss of such content.{% endblocktrans %}
             </div>
           </div>
         </div>
@@ -120,23 +119,23 @@
             <p class="mb-0 h5">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#faqCollapseRefund" aria-expanded="false" aria-controls="faqCollapseRefund">
-                <span>Can I get a refund?</span>
+                <span>{% blocktrans %}Can I get a refund?{% endblocktrans %}</span>
               </button>
             </p>
           </h5>
           <div id="faqCollapseRefund" class="accordion-collapse collapse" aria-labelledby="faqHeadingRefund" data-parent="#faqPayment">
             <div class="accordion-body small">
-              Membership fees and supporter contributions are non-refundable. That money keeps our services running,
-              and is used to make open source and open content productions possible.<br><br>
+              {% blocktrans %}Membership fees and supporter contributions are non-refundable. That money keeps our services running,
+              and is used to make open source and open content productions possible.{% endblocktrans %}<br><br>
 
-              We really care about our members and supporters though — in case you are really not happy with
+              {% blocktrans %}We really care about our members and supporters though — in case you are really not happy with
               our Blender Studio we will kindly respond to your comments and try to settle a dispute with you in
-              harmony.<br><br>
+              harmony.{% endblocktrans %}<br><br>
 
-              Refunds will happen without delay when we get a report of fraud, abuse or non-authorised usage of
-              funds.<br><br>
+              {% blocktrans %}Refunds will happen without delay when we get a report of fraud, abuse or non-authorised usage of
+              funds.{% endblocktrans %}<br><br>
 
-              Contact: <a href="mailto:{{ ADMIN_MAIL }}">{{ ADMIN_MAIL }}</a>.
+              {% blocktrans %}Contact: {% endblocktrans %}<a href="mailto:{{ ADMIN_MAIL }}">{{ ADMIN_MAIL }}</a>.
             </div>
           </div>
         </div>

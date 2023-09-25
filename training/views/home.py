@@ -4,8 +4,9 @@ from django.shortcuts import render
 from django.template.response import HttpResponse
 from django.views.decorators.http import require_safe
 
-
+from common.queries import get_latest_trainings_and_production_lessons
 from training import queries
+from training.models import Training
 from training.views.common import (
     training_model_to_template,
     recently_watched_sections_to_template,
@@ -29,6 +30,7 @@ def home_authenticated(request: HttpRequest) -> HttpResponse:
         request,
         'training/home_authenticated.html',
         context={
+            'featured_trainings': Training.objects.filter(is_published=True, is_featured=True)[:3],
             'recently_watched_sections': recently_watched_sections_to_template(
                 recently_watched_sections
             ),
@@ -44,5 +46,10 @@ def home_authenticated(request: HttpRequest) -> HttpResponse:
 def home_not_authenticated(request: HttpRequest) -> HttpResponse:
     all_trainings = queries.trainings.all(user_pk=None)
     return render(
-        request, 'training/home_not_authenticated.html', context={'all_trainings': all_trainings},
+        request,
+        'training/home_not_authenticated.html',
+        context={
+            'featured_trainings': Training.objects.filter(is_published=True, is_featured=True)[:3],
+            'all_trainings': all_trainings,
+        },
     )

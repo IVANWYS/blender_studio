@@ -5,14 +5,16 @@ from django.contrib.auth import get_user_model
 
 from common import mixins
 from common.upload_paths import get_upload_to_hashed_path
+from common.google_trans import trans_SC, trans_TC
+from django.utils.translation import gettext_lazy as _
 
 User = get_user_model()
 
 
 class FilmStatus(models.TextChoices):
-    in_development = '0_dev', 'In Development'
-    in_production = '1_prod', 'In Production'
-    released = '2_released', 'Released'
+    in_development = '0_dev', _('In Development')
+    in_production = '1_prod', _('In Production')
+    released = '2_released', _('Released')
 
 
 class Film(mixins.CreatedUpdatedMixin, mixins.StaticThumbnailURLMixin, models.Model):
@@ -29,22 +31,33 @@ class Film(mixins.CreatedUpdatedMixin, mixins.StaticThumbnailURLMixin, models.Mo
     is_published = models.BooleanField(default=False)
     is_featured = models.BooleanField(default=False)
 
-    logo = models.FileField(upload_to=get_upload_to_hashed_path)
-    poster = models.FileField(upload_to=get_upload_to_hashed_path)
-    picture_header = models.FileField(upload_to=get_upload_to_hashed_path)
-    thumbnail = models.FileField(upload_to=get_upload_to_hashed_path)
+    logo = models.FileField(
+        upload_to=get_upload_to_hashed_path,
+        help_text='A PNG picture with transparency, featuring the logo.',
+    )
+    poster = models.FileField(
+        upload_to=get_upload_to_hashed_path, help_text='A 1508x2133 poster for the film.'
+    )
+    picture_header = models.FileField(
+        upload_to=get_upload_to_hashed_path, help_text='A 1920x850 header image. No text.'
+    )
+    thumbnail = models.FileField(
+        upload_to=get_upload_to_hashed_path, help_text='A 1920x1080 image for social media preview.'
+    )
     youtube_link = models.URLField(blank=True)
     crew = models.ManyToManyField(User, through='FilmCrew')
 
     show_production_logs_nav_link = models.BooleanField(
-        default=False, help_text='Display a link to production logs in the navigation.',
+        default=False,
+        help_text='Display a link to production logs in the navigation.',
     )
     show_production_logs_as_featured = models.BooleanField(
         default=False,
         help_text='Display production logs instead of the featured gallery on the film page.',
     )
     show_blog_posts = models.BooleanField(
-        default=False, help_text='Display latest blog posts on the film page.',
+        default=False,
+        help_text='Display latest blog posts on the film page.',
     )
     show_landing_page = models.BooleanField(
         default=False, help_text='Show a landing page to non-subscribers instead of film content'
@@ -54,6 +67,27 @@ class Film(mixins.CreatedUpdatedMixin, mixins.StaticThumbnailURLMixin, models.Mo
         # Sort by release date descending,
         # fall back to created date in case the film hasn't been released yet.
         ordering = ('-release_date', '-date_created')
+
+    def save(self, *args, **kwargs):
+        # Trans title
+        if self.title_zh_hans == None or self.title_zh_hans == "":
+            self.title_zh_hans = trans_SC(self.title_en)
+        if self.title_zh_hant == None or self.title_zh_hant == "":
+            self.title_zh_hant = trans_TC(self.title_en)
+        # Trans description
+        if self.description_en != "":
+            if self.description_zh_hans == "":
+                self.description_zh_hans = trans_SC(self.description_en)
+            if self.description_zh_hant == "":
+                self.description_zh_hant = trans_TC(self.description_en)
+        # Trans summary
+        if self.summary_en != "":
+            if self.summary_zh_hans == "":
+                self.summary_zh_hans = trans_SC(self.summary_en)
+            if self.summary_zh_hant == "":
+                self.summary_zh_hant = trans_TC(self.summary_en)
+        super(Film, self).save(*args, **kwargs)
+
 
     def clean(self) -> None:
         super().clean()
@@ -107,7 +141,9 @@ class FilmProductionCredit(mixins.CreatedUpdatedMixin, models.Model):
     # Populated after running a one-time script, when locking the credit list
     display_name = models.CharField(max_length=128, blank=True, null=True)
     is_public = models.BooleanField(
-        default=None, null=True, help_text='Display your name in the film credits.',
+        default=None,
+        null=True,
+        help_text='Display your name in the film credits.',
     )
     # Made not-editable after running a one-time script
     is_editable = models.BooleanField(default=True)

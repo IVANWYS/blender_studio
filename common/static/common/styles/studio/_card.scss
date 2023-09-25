@@ -1,7 +1,5 @@
 .card {
   @include button-float;
-
-  margin-bottom: map-get($spacers, 4);
   transition: $transition-base;
 
   .card-header {
@@ -165,6 +163,7 @@
 }
 
 .card-header-link {
+  background-color: var(--component-bg);
   height: 100%;
   left: 0;
   top: 0;
@@ -221,7 +220,6 @@
 .card-img-top-left {
   flex-shrink: 0; // For IE: https://github.com/twbs/bootstrap/issues/29396
   width: 100%; // Required because we use flexbox and this inherently applies align-self: stretch
-  border-radius: $border-radius;
 }
 
 .card-img-top-left {

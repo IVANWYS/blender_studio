@@ -1,25 +1,20 @@
+{% load i18n %}
 <div class="row mb-3">
   <div class="col-auto">
-    <div class="row">
-      <div style="background-image:url('{{ post.author.image_url }}');" class="profile-image profile ms-2">
-      </div>
-      <div class="col-auto">
-        <p class="profile-name h4 mb-0">{{ post.author.full_name }}</p>
-        <p class="profile-title subtitle text-white-50 x-small">
-          {% firstof user_film_role "Author" %}
-        </p>
-      </div>
-    </div>
+    {% if user_film_role %}
+    {% include 'common/components/cards/card_profile.html' with user=post.author title=user_film_role %}
+    {% else %}
+    {% include 'common/components/cards/card_profile.html' with user=post.author title=_("Author") %}
+    {% endif  %}
   </div>
 
   <div class="button-toolbar col-auto col-sm">
-
     <button data-like-url="{{ post.like_url }}"
-      class="btn btn-transparent btn-sm btn-icon comment-material-button checkbox-like {% if not user.is_authenticated %}disabled{% endif%}"
+      class="btn btn-transparent btn-sm btn-icon btn-like comment-material-button checkbox-like {% if not user.is_authenticated %}disabled{% endif%}"
       {% if not user.is_authenticated %}disabled{% endif%} {% if post.liked %}data-checked="checked" {% endif %}>
-      <i class="material-icons checkbox-like-icon-checked text-primary">favorite</i>
-      <i class="material-icons checkbox-like-icon-unchecked">favorite_border</i>
-      {% if post.likes.count != 0 %}<span class="likes-count">{{ post.likes.count }}</span>{% endif %}
+      <i class="i-heart-filled checkbox-like-icon-checked"></i>
+      <i class="i-heart checkbox-like-icon-unchecked"></i>
+      {% if post.likes.count != 0 %}<span class="js-likes-count">{{ post.likes.count }}</span>{% endif %}
     </button>
 
     {% comment %}
@@ -49,7 +44,8 @@
 
     {% if user_can_edit_post %}
       <a href="{{ post.admin_url }}" class="btn btn-sm btn-icon btn-dark">
-        <i class="material-icons">edit</i>
+        <i class="i-edit"></i>
+        <span>{% blocktrans %}Edit{% endblocktrans %}</span>
       </a>
     {% endif %}
 
@@ -58,9 +54,9 @@
     </button>
 
     <div class="dropdown-menu dropdown-menu-end">
-      <a href="https://developer.blender.org/maniphest/task/edit/form/15/" target="_blank" class="dropdown-item">
-        <i class="material-icons">flag</i>
-        <span>Report Problem</span>
+      <a href="https://projects.blender.org/studio/blender-studio/issues/new" target="_blank" class="dropdown-item">
+        <i class="i-flag"></i>
+        <span>{% blocktrans %}Report Problem{% endblocktrans %}</span>
       </a>
     </div>
 

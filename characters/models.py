@@ -9,6 +9,7 @@ from django.utils.text import slugify
 from comments.models import Comment
 from common import mixins
 from films.models import Film
+from common.google_trans import trans_SC, trans_TC
 import common.help_texts
 
 User = get_user_model()
@@ -20,6 +21,9 @@ class BlenderVersion(models.TextChoices):
     v290 = '2.90'
     v300 = '3.0'
     v310 = '3.1'
+    v340 = '3.4'
+    v350 = '3.5'
+    v360 = '3.6'
 
 
 class Character(mixins.CreatedUpdatedMixin, models.Model):
@@ -36,6 +40,14 @@ class Character(mixins.CreatedUpdatedMixin, models.Model):
     name = models.CharField(max_length=512)
     slug = models.SlugField(unique=True)
     is_published = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        # Trans name
+        if self.name_zh_hans == None or self.name_zh_hans == "":
+            self.name_zh_hans = trans_SC(self.name_en)
+        if self.name_zh_hant == None or self.name_zh_hant == "":
+            self.name_zh_hant = trans_TC(self.name_en)
+        super(Character, self).save(*args, **kwargs)
 
     def clean(self) -> None:
         # TODO(fsiddi) Add background job to update file metadata for static_asset on the bucket
@@ -94,6 +106,17 @@ class CharacterVersion(mixins.CreatedUpdatedMixin, models.Model):
 
     def __str__(self) -> str:
         return f'{self.character_id and self.character.name or "Character"} v{self.number or "?"}'
+    
+        
+    def save(self, *args, **kwargs):
+        # Trans description
+        if self.description_en != "":
+            if self.description_zh_hans == "":
+                self.description_zh_hans = trans_SC(self.description_en)
+            if self.description_zh_hant == "":
+                self.description_zh_hant = trans_TC(self.description_en)
+        super(CharacterVersion, self).save(*args, **kwargs)
+
 
     @property
     def is_new(self) -> bool:
@@ -146,6 +169,20 @@ class CharacterShowcase(mixins.CreatedUpdatedMixin, models.Model):
 
     def __str__(self) -> str:
         return f'Showcase "{self.title}" for {self.character_id and self.character.name}'
+    
+    def save(self, *args, **kwargs):
+        # Trans title
+        if self.title_zh_hans == None or self.title_zh_hans == "":
+            self.title_zh_hans = trans_SC(self.title_en)
+        if self.title_zh_hant == None or self.title_zh_hant == "":
+            self.title_zh_hant = trans_TC(self.title_en)
+        # Trans description
+        if self.description_en != "":
+            if self.description_zh_hans == "":
+                self.description_zh_hans = trans_SC(self.description_en)
+            if self.description_zh_hant == "":
+                self.description_zh_hant = trans_TC(self.description_en)
+        super(CharacterShowcase, self).save(*args, **kwargs)    
 
     @property
     def is_new(self) -> bool:

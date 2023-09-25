@@ -1,0 +1,29 @@
+---
+- name: Copying systemd services
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: /etc/systemd/system/{{ service_name }}-{{ item|basename }}
+    mode: 0644
+    backup: true
+  with_fileglob:
+    - ../templates/other-services/*.service
+
+- name: Copying systemd timers
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: /etc/systemd/system/{{ service_name }}-{{ item|basename }}
+    mode: 0644
+    backup: true
+  with_fileglob:
+    - ../templates/other-services/*.timer
+
+- name: Enabling systemd timers
+  ansible.builtin.systemd:
+    name: "{{ service_name }}-{{ item|basename }}"
+    state: restarted
+    enabled: true
+    daemon_reload: true
+  tags:
+    - timers
+  with_fileglob:
+    - ../templates/other-services/*.timer

@@ -1,6 +1,7 @@
 {% load static %}
 {% load thumbnail %}
 {% load common_extras %}
+{% load i18n %}
 
 <div class="file {{ card_sizes|default:"col-12 col-sm-6 col-md-6 col-lg-4" }} grid-item card-grid-item">
   <div class="file-header">
@@ -24,8 +25,8 @@
   <a class="file-body" href="{{ section.url }}" data-bs-tooltip="tooltip-overflow" data-placement="top"
     title="{{ section.name }}">
     {% if section.is_free %}
-      {% include "common/components/cards/pill.html" with label='Free' %}
+      {% include "common/components/cards/pill.html" with label=_('Free') %}
     {% endif %}
-    <p class="overflow-text h4">{{ section.name }}</p>
+    <span class="overflow-text">{{ section.name }}</span>
   </a>
 </div>

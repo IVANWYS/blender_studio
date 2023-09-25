@@ -12,7 +12,7 @@ that poetry takes care of -- there's no need to install anything manually.
 
 
 ## Set up instructions
-1. Clone the repo: `git clone git@git.blender.org:blender-studio.git`
+1. Clone the repo: `git clone git@projects.blender.org:studio/blender-studio.git`
 2. Run `poetry install`
    - if the installation of psycopg2 fails, make sure that you have the required
    apt packages installed ([more details](https://www.psycopg.org/docs/install.html#build-prerequisites)).
@@ -25,19 +25,12 @@ that poetry takes care of -- there's no need to install anything manually.
    127.0.0.1    localhost studio.local  # studio.local can be added on the same line as localhost
     ...
    ```
-5. Create a `settings.py` file (copy of `settings.example.py`). This file is gitignored,
-and it must not be committed.
-    - Change the `'PASSWORD'` variable in the `DATABASE` settings.
-    - All the settings in settings.py that ultimately have to be changed are set to 'CHANGE-ME'.
-    You can look for this phrase to make sure that everything that needs to be adjusted
-    has been adjusted. However, for local development at this stage only the database
-    password actually has to be set for the project to run.
-    - Optionally: configure your IDE database connection.
-6. Fill in AWS S3 and CloudFront credentials:
-    - Replace "CHANGE_ME" with your access keys in `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`);
-    - Set the CloudFront environment variables, e.g.:
-    ```export AWS_CLOUDFRONT_KEY_ID='APK***'```
-    ```export AWS_CLOUDFRONT_KEY=`cat pk-APK***.pem` ```
+5. Create a `.env` file (`cp .env.example .env`). This file is gitignored, and it must not be committed.
+    - Set `DEBUG=True`;
+6. Fill in AWS S3 and CloudFront credentials in your `.env`:
+    - Set values of `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` values to your access keys;
+    - Download the CloudFront key file and save it to the project directory (it should be named `pk-APK***.pem`);
+    - Set `AWS_CLOUDFRONT_KEY_ID='APK***'` where `APK***` is from the name of the key file above.
 6. In the command line, activate the virtual environment created by poetry:
     ```poetry shell```
     - Configure your IDE to use the venv by default.
@@ -54,8 +47,8 @@ and it must not be committed.
     and [MeiliSerach server](#search) for the search functionality.
 13. Setup for video processing jobs. Download ngrok (https://ngrok.com/).
     - Run `./ngrok http 8010`
-    - Update `settings.py`:
-        - Set `COCONUT_API_KEY` to a valid value (see `settings.example.py`)
+    - Update `.env`:
+        - Set `COCONUT_API_KEY` to a valid value
         - Set `COCONUT_DECLARED_HOSTNAME` to `https://<random-value>.ngrok.io`
 
 ## Data import
@@ -116,51 +109,39 @@ MYSQL_PASSWORD=blender_id -e MYSQL_DATABASE=blender_id -e MYSQL_ALLOW_EMPTY_PASS
 
 ### Configure an OAuth application
 
-After configuring and running the Blender ID application, in its admin (http://id.local:8000/admin/)
-create a new OAuth2 application:
- - Redirect url: `http://studio.local:8001/oauth/authorized`
- - Client type: Confidential
- - Authorization grant type: Authorization code
+Blender Studio, as all other Blender web services, uses Blender ID.
+To configure OAuth login, first create a new OAuth2 application in Blender ID with the following settings:
 
-Copy the **Cliend id** and **Cliend secret** to the studio's `settings.py` as `"OAUTH_CLIENT"`
-and `"OAUTH_SECRET"` in the `BLENDER_ID` settings.
+* Redirect URIs: `http://studio.local:8001/oauth/authorized`
+* Client type: "Confidential";
+* Authorization grant type: "Authorization code";
+* Name: "Blender Studio Dev";
 
-### Configure a webhook
+Then copy client ID and secret and save them as `BID_OAUTH_CLIENT` and `BID_OAUTH_SECRET` in a `.env` file:
 
-In order to receive changes made to Blender ID profile, Blender Studio needs a webhook to be called by Blender ID.
-Again, in Blender ID [admin](http://id.local:8000/admin/), add a new webhook:
- - Hook type: select `User modified`
- - URL: `http://studio.local:8001/webhooks/user-modified`
- - Enabled: make sure this is checked.
+    BID_OAUTH_CLIENT=<CLIENT ID HERE>
+    BID_OAUTH_SECRET=<SECRET HERE>
 
-Copy webhook's **Secret** into Blender Studio's `settings.py` as `"WEBHOOK_USER_MODIFIED_SECRET"` in the `BLENDER_ID`
-as follows:
+#### Webhook
 
-```
-BLENDER_ID = {
-    # MUST end in a slash:
-    "BASE_URL": "http://id.local:8000/",
-    "OAUTH_CLIENT": "XXX",
-    "OAUTH_SECRET": "XXX",
-    "WEBHOOK_USER_MODIFIED_SECRET": b"SECRET",  # keep the 'b' prefix
-}
-```
+Blender Studio can receive account modifications such as badge updates via a webhook,
+which has to be configured in Blender ID admin separately from the OAuth app.
 
-### Allow HTTP in Blender ID
+In Admin › Blender-ID API › Webhooks click `Add Webhook` and set the following:
 
-In **Blender ID** settings (`blenderid/settings.py`), make sure the following lines exist:
-```
-OAUTH2_PROVIDER['ALLOWED_REDIRECT_URI_SCHEMES'] = ['http', 'https']
-PREFERRED_SCHEME = 'http'
-```
+* Name: "Blender Studio Dev";
+* URL: `http://studio.local:8001/webhooks/user-modified/`;
+* App: choose the app created in the previous step;
 
-In **Blender Studio** settings (`studio/settings.py`), check the following line exists:
-```
-os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
-```
-If you are getting `SSLError`s and changes to your Blender ID profile don't appear in Blender Studio,
-most likely these settings are missing.
+Then copy webhook's secret into the `.env` file as `BID_WEBHOOK_USER_MODIFIED_SECRET`:
 
+    BID_WEBHOOK_USER_MODIFIED_SECRET=<WEBHOOK SECRET HERE>
+
+**N.B.**: the webhook view delegates the actual updating of the user profile
+to a background task, so in order to see the updates locally, start the processing of
+tasks using the following:
+
+    ./manage.py process_tasks
 
 ## Search setup
 For a complete description of the search feature, see the [search documentation](search.md).
@@ -180,7 +161,7 @@ MeiliSearch:
     ```
 
 The server will be available on port `7700` by default.
-If you change it, adjust the `MEILISEARCH_API_ADDRESS` in settings_common.py as necessary.
+If you change it, adjust the `MEILISEARCH_API_ADDRESS` in `.env` as necessary.
 
 
 ## Workflow

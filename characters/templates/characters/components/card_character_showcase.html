@@ -1,4 +1,6 @@
 {% load common_extras %}
+{% load i18n %}
+
 {% with showcase.get_absolute_url as detail_url %}
   <div class="card col-12 col-sm-6 col-lg-4 card-grid-item">
     <div class="card-header">
@@ -14,7 +16,7 @@
 
       <h3 class="card-title">
         {% if showcase.is_new and showcase.is_published %}
-          <div class="badge bg-primary">New</div>
+          <div class="badge bg-primary">{% blocktrans %}New{% endblocktrans %}</div>
         {% endif %}
         {{ showcase.title }}
       </h3>
@@ -25,7 +27,7 @@
       <div class="card-subtitle-group">
         {% if not showcase.is_published or not showcase.is_published %}
           <div class="badge bg-danger me-2">
-            Unpublished
+            {% blocktrans %}Unpublished{% endblocktrans %}
           </div>
         {% else %}
           <p class="card-subtitle">
@@ -37,7 +39,7 @@
         {% endif %}
         {% if showcase.is_free %}
           <p class="card-subtitle">
-            {% include "common/components/cards/pill.html" with label='Free' %}
+            {% include "common/components/cards/pill.html" with label=_('Free') %}
           </p>
         {% endif %}
         {% if showcase.comments.count > 0 %}

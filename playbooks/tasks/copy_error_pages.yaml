@@ -1,0 +1,24 @@
+---
+- name: Copying error pages
+  ansible.builtin.template:
+    src: templates/nginx/errors/{{ item.src }}
+    dest: "{{ dir.errors }}/{{ item.dest }}"
+    mode: 0644
+  loop:
+    - src: 4xx.html
+      dest: 401.html
+      title: Unauthorized
+    - src: 4xx.html
+      dest: 403.html
+      title: Forbidden
+    - src: 4xx.html
+      dest: 404.html
+      title: Page Not Found
+      message: The page you requested does not exist
+    - src: 4xx.html
+      dest: 405.html
+      title: Method Not Allowed
+    - src: 5xx.html
+      dest: 5xx.html
+  tags:
+    - error-pages

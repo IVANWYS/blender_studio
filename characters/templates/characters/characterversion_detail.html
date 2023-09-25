@@ -2,6 +2,7 @@
 {% load static %}
 {% load common_extras %}
 {% load pipeline %}
+{% load i18n %}
 
 {% block title_prepend %}{{ character.name }} - Character Rig - {% endblock title_prepend %}
 
@@ -38,16 +39,16 @@
     <div class="row justify-content-center">
       <div class="col-lg-10">
         <div class="row align-items-start">
-
-          <div class="col-12 col-md mb-2 mb-md-3">
-            <div class="">
-              <p class="subtitle ">Character Rig</p>
+          <div class="col-12 col-md">
+            <div>
+              <a href="{% url 'character-list' %}" class="subtitle d-block">{% blocktrans %}Characters{% endblocktrans %}</a>
               <div class="d-inline">
                 <h1 class="mb-0 d-inline-block">{{ character.name|linebreaksbr }}</h1>
+
                 {% if character.versions.count %}
                   <button data-bs-toggle="dropdown" class="btn p-2 subtitle mt-n3 btn-icon btn-dark">
                     v{{ character_version.number }}
-                    <i class="material-icons">arrow_drop_down</i>
+                    <i class="i-chevron-down"></i>
                   </button>
                   <div class="dropdown-menu dropdown-menu-left">
                     {% for version in character.versions.all %}
@@ -66,31 +67,6 @@
                 {% endif %}
               </div>
             </div>
-
-            <div class="text-muted small">
-              <p class="d-inline me-2">{{ character_version.date_published|date:"jS F Y" }}</p>
-              {% if character_version.static_asset.license %}
-                <a href="{{ character_version.static_asset.license.url }}" target="_blank" class="d-inline me-2 text-muted"
-                  data-bs-toggle="tooltip" data-placement="bottom" title="{{ character_version.static_asset.license.description }}">
-                  <i class="material-icons icon-inline small">info</i>
-                  {{ character_version.static_asset.license }}
-                </a>
-              {% endif %}
-              {% if character.film %}
-                <a class="d-inline me-2 text-muted" href="{{ character.film.url }}">
-                  <i class="material-icons icon-inline small">movie</i>
-                  {{ character.film }}
-                </a>
-              {% endif %}
-              {% if character_version.is_free %}
-                {% include "common/components/cards/pill.html" with label='Free' %}
-              {% endif %}
-              <p class="d-inline me-2 text-muted">
-                Blender Version: {{ character_version.min_blender_version }}
-              </p>
-
-            </div>
-
           </div>
 
           <div class="col-12 col-md-auto mb-2 mb-md-0 mt-0 mt-md-3">
@@ -98,29 +74,44 @@
           </div>
         </div>
 
-        <div class="text-muted small row">
-          <div class="col-auto d-flex mb-2">
-            <div class="row">
-              <div class="col-auto pe-0">
-                {% if character_version.static_asset.author_image_url %}
-                  <img src="{{ character_version.static_asset.author_image_url }}" class="profile">
-                {% else %}
-                  <img src="{% static 'common/images/blank-profile-pic.png' %}" class="profile">
-                {% endif %}
-              </div>
-              <div class="col-auto">
-                <p class="subtitle text-white-50 x-small">Published by</p>
-                <h4 class="comment-name mb-0">{{ character_version.static_asset.author_name }}</h4>
-              </div>
-            </div>
+        <div class="row my-3">
+          <div class="col-auto">
+            {% include 'common/components/cards/card_profile.html' with user=character_version.static_asset.user title=_("Publisher") %}
+          </div>
+
+          <div class="col ml-auto text-muted text-end small">
+            {% if character_version.is_free %}
+              {% include "common/components/cards/pill.html" with label=_('Free') %}
+            {% endif %}
+
+            {% if character_version.static_asset.license %}
+              <a href="{{ character_version.static_asset.license.url }}" target="_blank" class="d-inline mx-2 text-muted"
+                data-bs-toggle="tooltip" data-placement="bottom" title="{{ character_version.static_asset.license.description }}">
+                <i class="material-icons icon-inline small">info</i>
+                {{ character_version.static_asset.license }}
+              </a>
+            {% endif %}
+
+            <span class="d-inline me-2 text-muted" title="Blender version">
+              <i class="i-blender"></i>
+              Blender {{ character_version.min_blender_version }}
+            </span>
+
+            {% if character.film %}
+              <a class="d-inline me-2 text-muted" href="{{ character.film.url }}">
+                <i class="material-icons icon-inline small">movie</i>
+                {{ character.film }}
+              </a>
+            {% endif %}
+
+            <span class="d-inline">{{ character_version.date_published|date }}</span>
           </div>
         </div>
-
 
         <section class="mb-3 markdown-text">{% with_shortcodes character_version.description|markdown_unsafe %}</section>
 
         {% if character.showcases.count %}
-          <h2>Showcases</h2>
+          <h2>{% blocktrans %}Showcases{% endblocktrans %}</h2>
           <div class="files row grid mb-3">
             {% for showcase in character.showcases.all %}
               {% include "characters/components/card_character_showcase.html" %}

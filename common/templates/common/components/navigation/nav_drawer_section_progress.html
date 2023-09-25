@@ -1,3 +1,4 @@
+{% load i18n %}
 <li class="drawer-nav-section {% if finished %}complete{% endif %}">
   <a href="{{ href }}" class="drawer-nav-section-link {% if active %}active{% endif %}" data-bs-tooltip="tooltip-overflow"
     data-placement="top" title="{{ title }}">
@@ -16,7 +17,7 @@
     {% if published %}
       {% if free %}
         <span class="ms-auto">
-          {% include "common/components/cards/pill.html" with label='Free' %}
+          {% include "common/components/cards/pill.html" with label=_('Free') %}
         </span>
       {% endif %}
     {% else %}

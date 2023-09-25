@@ -1,17 +1,21 @@
 .alert-sm {
-  border-radius: $border-radius-sm;
+  border-radius: $border-radius;
   font-size: $font-size-sm;
   padding: $alert-padding-sm-y $alert-padding-sm-x;
-  border-left-width: $border-radius-sm !important;
+  border-left-width: $border-radius !important;
 }
 
 .alert {
   border-left-width: $border-radius;
-
+  z-index: 1;
   a {
     text-decoration: underline;
     transition: $transition-base;
   }
+}
+
+.alert:hover {
+  color: currentColor;
 }
 
 .alert-warning {

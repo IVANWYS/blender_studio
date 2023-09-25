@@ -11,14 +11,16 @@ from common import mixins
 from films.models import Collection
 import common.help_texts
 import static_assets.models as models_static_assets
+from django.utils.translation import gettext_lazy as _
+from common.google_trans import trans_SC, trans_TC
 
 User = get_user_model()
 
 
 class AssetCategory(models.TextChoices):
-    artwork = 'artwork', 'Artwork'
-    production_file = 'production_file', 'Production File'
-    production_lesson = 'production_lesson', 'Production Lesson'
+    artwork = 'artwork', _('Artwork')
+    production_file = 'production_file', _('Production File')
+    production_lesson = 'production_lesson', _('Production Lesson')
 
 
 class Asset(mixins.CreatedUpdatedMixin, models.Model):
@@ -62,6 +64,20 @@ class Asset(mixins.CreatedUpdatedMixin, models.Model):
 
     comments = models.ManyToManyField(Comment, through='AssetComment', related_name='asset')
     tags = TaggableManager(blank=True)
+
+    def save(self, *args, **kwargs):
+        # Trans name
+        if self.name_zh_hans == None or self.name_zh_hans == "":
+            self.name_zh_hans = trans_SC(self.name_en)
+        if self.name_zh_hant == None or self.name_zh_hant == "":
+            self.name_zh_hant = trans_TC(self.name_en)
+        # Trans description
+        if self.description_en != "":
+            if self.description_zh_hans == "":
+                self.description_zh_hans = trans_SC(self.description_en)
+            if self.description_zh_hant == "":
+                self.description_zh_hant = trans_TC(self.description_en)
+        super(Asset, self).save(*args, **kwargs)
 
     def clean(self) -> None:
         # TODO(fsiddi) Add background job to update file metadata for static_asset on the bucket

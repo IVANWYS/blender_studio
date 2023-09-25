@@ -1,0 +1,22 @@
+---
+- name: restart service
+  become: true
+  become_user: root
+  ansible.builtin.systemd: name={{ item }} daemon_reload=yes state=restarted enabled=yes
+  with_items:
+    - "{{ service_name }}"
+    - "{{ background_service_name }}"
+  tags:
+    - always
+
+- name: test nginx
+  become: true
+  become_user: root
+  ansible.builtin.command: nginx -t
+
+- name: reload nginx
+  become: true
+  become_user: root
+  ansible.builtin.systemd: name=nginx state=reloaded enabled=yes
+  tags:
+    - always

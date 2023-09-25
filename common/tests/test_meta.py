@@ -10,12 +10,12 @@ from common.tests.factories.static_assets import StaticAssetFactory
 from common.tests.factories.users import UserFactory
 
 shared_meta = {
-    'name=.author.': 'Blender Institute',
+    'name=.author.': 'Blender Studio',
     'property=.og:site_name.': 'Blender Studio',
     'property=.og:type.': 'website',
     'property=.og:locale.': 'en_US',
     'name=.twitter:card.': 'summary_large_image',
-    'name=.twitter:site.': '@Blender_Cloud',
+    'name=.twitter:site.': '@BlenderStudio_',
 }
 
 
@@ -87,8 +87,8 @@ class TestSiteMetadata(TestCase):
             **shared_meta,
             'property=.og:title.': 'Blender Studio',
             'name=.twitter:title.': 'Blender Studio',
-            'property=.og:description.': 'Blender Studio is a web based service developed by Blender Institute that allows people to access the training videos and all the data from the open projects.',
-            'name=.twitter:description.': 'Blender Studio is a web based service developed by Blender Institute that allows people to access the training videos and all the data from the open projects.',
+            'property=.og:description.': 'Blender Studio is a web service that provides access the training videos and all the data from the Blender open projects',
+            'name=.twitter:description.': 'Blender Studio is a web service that provides access the training videos and all the data from the Blender open projects',
             'property=.og:image.': 'http://testserver/static/common/images/blender-studio-og.jpg',
             'name=.twitter:image.': 'http://testserver/static/common/images/blender-studio-og.jpg',
         }.items():
@@ -108,8 +108,8 @@ class TestSiteMetadata(TestCase):
             **shared_meta,
             'property=.og:title.': 'Blender Studio',
             'name=.twitter:title.': 'Blender Studio',
-            'property=.og:description.': 'Blender Studio is a web based service developed by Blender Institute that allows people to access the training videos and all the data from the open projects.',
-            'name=.twitter:description.': 'Blender Studio is a web based service developed by Blender Institute that allows people to access the training videos and all the data from the open projects.',
+            'property=.og:description.': 'Blender Studio is a web service that provides access the training videos and all the data from the Blender open projects',
+            'name=.twitter:description.': 'Blender Studio is a web service that provides access the training videos and all the data from the Blender open projects',
             'property=.og:image.': 'http://testserver/static/common/images/blender-studio-og.jpg',
             'name=.twitter:image.': 'http://testserver/static/common/images/blender-studio-og.jpg',
         }.items():

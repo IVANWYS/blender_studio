@@ -2,32 +2,50 @@
   class="list-group-item activity-list-item {% if notification and not notification.date_read %}unread{% endif %}"
   {% if notification %} data-mark-read-url="{{ notification.mark_read_url }}"
     data-is-read={% if notification.date_read %}"true"{% else %}"false"{% endif %} {% endif %}>
-  <span class="name">
-    <span style="background-image: url({{ action.actor.image_url }});" class="profile col-profile"></span>
-    {% if action.actor %}
-      {% if action.actor == request.user %}
-        You
+  <div class="icon">
+    <i class="i-{{ action.verb }} i-heart"></i>
+  </div>
+
+  <div class="description">
+    <span class="name">
+      {% if action.actor %}
+        {% if action.actor == request.user %}
+          You
+        {% else %}
+          {{ action.actor.username }}
+        {% endif %}
       {% else %}
-        {% firstof action.actor.full_name action.actor.username %}
+        Someone
       {% endif %}
-    {% else %}
-      Someone
-    {% endif %}
-  </span>
-  <span class="text">
-    {{ action.verb|capfirst }}
-    {% if action.action_object %}
-      {% if action.action_object.user == user and user != action.actor %}
-        your {{ action.action_object_content_type.name|lower }}
-      {% elif action.action_object.user != action.actor %}
-        {{ action.action_object }}
+    </span>
+    <span class="text">
+      {{ action.verb }}
+      {% if action.action_object %}
+        {% if action.action_object.user == user and user != action.actor %}
+          your <em>{{ action.action_object_content_type.name|lower }}</em>
+        {% elif action.verb == "replied to" and action.target_content_type.name == "comment" %}
+          {% comment %}
+            Replies used point to posts as targets, now they point to parent comments instead.
+            This was changed because it was impossible to remove reply notifications when replies were deleted,
+            due to original action not having any references to the original reply.
+            Reply notifications linked to actions without reply comment still exist, hence the extra if-condition.
+          {% endcomment %}
+          your comment
+        {% elif action.action_object.user != action.actor %}
+          <em>{{ action.action_object }}</em>
+        {% endif %}
       {% endif %}
-    {% endif %}
-    {% if action.action_object and action.target %}
-      on {{ action.target }}
-    {% else %}
-      {{ action.target }}
-    {% endif %}
-  </span>
-  <span class="date">{{ action.timestamp|date:"U" }}</span>
+      {% if action.action_object and action.target %}
+        {# See the comment above. #}
+        {% if action.verb == "replied to" and action.target_content_type.name == "comment" %}
+          on <em>{{ action.action_object.get_action_target }}</em>
+        {% else %}
+          on <em>{{ action.target }}</em>
+        {% endif %}
+      {% elif action.target %}
+        <em>{{ action.target }}</em>
+      {% endif %}
+    </span>
+  </div>
+  <div class="date">{{ action.timestamp|date:"U" }}</div>
 </a>

@@ -1,0 +1,9 @@
+[Unit]
+Description=call looper clock_tick to process {{ project_name }} subscriptions
+
+[Service]
+Type=oneshot
+User={{ user }}
+Group={{ group }}
+ExecStart={{ dir.source }}/.venv/bin/python {{ dir.source }}/manage.py clock_tick -v 3
+SyslogIdentifier={{ service_name }}

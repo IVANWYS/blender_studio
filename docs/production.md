@@ -17,7 +17,7 @@ If you are using a different distro, some paths, such as location of nginx confi
 Source code of the Blender Studio is assumed to be located in `/var/www/blender-studio/`:
 ```
 cd /var/www
-git clone git@git.blender.org:blender-studio.git
+git clone git@projects.blender.org:studio/blender-studio.git
 git checkout production
 ```
 
@@ -37,28 +37,22 @@ pip install poetry==1.1.6
 poetry install
 ```
 
-### Production `settings.py`
+### Production configuration
 
-Copy `settings.example.py` into production `settings.py`:
+All the configuration of this web app is done via environment variables
+(there's only one `settings.py` regardless of an environment).
+These variables are read from `.env` file which should be placed in the project directory.
+
+Copy `.env.example` into production `.env`:
 ```
-cp studio/settings.example.py studio/settings.py
+cp .env.example .env
 ```
-Make sure to change the following settings in the newly copied `settings.py`:
+Make sure to change at least the following settings in the newly copied `.env`:
 
 * `SECRET_KEY`: must be a random hard-to-guess string (keep it safe, never commit it into any repositories);
-* `DEBUG`: must be `False`;
-* `os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"` line must be commented out or deleted;
-* `ALLOWED_HOSTS` must include whichever domain Studio is running on;
-* `DATABASE` must be updated with database credentials from your production db;
-* the rest of `CHANGE_ME` values that refer to various integrations, such as Blender ID, AWS S3, AWS CloudFront etc must be updated as well.
-
-After `settings.py` have been updated, run the following commands to migrate your database and collect the static files:
-```
-cd /var/www/blender-studio
-source /var/www/venv/bin/activate
-./manage.py migrate
-./manage.py collectstatic --no-input
-```
+* `ALLOWED_HOSTS` must be a domains Studio is running behind (or a comma-separated list, if there's more than one);
+* `DATABASE_URL` must be a [database URL](https://github.com/jazzband/dj-database-url#url-schema) pointing to your production db;
+* the rest of the values refer to various integrations, such as Blender ID, AWS S3, AWS CloudFront etc must be updated as well.
 
 ## Configuration files
 
@@ -140,22 +134,22 @@ systemctl start meilisearch
 When the server is running with a master key, all the requests sent to it have to include the `X-Meili-API-Key` header with either the public key (for search requests), or the private key (for all other requests).
 In practise, the front end needs the public key, and the back end (management commands, signals) - the private one.
 
-When you change the master key, the public and private keys change too, and you will have to update them in `settings.py`.
+When you change the master key, the public and private keys change too, and you will have to update them in `.env`.
 
 Use the master key generated earlier to retrieve the public and the private key:
 ```
-curl -H "X-Meili-API-Key: MASTER-KEY" -X GET 'http://localhost:7700/keys'
+curl -H "Authorization: Bearer MASTER-KEY" -X GET 'http://localhost:7700/keys'
 ```
-Update `/var/www/blender-studio/studio/settings.py` with these values:
+Update `/var/www/blender-studio/studio/.env` with these values:
 ```
-MEILISEARCH_PUBLIC_KEY = 'PublicKeyGoesHere'
-MEILISEARCH_PRIVATE_KEY = 'PrivateKeyGoesHere'
+MEILI_MASTER_KEY='MasterKeyGoesHere'
+MEILISEARCH_PUBLIC_KEY='PublicKeyGoesHere'
 ```
 
 Since all the search requests have to be sent to `https://studio.blender.org/s/`,
-update the `MEILISEARCH_API_ADDRESS` variable in `settings.py`:
+update the `MEILISEARCH_API_ADDRESS` variable in `.env`:
 ```
-MEILISEARCH_API_ADDRESS = 'https://studio.blender.org/s/'
+MEILISEARCH_API_ADDRESS='https://studio.blender.org/s/'
 ```
 
 To index available data, activate the virtualenv, and run `create_search_indexes` and `index_documents` commands,

@@ -34,7 +34,7 @@
             {% elif media_type == "section" %}
               {% include "training/components/card_training_section.html" with section=card card_sizes="col-lg-3 col-6 col-md-4" %}
             {% elif media_type == "blog" %}
-              {% include 'blog/card_blog.html' with post=card %}
+              {% include 'common/components/cards/card_blog.html' with post=card card_sizes="col-12 col-sm-6 col-lg-4" %}
             {% elif media_type == "training" %}
               {% include "training/components/card_training.html" with training=card card_sizes="col-12 col-sm-6 col-lg-4" %}
             {% elif media_type == "film" %}
@@ -49,7 +49,7 @@
             {% elif media_type == "section" %}
               {% include "training/components/card_training_section.html" with section=card card_sizes="col-lg-3 col-6 col-md-4" %}
             {% elif media_type == "blog" %}
-              {% include 'blog/card_blog.html' with post=card %}
+              {% include 'common/components/cards/card_blog.html' with post=card card_sizes="col-12 col-sm-6 col-lg-4" %}
             {% elif media_type == "training" %}
               {% include "training/components/card_training.html" with training=card card_sizes="col-12 col-sm-6 col-lg-4" %}
             {% elif media_type == "film" %}

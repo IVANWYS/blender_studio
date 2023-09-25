@@ -3,6 +3,7 @@
 {% load static %}
 {% load pipeline %}
 {% load common_extras %}
+{% load i18n %}
 
 {% block head_style_extras %}
   {% stylesheet 'vendor_highlight' %}
@@ -30,9 +31,9 @@
       <div class="col training-video">
         {% if section.is_free or request.user|has_active_subscription %}
           {% if user.is_anonymous %}
-            {% include 'common/components/video_player.html' with url=video.source.url poster=section.thumbnail_m_url tracks=section.static_asset.video.tracks.all loop=section.static_asset.video.loop %}
+            {% include 'common/components/video_player.html' with url=video.source.url poster=section.thumbnail_m_url tracks=section.static_asset.video.tracks.all loop=section.static_asset.video.loop vid=section.static_asset.id videoType=section.static_asset.content_type m3u8URL=section.static_asset.M3U8Video.all %}
           {% else %}
-            {% include 'common/components/video_player.html' with url=video.source.url progress_url=video.progress_url start_position=video.start_position poster=section.thumbnail_m_url tracks=section.static_asset.video.tracks.all loop=section.static_asset.video.loop %}
+            {% include 'common/components/video_player.html' with url=video.source.url progress_url=video.progress_url start_position=video.start_position poster=section.thumbnail_m_url tracks=section.static_asset.video.tracks.all loop=section.static_asset.video.loop vid=section.static_asset.id videoType=section.static_asset.content_type m3u8URL=section.static_asset.M3U8Video.all %}
           {% endif %}
         {% else %}
           {% include 'common/components/content_locked.html' with background=section.thumbnail_m_url %}
@@ -59,7 +60,7 @@
             <h2 class="">{{ section.name }}</h2>
           </div>
           <div class="text-muted x-small">
-            <p class="d-inline me-2">{{ section.date_created|date:"jS F Y" }}</p>
+            <p class="d-inline me-2">{{ section.date_created|date }}</p>
             {% if section.static_asset.license %}
               <a href="{{ section.static_asset.license.url }}" target="_blank" class="d-inline me-2 text-muted"
                 data-bs-toggle="tooltip" data-placement="bottom" title="{{ section.static_asset.license.description }}">
@@ -80,15 +81,13 @@
 
       <div class="row mb-2">
         {% if section.static_asset.author_image_url  %}
-          <div style="background-image:url('{{ section.static_asset.author_image_url }}');" class="profile ms-2"></div>
+          <div style="background-image:url('{{ section.static_asset.author_image_url }}');" class="profile-avatar ms-2"></div>
         {% else %}
-          <div style="background-image:url('{% static 'common/images/blank-profile-pic.png' %}');" class="profile ms-2">
+          <div style="background-image:url('{% static 'common/images/blank-profile-pic.png' %}');" class="profile-avatar ms-2">
           </div>
         {% endif %}
 
-        <div class="col-auto">
-          {% include 'common/components/published_by.html' with static_asset=section.static_asset fallback_user=section.user %}
-        </div>
+        {% include 'common/components/cards/card_profile.html' with user=section.static_asset.user title=_("Publisher") %}
       </div>
 
       <section class="mb-3 markdown-text">{% with_shortcodes section.text|markdown_unsafe %}</section>

@@ -1,0 +1,8 @@
+---
+http:
+  hosts:
+    web-studio:
+
+https:
+  hosts:
+    sintel.blender.org:

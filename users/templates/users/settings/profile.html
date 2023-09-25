@@ -1,46 +1,46 @@
 {% extends 'users/settings/base.html' %}
 
 {% load static %}
+{% load common_extras %}
+{% load i18n %}
 
 {% block settings %}
 
-  <p class="subtitle">Settings</p>
-  <h1 class="mb-3">Profile</h1>
+  <h1 class="mb-3">{% blocktrans %}Profile{% endblocktrans %}</h1>
   <div class="settings">
     <div class="row mb-2">
       <div class="col">
-        <h2 class="mb-0">Blender ID Profile</h2>
-        <p>To change the details below, visit the <a href="{{ BLENDER_ID.BASE_URL }}settings/profile"
-          target="_blank">Blender ID</a> website.</p>
+        <p>{% blocktrans %}These details are part of your Blender ID, visit{% endblocktrans %} <a href="{{ BLENDER_ID.BASE_URL }}settings/profile"
+          target="_blank">id.blender.org</a> {% blocktrans %}to change.{% endblocktrans %}</p>
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-6 mb-3">
-        <label class="mb-0 h3" for="userFullName">Full Name</label>
-        <p>This is displayed in comments.</p>
+        <label class="h3" for="userFullName">{% blocktrans %}Name{% endblocktrans %}</label>
         <input disabled class="form-control" type="text" value="{{ user.full_name }}" id="userFullName"
-          style="background-image:url({% static "common/images/icons/lock.svg" %});">
+        style="background-image:url({% static "common/images/icons/lock.svg" %});">
+        <small class="d-block mt-1 text-muted">{% blocktrans %}This is displayed in comments.{% endblocktrans %}</small>
       </div>
       <div class="col-md-6 mb-3">
-        <label class="mb-0 h3" for="email">Email</label>
-        <p>This is how we contact you.</p>
+        <label class="h3" for="email">{% blocktrans %}Email{% endblocktrans %}</label>
         <input disabled class="form-control" type="text" value="{{ user.email }}" id="email"
-          style="background-image:url({% static "common/images/icons/lock.svg" %});">
+        style="background-image:url({% static "common/images/icons/lock.svg" %});">
+        <small class="d-block mt-1 text-muted">{% blocktrans %}This is how we contact you.{% endblocktrans %}</small>
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-6 mb-3">
-        <label class="mb-0 h3" for="username">Username</label>
-        <p>This is displayed in comments.</p>
+        <label class="h3" for="username">{% blocktrans %}Username{% endblocktrans %}</label>
         <input disabled class="form-control" type="text" value="{{ user.username }}" id="username"
-          style="background-image:url({% static "common/images/icons/lock.svg" %});">
+        style="background-image:url({% static "common/images/icons/lock.svg" %});">
+        <small class="d-block mt-1 text-muted">{% blocktrans %}This is displayed in comments.{% endblocktrans %}</small>
       </div>
       <div class="col-md-6 mb-3">
-        <h3 class="mb-0">Profile Picture</h3>
-        <p>This is displayed in comments.</p>
-        <img src="{{ user.image_url }}" width="44" height="44" class="rounded" alt="Profile Image">
+        <h3>{% blocktrans %}Profile Picture{% endblocktrans %}</h3>
+        {% include 'users/components/avatar.html' with user=user %}
+        <small class="d-block mt-1 text-muted">{% blocktrans %}This is displayed in comments.{% endblocktrans %}</small>
       </div>
     </div>
 
@@ -48,26 +48,23 @@
       {% if user.badges %}
         <div class="col-md-6 mb-3">
 
-          <h3 class="mb-0">Badges</h3>
-          <p>These are displayed next to your name.</p>
+          <h3>{% blocktrans %}Badges{% endblocktrans %}</h3>
           <div class="row">
             <div class="col-md-12 mb-3">
               {% with width=44 badges=user.badges %}
-                {% include 'users/components/badges.html' %}
+              {% include 'users/components/badges.html' %}
               {% endwith %}
+              <small class="d-block mt-1 text-muted">{% blocktrans %}These are displayed next to your name.{% endblocktrans %}</small>
             </div>
           </div>
 
         </div>
       {% endif %}
       <div class="col-md-6 mb-3">
-
-        <h3 class="mb-0">Preview</h3>
-        <p>This is how your profile is displayed.</p>
+        <h3>{% blocktrans %}Preview{% endblocktrans %}</h3>
         <div class="p-2 bg-secondary rounded">
-
           <div class="comment-name-date-wrapper mb-0">
-            <div style="background-image:url('{{ user.image_url }}');" class="profile col-profile"></div>
+            <div style="background-image:url('{{ user.image_url }}');" class="profile-avatar"></div>
             <h4 class="comment-name">{% firstof user.full_name user.username %}</h4>
             <p class="badge">
               {% with width=16 badges=user.badges %}
@@ -75,15 +72,31 @@
               {% endwith %}
             </p>
           </div>
-
         </div>
-
-
-
+        <small class="d-block mt-1 text-muted">{% blocktrans %}This is how your profile is displayed.{% endblocktrans %}</small>
       </div>
     </div>
 
+    <hr>
 
+    <div class="row mb-2">
+      <div class="col">
+        <div class="p-3 bg-secondary rounded">
+          <h1>{% blocktrans %}Coupons{% endblocktrans %}</h1>
+          {% if not coupon_user_subscribed %}
+            <p>{% blocktrans %}It looks like no coupon is available at the moment.{% endblocktrans %}</p>
+          {% else %}
+            <div class="row">
+              {% if request.user|has_active_subscription %}
+                {{ coupon_user_subscribed.text | safe }}
+              {% else %}
+                {{ coupon_user_not_subscribed.text | safe }}
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
   </div>
 
 {% endblock settings %}

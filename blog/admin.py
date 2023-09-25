@@ -5,9 +5,13 @@ from blog.models import Post
 from common.mixins import ViewOnSiteMixin
 import search.signals
 
+# Data import export
+from .resource import PostResource
+
+from import_export.admin import ImportExportModelAdmin
 
 @admin.register(Post)
-class PostAdmin(ViewOnSiteMixin, admin.ModelAdmin):
+class PostAdmin(ImportExportModelAdmin, ViewOnSiteMixin, admin.ModelAdmin):
     list_display = [
         '__str__',
         'film',
@@ -32,13 +36,19 @@ class PostAdmin(ViewOnSiteMixin, admin.ModelAdmin):
 
     fields = (
         'date_published',
-        'title',
+        'title_en',
+        'title_zh_hans',
+        'title_zh_hant',
         'slug',
         'category',
         'author',
         'film',
-        'excerpt',
-        'content',
+        'excerpt_en',
+        'excerpt_zh_hans',
+        'excerpt_zh_hant',
+        'content_en',
+        'content_zh_hans',
+        'content_zh_hant',
         'attachments',
         'header',
         'thumbnail',
@@ -47,7 +57,9 @@ class PostAdmin(ViewOnSiteMixin, admin.ModelAdmin):
     autocomplete_fields = ['author', 'attachments', 'film']
     search_fields = ['slug']
     prepopulated_fields = {
-        'slug': ('title',),
+        'slug': ('title_en',),
     }
 
-    actions = [search.signals.reindex]
+    # actions = [search.signals.reindex]
+    
+    resource_class = PostResource

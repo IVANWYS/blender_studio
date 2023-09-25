@@ -1,0 +1,8 @@
+@mixin font-weight($weight)
+  font-weight: normal !important;
+  font-variation-settings: "wght" #{$weight}
+
+@mixin text-overflow-ellipsis
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap

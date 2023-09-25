@@ -1,0 +1,8 @@
+[Unit]
+Description=queue account deletion requests received by {{ project_name }}
+
+[Service]
+Type=oneshot
+User={{ user }}
+Group={{ group }}
+ExecStart={{ dir.source }}/.venv/bin/python {{ dir.source }}/manage.py queue_deletion_requests

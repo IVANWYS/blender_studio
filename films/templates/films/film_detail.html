@@ -2,6 +2,7 @@
 {% load static %}
 {% load common_extras %}
 {% load pipeline %}
+{% load i18n %}
 
 {% block title_prepend %}{{ film.title }} - {% endblock title_prepend %}
 
@@ -40,8 +41,8 @@
 
         <div class="row mb-3">
           <div class="col text-center">
-            <h2 class="mb-0">This week in Production</h2>
-            <p class="mb-0">Check out what the teams been working on this week on {{ film.title }}.
+            <h1>This week in Production</h1>
+            <p class="mb-0">Check out what the team has been working these days on {{ film.title }}.
               <a href="{% url 'film-production-logs' film.slug %}">See all production logs</a></p>
           </div>
         </div>
@@ -54,7 +55,7 @@
 
         <div class="row">
           <div class="col text-center">
-            <p class="mb-0">Want to see more updates from {{ film.title }}?
+            <p class="mb-0">But wait, there's more!
               <a href="{% url 'film-production-logs' film.slug %}">See all production logs</a></p>
           </div>
         </div>
@@ -63,9 +64,9 @@
 
         <div class="row mb-3">
           <div class="col">
-            <h2 class="mb-0">Featured Content Gallery</h2>
-            <p class="mb-0">Want to see more?
-              <a href="{% url 'film-gallery' film.slug %}">Explore the Content Gallery</a></p>
+            <h2 class="mb-0">{% blocktrans %}Featured Content Gallery{% endblocktrans %}</h2>
+            <p class="mb-0">{% blocktrans %}Want to see more?{% endblocktrans %}
+              <a href="{% url 'film-gallery' film.slug %}">{% blocktrans %}Explore the Content Gallery{% endblocktrans %}</a></p>
           </div>
         </div>
 
@@ -86,7 +87,7 @@
           <div class="row">
             <div class="col text-center">
               <div class="bg-secondary py-4 rounded">
-                <h3 class="mb-0">No Featured Artwork to display</h3>
+                <h3 class="mb-0">{% blocktrans %}No Featured Artwork to display{% endblocktrans %}</h3>
               </div>
             </div>
           </div>

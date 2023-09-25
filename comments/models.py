@@ -3,6 +3,7 @@ from typing import Optional, List, Dict, Any
 from actstream import action
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models.signals import post_delete
 from django.urls.base import reverse
 from django.utils import timezone
 
@@ -115,6 +116,7 @@ class Comment(mixins.CreatedUpdatedMixin, models.Model):
         if not self.is_deleted:
             self.date_deleted = timezone.now()
             self.save()
+            post_delete.send(self.__class__, instance=self, using='default')
 
     def soft_delete_tree(self) -> None:
         """Soft-deletes (i.e. mark as deleted) the comment and all its replies."""

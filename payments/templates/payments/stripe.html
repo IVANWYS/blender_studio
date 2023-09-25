@@ -1,0 +1,352 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="content-holder navdrawer-offset">
+  <div class="container-fluid pt-4">
+    <section class="flat-page-content mb-4">
+      <div class="row justify-content-center mb-3">
+        <div class="col-md-6 text-center">
+          <h1 class="mb-0">{% blocktrans %}Payments{% endblocktrans %}</h1>
+        </div>
+      </div>
+    </section>
+    <!---->
+    <div class="container-xxl" >
+
+        {% if request.user.is_authenticated %}
+        {% if user_status != "Null" %}
+        {% now "Y-m-d H:i:s" as todays_date %}
+            <div class="row justify-content-center mb-2">
+              <div class="col">
+                <br><br><br>
+              </div>
+              <div class="col-md-auto d-none d-md-block carousel-card-toolbar">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col text-center">
+                <div class="bg-secondary py-4 rounded">
+                  {% for user_record in user_detail %}
+                  {% if todays_date <= user_record.end_date|date:"Y-m-d H:i:s" %}
+                  <h3 class="mb-0">{% blocktrans %}Your subscription is now active and will expire on{% endblocktrans %} {{user_record.end_date|date}}</h3>
+                  {% else %}
+                  <h3 class="mb-0">{% blocktrans %}Your subscription expired on{% endblocktrans %} {{user_record.end_date|date}}</h3>
+                  {% endif %}
+                  <br>
+                  <a href={% url 'user-settings-record' %} class="btn btn-primary">{% blocktrans %}View{% endblocktrans %}</a>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+        {% endif %}
+        {% comment "message" %}{% endcomment %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="container" id="msg">
+          {% if message.tags == "error" %}
+          <div class="alert alert-danger alert-dismissable text-center" role="alert">
+              <strong>
+                  Error : 
+                </strong>
+              {{ message }}
+          </div>
+          {% else %}
+          <div class="alert alert-{{ message.tags }} alert-dismissable text-center" role="alert">
+              <strong>
+                  {{message.tags | title}}
+                </strong>
+              {{ message }}
+          </div>
+          {% endif %}
+          <script>
+            var message_ele = document.getElementById("msg");
+        
+            setTimeout(function(){ 
+               message_ele.style.display = "none"; 
+            }, 3000);
+          </script>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% comment "select plan" %}{% endcomment %}
+        <section class="pricing py-5">
+            <div class="container">
+              <div class="row">
+                {% comment "1 Month" %}{% endcomment %}
+                <div class="col-lg-3 col-sm-6">
+                  <div class="card mb-5 mb-lg-0">
+                    <div class="card-body">
+                      <h5 class="card-title text-muted text-uppercase text-center">{% blocktrans %}Plan{% endblocktrans %}</h5>
+                      <h6 class="card-price text-center">¥90<span class="period">{% blocktrans %}/month{% endblocktrans %}</span></h6>
+                      <hr>
+                      <ul class="fa-ul">
+                        <li><span class="fa-li"><i class="fas fa-check"></i></span>{% blocktrans %}All Films{% endblocktrans %}</li>
+                        <li><span class="fa-li"><i class="fas fa-check"></i></span>{% blocktrans %}All Courses{% endblocktrans %}</li>
+                        <li><span class="fa-li"><i class="fas fa-check"></i></span>{% blocktrans %}All Workshops{% endblocktrans %}</li>
+                        <li><span class="fa-li"><i class="fas fa-check"></i></span>{% blocktrans %}All Aassets{% endblocktrans %}</li>
+                      </ul>
+                      <div class="d-grid">
+                        <form
+                          action="{% url 'plan_select' %}"
+                          method="POST"
+                          enctype="multipart/form-data"
+                          onsubmit="uploading_form()"
+                        >
+                          {% csrf_token %}
+                          <input type="hidden" name="select_plan" value="30" />
+                          <div class="d-grid gap-2">
+                            <button class="btn btn-lg btn-success" type="submit">
+                              <span
+                                class="spinner-grow spinner-grow-sm"
+                                role="status"
+                                aria-hidden="true"
+                                style="display: none"
+                              ></span>
+                              <span class="btn-text">{% blocktrans %}Join the Studio - 1 Month{% endblocktrans %}</span>
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% comment "3 Month" %}{% endcomment %}
+                <div class="col-lg-3 col-sm-6">
+                  <div class="card mb-5 mb-lg-0">
+                    <div class="card-body">
+                      <h5 class="card-title text-muted text-uppercase text-center">{% blocktrans %}Plan{% endblocktrans %}</h5>
+                      <h6 class="card-price text-center">¥270<span class="period">{% blocktrans %}/3 month{% endblocktrans %}</span></h6>
+                      <hr>
+                      <ul class="fa-ul">
+                        <li><span class="fa-li"><i class="fas fa-check"></i></span>{% blocktrans %}All Films{% endblocktrans %}</li>
+                        <li><span class="fa-li"><i class="fas fa-check"></i></span>{% blocktrans %}All Courses{% endblocktrans %}</li>
+                        <li><span class="fa-li"><i class="fas fa-check"></i></span>{% blocktrans %}All Workshops{% endblocktrans %}</li>
+                        <li><span class="fa-li"><i class="fas fa-check"></i></span>{% blocktrans %}All Aassets{% endblocktrans %}</li>
+                      </ul>
+                      <div class="d-grid">
+                        <form
+                          action="{% url 'plan_select' %}"
+                          method="POST"
+                          enctype="multipart/form-data"
+                          onsubmit="uploading_form()"
+                        >
+                          {% csrf_token %}
+                          <input type="hidden" name="select_plan" value="90" />
+                          <div class="d-grid gap-2">
+                            <button class="btn btn-lg btn-success" type="submit">
+                              <span
+                                class="spinner-grow spinner-grow-sm"
+                                role="status"
+                                aria-hidden="true"
+                                style="display: none"
+                              ></span>
+                              <span class="btn-text">{% blocktrans %}Join the Studio - 3 Month{% endblocktrans %}</span>
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% comment "6 Month" %}{% endcomment %}
+                <div class="col-lg-3 col-sm-6">
+                  <div class="card mb-5 mb-lg-0">
+                    <div class="card-body">
+                      <h5 class="card-title text-muted text-uppercase text-center">{% blocktrans %}Plan{% endblocktrans %}</h5>
+                      <h6 class="card-price text-center">¥540<span class="period">{% blocktrans %}/6 month{% endblocktrans %}</span></h6>
+                      <hr>
+                      <ul class="fa-ul">
+                        <li><span class="fa-li"><i class="fas fa-check"></i></span>{% blocktrans %}All Films{% endblocktrans %}</li>
+                        <li><span class="fa-li"><i class="fas fa-check"></i></span>{% blocktrans %}All Courses{% endblocktrans %}</li>
+                        <li><span class="fa-li"><i class="fas fa-check"></i></span>{% blocktrans %}All Workshops{% endblocktrans %}</li>
+                        <li><span class="fa-li"><i class="fas fa-check"></i></span>{% blocktrans %}All Aassets{% endblocktrans %}</li>
+                      </ul>
+                      <div class="d-grid">
+                        <form
+                          action="{% url 'plan_select' %}"
+                          method="POST"
+                          enctype="multipart/form-data"
+                          onsubmit="uploading_form()"
+                        >
+                          {% csrf_token %}
+                          <input type="hidden" name="select_plan" value="180" />
+                          <div class="d-grid gap-2">
+                            <button class="btn btn-lg btn-success" type="submit">
+                              <span
+                                class="spinner-grow spinner-grow-sm"
+                                role="status"
+                                aria-hidden="true"
+                                style="display: none"
+                              ></span>
+                              <span class="btn-text">{% blocktrans %}Join the Studio - 6 Month{% endblocktrans %}</span>
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% comment "Year" %}{% endcomment %}
+                <div class="col-lg-3 col-sm-6">
+                  <div class="card">
+                    <div class="ribbon" style="position: absolute;
+                      top: 20px;
+                      left: 0px;
+                      padding: 5px 0;
+                      color: #fff;
+                      text-align: center;
+                      width: 60px;
+                      font-size: 12px;
+                      pointer-events:none;
+                      inset: var(--t) 0 auto auto;
+                      background: #BD1550;
+                      border-top-left-radius: .33rem;
+                      border-bottom-right-radius: .33rem;
+                      box-shadow: 0 5px 10px rgba(0,0,0,0.12); ">{% blocktrans %}Hot{% endblocktrans %}</div>
+                    <div class="card-body">
+                      
+                      <h5 class="card-title text-muted text-uppercase text-center">{% blocktrans %}Plan{% endblocktrans %}</h5>
+                      <h6 class="card-price text-center">¥1000<span class="period">{% blocktrans %}/year{% endblocktrans %}</span></h6>
+                      
+                      <hr>
+                      <ul class="fa-ul">
+                        <li><span class="fa-li"><i class="fas fa-check"></i></span>{% blocktrans %}All Films{% endblocktrans %}</li>
+                        <li><span class="fa-li"><i class="fas fa-check"></i></span>{% blocktrans %}All Courses{% endblocktrans %}</li>
+                        <li><span class="fa-li"><i class="fas fa-check"></i></span>{% blocktrans %}All Workshops{% endblocktrans %}</li>
+                        <li><span class="fa-li"><i class="fas fa-check"></i></span>{% blocktrans %}All Aassets{% endblocktrans %}</li>
+                      </ul>
+                      <div class="d-grid">
+                        <form
+                          action="{% url 'plan_select' %}"
+                          method="POST"
+                          enctype="multipart/form-data"
+                          onsubmit="uploading_form()"
+                        >
+                          {% csrf_token %}
+                          <input type="hidden" name="select_plan" value="365" />
+                          <div class="d-grid gap-2">
+                            <button class="btn btn-lg btn-success" type="submit">
+                              <span
+                                class="spinner-grow spinner-grow-sm"
+                                role="status"
+                                aria-hidden="true"
+                                style="display: none"
+                              ></span>
+                              <span class="btn-text">{% blocktrans %}Join the Studio - 1 Year{% endblocktrans %}</span>
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!---->
+              </div>
+            </div>
+        </section>
+        
+
+
+
+        {% else %}
+          <section class="mb-4">
+            <div class="row justify-content-center mb-2">
+              <div class="col">
+                <br><br><br>
+              </div>
+              <div class="col-md-auto d-none d-md-block carousel-card-toolbar">
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="col text-center">
+                <div class="bg-secondary py-4 rounded">
+                  <h3 class="mb-0">{% blocktrans %}You need to login before subscribing.{% endblocktrans %}</h3>
+                  <br>
+                  <a href={% url 'oauth:login' %} class="btn btn-primary">{% blocktrans %}Login{% endblocktrans %}</a>
+                </div>
+              </div>
+            </div>
+          </section>
+        {% endif %}
+         
+    </div>
+    <!---->
+    
+    <!---->
+
+    <style>
+    
+      section.pricing {
+        background: #171717;
+        background: linear-gradient(to right, #171717, #171717);
+      }
+
+      .pricing .card {
+        border: none;
+        border-radius: 1rem;
+        background: #1F1F1F;
+        transition: all 0.2s;
+        box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+      }
+
+      .pricing hr {
+        margin: 1.5rem 0;
+      }
+
+      .pricing .card-title {
+        margin: 0.5rem 0;
+        font-size: 0.9rem;
+        letter-spacing: .1rem;
+        font-weight: bold;
+      }
+
+      .pricing .card-price {
+        font-size: 3rem;
+        margin: 0;
+      }
+
+      .pricing .card-price .period {
+        font-size: 0.8rem;
+      }
+
+      .pricing ul li {
+        margin-bottom: 1rem;
+      }
+
+      .pricing .text-muted {
+        opacity: 0.7;
+      }
+
+      .pricing .btn {
+        font-size: 80%;
+        border-radius: 5rem;
+        letter-spacing: .1rem;
+        font-weight: bold;
+        padding: 1rem;
+        opacity: 0.7;
+        transition: all 0.2s;
+      }
+
+      /* Hover Effects on Card */
+
+      @media (min-width: 992px) {
+        .pricing .card:hover {
+          margin-top: -.25rem;
+          margin-bottom: .25rem;
+          box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
+        }
+      
+        .pricing .card:hover .btn {
+          opacity: 1;
+        }
+      }
+
+    </style>
+
+    <!---->
+  </div>
+</div>
+{% endblock %}

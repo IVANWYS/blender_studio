@@ -3,6 +3,7 @@
 {% load static %}
 {% load pipeline %}
 {% load common_extras %}
+{% load i18n %}
 
 {% block head_style_extras %}
 {% stylesheet 'vendor_highlight' %}
@@ -47,7 +48,8 @@
             <div class="button-toolbar">
               {% if user.is_staff %}
                 <a href="{{ chapter.admin_url }}" class="btn btn-sm btn-icon btn-dark">
-                  <i class="material-icons btn-material-icons">create</i>
+                  <i class="i-edit btn-material-icons"></i>
+                  <span>{% blocktrans %}Edit{% endblocktrans %}</span>
                 </a>
               {% endif %}
 
@@ -55,10 +57,10 @@
                 <i class="material-icons">more_horiz</i>
               </button>
               <div class="dropdown-menu dropdown-menu-end">
-                <a href="https://developer.blender.org/maniphest/task/edit/form/15/" target="_blank"
+                <a href="https://projects.blender.org/studio/blender-studio/issues/new" target="_blank"
                   class="dropdown-item">
-                  <i class="material-icons">flag</i>
-                  <span>Report Problem</span>
+                  <i class="i-flag"></i>
+                  <span>{% blocktrans %}Report Problem{% endblocktrans %}</span>
                 </a>
               </div>
 

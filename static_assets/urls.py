@@ -10,12 +10,13 @@ urlpatterns = [
     # so tracks are served from the same domain to avoid having CORS set up at the CDN for
     # all the videos as well as tracks.
     # See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track#attr-src
+    # r'download-source/(?P<source>[a-zA-Z0-9-/.]+)$', download_view, name='download-source-url'
     re_path(
         r'api/videos/track/(?P<pk>\d+)/(?P<path>\w+/\w+/\w+\.vtt)$',
         video_track_view,
         name='video-track',
     ),
     re_path(
-        r'download-source/(?P<source>[a-zA-Z0-9-/.]+)$', download_view, name='download-source-url',
+        r'download-source/(?P<source>[a-zA-Z0-9-_&/.]+)$', download_view, name='download-source-url',
     ),
 ]

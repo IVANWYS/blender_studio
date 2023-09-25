@@ -2,7 +2,7 @@ from django.urls import path, include
 
 from blog.views.api.comment import comment
 from blog.views.api.like import post_like
-from blog.views.blog import PostList, PostDetail
+from blog.views.blog import PostList, PostDetail, PostFeed
 
 urlpatterns = [
     path(
@@ -16,4 +16,5 @@ urlpatterns = [
     ),
     path('', PostList.as_view(), name='post-list'),
     path('<slug:slug>/', PostDetail.as_view(), name='post-detail'),
+    path('latest/feed/', PostFeed(), name='post-feed'),
 ]

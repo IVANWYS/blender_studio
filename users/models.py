@@ -12,13 +12,14 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from common.upload_paths import get_upload_to_hashed_path
+import common.storage
 
 logger = logging.getLogger(__name__)
 
 
 def shortuid() -> str:
     """Generate a 14-characters long string ID based on time."""
-    return hex(int(time.monotonic() * 10 ** 10))[2:]
+    return hex(int(time.monotonic() * 10**10))[2:]
 
 
 class User(AbstractUser):
@@ -49,7 +50,12 @@ class User(AbstractUser):
     def notifications(self):
         return (
             self.notifications.select_related(
-                'action', 'user', 'action__target_content_type', 'action__target_object',
+                'action',
+                'user',
+                'action__target_content_type',
+                'action__target_object',
+                'action__action_object_content_type',
+                'action__action_object',
             ).annotate(
                 unread=Case(
                     When(date_read__isnull=True, then=Value(0)),
@@ -109,7 +115,7 @@ class User(AbstractUser):
         import subscriptions.models
 
         if not self.can_be_deleted:
-            looper.error(
+            logger.error(
                 'User.anonymize called, but pk=%s cannot be deleted',
                 self.pk,
             )
@@ -194,6 +200,16 @@ class User(AbstractUser):
 
         message = 'Anonymized because account deletion was requested'
         admin_log.attach_log_entry(self, message)
+
+    def get_cloud_archive_url(self):
+        try:
+            blender_id = self.oauth_info.oauth_user_id
+            key = f'archives/cloud_archive_{blender_id}.zip'
+            if common.storage.file_exists(key):
+                return common.storage.get_s3_url(key)
+        except Exception:
+            logger.exception(f'Cannot retrieve Cloud archive for user pk={self.pk}')
+        return ''
 
 
 class Notification(models.Model):

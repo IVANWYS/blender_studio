@@ -1,6 +1,7 @@
 {% extends 'common/base.html' %}
 {% load static %}
 {% load common_extras %}
+{% load i18n %}
 
 {% block title_prepend %}{{ character_showcase.showcase.title }} - Character Showcase - {% endblock title_prepend %}
 
@@ -41,7 +42,7 @@
           <div class="col-12 col-md mb-2 mb-md-3">
             <div class="">
               <p class="subtitle">
-                Character Showcase |
+                {% blocktrans %}Character Showcase{% endblocktrans %} |
                 <a href="{{ character_showcase.character.get_absolute_url }}">
                   <span class="d-inline-block">{{ character_showcase.character.name }}</span>
                 </a>
@@ -51,7 +52,7 @@
 
             <div class="text-muted small">
 
-              <p class="d-inline me-2">{{ character_showcase.date_published|date:"jS F Y" }}</p>
+              <p class="d-inline me-2">{{ character_showcase.date_published|date }}</p>
               {% if character_showcase.static_asset.license %}
                 <a href="{{ character_showcase.static_asset.license.url }}" target="_blank" class="d-inline me-2 text-muted"
                   data-bs-toggle="tooltip" data-placement="bottom" title="{{ character_showcase.static_asset.license.description }}">
@@ -66,10 +67,10 @@
                 </a>
               {% endif %}
               {% if character_showcase.is_free %}
-                {% include "common/components/cards/pill.html" with label='Free' %}
+                {% include "common/components/cards/pill.html" with label=_('Free') %}
               {% endif %}
               <p class="d-inline me-2 text-muted">
-                Blender Version: {{ character_showcase.min_blender_version }}
+                {% blocktrans %}Blender Version{% endblocktrans %}: {{ character_showcase.min_blender_version }}
               </p>
 
             </div>
@@ -82,30 +83,14 @@
 
         <div class="text-muted small row">
           <div class="col-auto d-flex mb-2">
-            <div class="row">
-              <div class="col-auto pe-0">
-                {% if character_showcase.static_asset.author_image_url %}
-                  <img src="{{ character_showcase.static_asset.author_image_url }}" class="profile">
-                {% else %}
-                  <img src="{% static 'common/images/blank-profile-pic.png' %}" class="profile">
-                {% endif %}
-              </div>
-              <div class="col-auto">
-                <p class="subtitle text-white-50 x-small">Published by</p>
-                <h4 class="comment-name mb-0">{{ character_showcase.static_asset.author_name }}</h4>
-              </div>
-            </div>
+            {% include 'common/components/cards/card_profile.html' with user=character_showcase.static_asset.user title=_("Publisher") %}
           </div>
         </div>
 
         <section class="mb-3 markdown-text">{% with_shortcodes character_showcase.description|markdown_unsafe %}</section>
-
         <section class="mb-3">{% include 'comments/components/comment_section.html' %}</section>
-
       </div>
-
     </div>
-
   </section>
   </div>
 {% endblock %}

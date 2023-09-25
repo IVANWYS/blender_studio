@@ -1,0 +1,7 @@
+---
+- name: Enabling site configuration {{ config_file }}
+  ansible.builtin.file:
+    dest: "{{ nginx_conf_dir }}/sites-enabled/{{ config_file }}"
+    src: "{{ nginx_conf_dir }}/sites-available/{{ config_file }}"
+    state: link
+    force: true

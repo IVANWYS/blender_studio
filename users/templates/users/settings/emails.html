@@ -1,14 +1,14 @@
 {% extends 'users/settings/base.html' %}
-
+{% load i18n %}
 {% block settings %}
 
-  <p class="subtitle">Settings</p>
-  <h1 class="mb-3">Emails</h1>
+  <p class="subtitle">{% blocktrans %}Settings{% endblocktrans %}</p>
+  <h1 class="mb-3">{% blocktrans %}Emails{% endblocktrans %}</h1>
   <div class="settings-form">
     <div class="row">
       <div class="col">
-        <h2 class="mb-0">Newsletter</h2>
-        <p>We occasionally send out emails with updates on whats new in the Blender Studio.</p>
+        <h2 class="mb-0">{% blocktrans %}Newsletter{% endblocktrans %}</h2>
+        <p>{% blocktrans %}We occasionally send out emails with updates on whats new in the Blender Studio.{% endblocktrans %}</p>
       </div>
     </div>
     <form id="settings-form" method="POST" action="/settings/emails">
@@ -18,11 +18,11 @@
           {{ field.errors }}
           <label class="form-check-label">
             {{ field }}
-            Keep me updated with Blender Studio news.
+            {% blocktrans %}Keep me updated with Blender Studio news.{% endblocktrans %}
           </label>
         </div>
       {% endfor %}
-      <button type="submit" class="btn btn-primary">Save changes</button>
+      <button type="submit" class="btn btn-primary">{% blocktrans %}Save changes{% endblocktrans %}</button>
     </form>
   </div>
 

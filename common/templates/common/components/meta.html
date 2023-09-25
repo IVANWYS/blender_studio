@@ -3,9 +3,9 @@
   {% load common_extras %}
 
   {% with default_title="Blender Studio" %}
-    {% with default_author="Blender Institute" %}
+    {% with default_author="Blender Studio" %}
 
-      {% with default_description="Blender Studio is a web based service developed by Blender Institute that allows people to access the training videos and all the data from the open projects." %}
+      {% with default_description="Blender Studio is a web service that provides access the training videos and all the data from the Blender open projects." %}
 
         {% if not image_url %}
           {% static 'common/images/blender-studio-og.jpg' as default_image_path %}
@@ -22,7 +22,7 @@
         <meta property="og:site_name" content="Blender Studio">
         <meta property="og:locale" content="en_US">
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:site" content="@Blender_Cloud">
+        <meta name="twitter:site" content="@BlenderStudio_">
         <meta property="og:type" content="website">
 
         <meta property="og:title" content="{% if title %}{{ title }} - {% endif %}{{ default_title }}">

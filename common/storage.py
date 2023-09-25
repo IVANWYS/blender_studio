@@ -63,6 +63,19 @@ def get_s3_url(path, expires_in_seconds=3600):
     )
 
 
+def file_exists(path, bucket=settings.AWS_STORAGE_BUCKET_NAME):
+    """Check if given file exists in S3."""
+    global _s3_client
+    if not _s3_client:
+        _s3_client = _get_s3_client()
+
+    try:
+        _s3_client.head_object(Bucket=bucket, Key=path)
+    except botocore.exceptions.ClientError as e:
+        return int(e.response['Error']['Code']) != 404
+    return True
+
+
 def get_s3_post_url_and_fields(
     path,
     bucket=settings.AWS_STORAGE_BUCKET_NAME,

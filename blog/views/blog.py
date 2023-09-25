@@ -2,6 +2,8 @@ from typing import List
 
 from django.views.generic import ListView, DetailView
 from django.db.models.query import QuerySet
+from django.contrib.syndication.views import Feed
+from django.utils import feedgenerator
 
 from blog.models import Post, Like
 from blog.queries import get_posts
@@ -51,3 +53,27 @@ class PostDetail(DetailView):
         )
 
         return context
+
+
+class PostFeed(Feed):
+    title = 'Blender Studio feed'
+    link = '/blog/'
+    description = 'Updates from Blender Studio'
+
+    def item_enclosures(self, item: Post):
+        return [
+            feedgenerator.Enclosure(
+                item.thumbnail_m_url,
+                str(item.thumbnail.size),
+                'image/{}'.format(item.thumbnail.name.split('.')[-1]),
+            )
+        ]
+
+    def items(self):
+        return Post.objects.filter(is_published=True).order_by('-date_published')[:5]
+
+    def item_title(self, item):
+        return item.title
+
+    def item_description(self, item):
+        return item.excerpt

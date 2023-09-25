@@ -1,8 +1,9 @@
 {% extends 'common/base.html' %}
 
 {% load static %}
+{% load i18n %}
 
-{% block title_prepend %}Characters - {% endblock title_prepend %}
+{% block title_prepend %}{% blocktrans %}Characters{% endblocktrans %} - {% endblock title_prepend %}
 
 {% block bodyclasses %}spacer{% endblock bodyclasses %}
 
@@ -13,17 +14,18 @@
 {% endblock %}
 
 {% block jumbotron %}
-  <div class="jumbotron jumbotron-fluid jumbotron-overlay header spacer-n " style="overflow:visible;">
+  <div class="jumbotron jumbotron-fluid jumbotron-overlay header" style="overflow:visible;">
     <div class="jumbotron-bg-wrapper" style="height: 500px;">
-      <img class="jumbotron-bg" src="{% static "characters/images/characters-header.jpg" %}">
+      <img class="jumbotron-bg" src="{% static 'characters/images/characters-header.jpg' %}">
     </div>
     <div class="container-xxl">
       <div class="row">
-        <div class="col-lg-5 col-xl-4">
+        <div class="col-lg-6 col-xl-7">
           <div class="jumbotron-body">
-            <div class="spacer"></div>
-            <h1>Character Library</h1>
-            <p class="mb-0">Characters from Blender Studio Open Movies.</p>
+            <h1>{% blocktrans %}Character Library{% endblocktrans %}</h1>
+            <div class="lead">
+              {% blocktrans %}Fully rigged characters from the iconic Blender Studio open movies.{% endblocktrans %}
+            </div>
           </div>
         </div>
       </div>
@@ -32,23 +34,13 @@
 {% endblock jumbotron %}
 
 {% block content %}
-
-  <div class="container-xxl">
-
-    <div class="row">
-      <div class="col">
-        <h3>All Characters</h3>
-      </div>
-    </div>
-    <div class="row py-2">
+  <div class="container-xxl mb-3">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
       {% for character in characters %}
         {% if character.is_published or user.is_superuser or user.is_staff %}
           {% include "characters/components/card_character.html" %}
         {% endif %}
       {% endfor %}
-
     </div>
-
   </div>
-
 {% endblock content %}

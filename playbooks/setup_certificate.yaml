@@ -1,0 +1,40 @@
+---
+- hosts: https
+  gather_facts: false
+  become: true
+  roles: [common]
+  tasks:
+    - name: Creating {{ nginx_temp_path }}
+      ansible.builtin.file:
+        path: "{{ nginx_temp_path }}"
+        state: directory
+        owner: "{{ nginx.user }}"
+        group: "{{ nginx.group }}"
+        recurse: true
+      when: nginx_temp_path is defined
+
+    - name: Creating errors directory
+      ansible.builtin.file:
+        path: "{{ dir.errors }}"
+        state: directory
+        owner: "{{ nginx.user }}"
+        group: "{{ nginx.group }}"
+        recurse: true
+      tags:
+        - error-pages
+
+    - import_tasks: tasks/copy_error_pages.yaml
+
+    - name: Copying nginx config
+      ansible.builtin.template:
+        src: templates/nginx/https.conf
+        dest: "{{ nginx_conf_dir }}/sites-available/{{ service_name }}.conf"
+        mode: 0644
+
+    - import_tasks: common/tasks/nginx/enable_site.yaml
+      vars:
+        config_file: "{{ service_name }}.conf"
+
+    - import_tasks: common/tasks/nginx/get_certificate.yaml
+      notify:
+        - test nginx

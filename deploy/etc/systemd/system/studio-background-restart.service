@@ -1,6 +1,0 @@
-[Unit]
-Description=restart Studio background task handler
-
-[Service]
-Type=oneshot
-ExecStart=/bin/systemctl restart studio-background.service

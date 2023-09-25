@@ -1,0 +1,9 @@
+[Unit]
+Description=Clear expired {{ project_name }} sessions
+
+[Service]
+Type=oneshot
+User={{ user }}
+Group={{ group }}
+ExecStart={{ dir.source }}/.venv/bin/python {{ dir.source }}/manage.py clearsessions
+SyslogIdentifier={{ service_name }}

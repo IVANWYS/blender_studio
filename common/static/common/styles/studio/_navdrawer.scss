@@ -87,25 +87,20 @@
 .nav-drawer-nested {
   background: $navigation-gray;
   display: block;
-  border-radius: $border-radius-lg;
+  border-radius: var(--border-radius-lg);
   border-right: 0;
   max-height: calc(100vh - #{$spacer * 2});
   height: auto;
   overflow: auto;
   padding: $spacer / 4 0;
   position: sticky;
-  top: calc(#{$spacer});
+  top: var(--spacer);
   width: auto;
   z-index: auto;
-  border: 1px solid $input-gray;
   transition: top $nav-drawer-animation-duration, max-height $nav-drawer-animation-duration;
 
   .nav-drawer-body {
     overflow-y: auto;
-  }
-
-  @include media-breakpoint-up(xxl) {
-    margin-left: - $spacer;
   }
 
   @include scroll-bar($navigation-gray, $input-gray);
@@ -116,7 +111,7 @@
   }
 
   &.scroll {
-    top: #{$navbar-height + $spacer * 1.5};
+    top: var(--spacer);
     max-height: calc(100vh - #{$navbar-height + $spacer * 2.5});
   }
 }
@@ -400,6 +395,11 @@
   @include media-breakpoint-down(sm) {
     padding: $spacer / 2 $spacer;
   }
+
+  a {
+    font-weight: normal;
+    font-variation-settings: "wght" 300;
+  }
 }
 
 .nav-drawer-section-progress-wrapper {
@@ -442,7 +442,7 @@ $circle-circumference: $circle-diameter * 3.14;
   width: 30px;
 
   &.progress {
-    border: 2px solid $primary;
+    border: var(--border-width) solid $primary;
   }
 
   i {
@@ -494,11 +494,12 @@ $circle-circumference: $circle-diameter * 3.14;
   cursor: pointer;
   display: flex;
   flex-grow: 1;
-  padding: $spacer / 2 $spacer;
-  transition: $transition-base;
-  max-width: 100%;
-  position: relative;
   margin-bottom: 0;
+  max-width: 100%;
+  padding: $spacer / 2 $spacer;
+  position: relative;
+  transition: $transition-base;
+  user-select: none;
 
   &.dropdown {
     max-width: calc(100% - 44px);
@@ -557,6 +558,8 @@ $circle-circumference: $circle-diameter * 3.14;
 }
 
 .drawer-nav-dropdown-text {
+  font-weight: normal;
+  font-variation-settings: "wght" 400;
   margin-right: auto;
 }
 

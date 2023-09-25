@@ -1,0 +1,32 @@
+.welcome.jumbotron
+  align-items: center
+  display: flex
+  flex-direction: column
+  height: 92vh
+  min-height: 680px
+  justify-content: center
+  text-align: center
+
+  h1
+    font-size: 4rem
+    text-shadow: 1px 1px 5px rgba(black, .33), 0 0 30px black, 0 0 50px black
+
+  .jumbotron-body
+    p
+      font-size: 125%
+      text-shadow: 1px 1px 2px black, 1px 1px 5px black, 0 0 30px black, 0 0 20px black, 0 0 50px black
+
+  .btn-primary
+    box-shadow: 0 0 30px rgba($primary, .66)
+    text-shadow: 1px 1px 6px rgba(black, .33)
+    border-radius: 999em
+
+  &.jumbotron-fluid.jumbotron-overlay
+    .jumbotron-bg-wrapper
+      &:before
+        background: none
+        background-image: linear-gradient(0deg, $body-bg, transparent 25%)
+
+      &:after
+        background: none
+        background-image: radial-gradient(80% 100% at 50% 0%, rgba(31, 31, 31, 0) 50%, $body-bg 100%)

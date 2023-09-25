@@ -1,10 +1,15 @@
-<div class="card {% block classes %}grid-item{% endblock classes %}">
+{% load common_extras %}
+{% load i18n %}
+
+<div class="card {{ card_sizes }}">
   <div class="card-header">
     <a class="card-header-link" href="{% url 'post-detail' slug=post.slug %}" aria-label="{{ post.title }}">
       {% if post.thumbnail %}
         {% block image %}
           <img alt="{{ post.title }}" class="card-img" src="{{ post.thumbnail_s_url }}">
         {% endblock image %}
+      {% else %}
+        <i class="i-image"></i>
       {% endif %}
     </a>
   </div>
@@ -12,7 +17,7 @@
 
     <h3 class="card-title">
       {% if post.is_new and post.is_published %}
-        <div class="badge bg-primary">New</div>
+        <div class="badge bg-primary">{% blocktrans %}New{% endblocktrans %}</div>
       {% endif %}
       {{ post.title }}
     </h3>
@@ -27,14 +32,12 @@
         </p> {% endcomment %}
       {% if not post.is_published %}
         <div class="badge bg-danger me-2">
-          Unpublished
+          {% blocktrans %}Unpublished{% endblocktrans %}
         </div>
       {% else %}
         <p class="card-subtitle">
           <i class="material-icons icon-inline small">schedule</i>
-          <span class="date">
-            {{ post.date_published|date:"U" }}
-          </span>
+          {{ post.date_published|timesince|compact_timesince }}
         </p>
       {% endif %}
       {% if post.number_of_likes > 0 %}

@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 
 from common import mixins
 from common.upload_paths import get_upload_to_hashed_path, shortuid
+from common.google_trans import trans_SC, trans_TC
 from films.models import films
 import common.help_texts
 
@@ -42,6 +43,20 @@ class Collection(mixins.CreatedUpdatedMixin, mixins.StaticThumbnailURLMixin, mod
         default=ThumbnailAspectRatioChoices.original,
         help_text='Controls aspect ratio of the thumbnails shown in the gallery.',
     )
+
+    def save(self, *args, **kwargs):
+        # Trans name
+        if self.name_zh_hans == None or self.name_zh_hans == "":
+            self.name_zh_hans = trans_SC(self.name_en)
+        if self.name_zh_hant == None or self.name_zh_hant == "":
+            self.name_zh_hant = trans_TC(self.name_en)
+        # Trans text
+        if self.text != "":
+            if self.text_zh_hans == "":
+                self.text_zh_hans = trans_SC(self.text_en)
+            if self.text_zh_hant == "":
+                self.text_zh_hant = trans_TC(self.text_en)
+        super(Collection, self).save(*args, **kwargs)
 
     def clean(self) -> None:
         super().clean()

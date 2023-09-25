@@ -1,0 +1,122 @@
+{% extends 'users/settings/base.html' %}
+{% load common_extras %}
+{% load looper %}
+{% load i18n %}
+
+{% block settings %}
+  <p class="subtitle">{% blocktrans %}Settings{% endblocktrans %}</p>
+  <h1 class="mb-0">{% blocktrans %}Subscription{% endblocktrans %}</h1>
+  <p class="mb-2 subtitle">{% blocktrans %}If you have any problems with billing, contact the team directly on {% endblocktrans %}<a href="mailto:{{ ADMIN_MAIL }}">{{ ADMIN_MAIL }}</a>.</p>
+
+  <div class="settings-billing">
+    {% comment "Messages" %}{% endcomment %}
+    {% if messages %}
+      {% for message in messages %}
+      <div class="container" id="msg">
+        {% if message.tags == "error" %}
+        <div class="alert alert-danger alert-dismissable text-center" role="alert">
+          <strong>Error :</strong> {{ message }}
+        </div>
+        {% else %}
+        <div class="alert alert-{{ message.tags }} alert-dismissable text-center" role="alert">
+          <strong>{{message.tags | title}}</strong> {{ message }}
+        </div>
+        {% endif %}
+        <script>
+          var message_ele = document.getElementById("msg");
+          setTimeout(function(){ 
+             message_ele.style.display = "none"; 
+          }, 3000);
+        </script>
+      </div>
+      {% endfor %}
+    {% endif %}
+    {% comment "Messages" %}{% endcomment %}
+
+    {% if user|has_group:"demo" %}
+
+      <div class="row mb-3">
+        <div class="col">
+          <h2 class="mb-0">{% blocktrans %}Manage Subscription{% endblocktrans %}</h2>
+          <p>
+            {% blocktrans %}You have full access to the Blender Studio website, provided by Blender Studio. This account is meant for free evaluation of the service. Get in touch with{% endblocktrans %} <a href="mailto:{{ ADMIN_MAIL }}">{{ ADMIN_MAIL}}</a> {% blocktrans %}if you have any questions.{% endblocktrans %}
+          </p>
+        </div>
+      </div>
+      {% comment "Messages" %}{% endcomment %}
+      {% elif user_status != "Null" %}
+      {# for everyone except demo #} 
+        
+        <div class="row">
+          <div class="col">
+            {#{% include "subscriptions/components/list.html" %}#}
+            {% load subscriptions %}
+            {% now "Y-m-d H:i:s" as todays_date %}
+            <table class="table table-receipts">
+              <tbody>
+                <thead>
+                  <tr>
+                    <th scope="col">{% blocktrans %}Status{% endblocktrans %}</th>
+                    <th scope="col">{% blocktrans %}Expiry date{% endblocktrans %}</th>
+                  </tr>
+                </thead>
+                {# Owned subscriptions #}
+                {% for user_record in user_detail %}
+                  <tr>
+                    <td >{% if todays_date <= user_record.end_date|date:"Y-m-d H:i:s" %}
+                      <p class="text-success small mb-0 d-flex align-items-center fw-bold"><i class="material-icons p ">done</i> <span>{% blocktrans %}Active{% endblocktrans %}</span></p>
+                    {% else %}
+                      <p class="text-danger small mb-0 d-flex align-items-center fw-bold"><i class="material-icons">info</i> <span>{% blocktrans %}Expired{% endblocktrans %}</span></p>
+                    {% endif %}
+                    <td>{{user_record.end_date|date}} </td> 
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            
+            <a class="btn btn-primary btn-block" style="float: right;" href="{% url 'stripe' %}">{% blocktrans %}Renew{% endblocktrans %}</a>
+            <br><br>
+            
+            <h1 class="mb-0">{% blocktrans %}Record{% endblocktrans %}</h1><br>
+            {% for record in records %}
+            <table class="table table-receipts" >
+              <tbody>
+                  <tr>
+                    <td class="fw-bold">{% blocktrans %}Subscription{% endblocktrans %} # {{ record.order_time }}</td><td></td>
+                    <td style="text-align:right;"></td><td></td>
+                    <td></td>
+                    <td >
+                    {% comment %} {% if todays_date <= record.end_date|date:"Y-m-d H:i:s" %}
+                      <p class="text-success small mb-0 d-flex align-items-center fw-bold"><i class="material-icons p ">done</i> <span>{% blocktrans %}Active{% endblocktrans %}</span></p>
+                    {% else %}
+                      <p class="text-danger small mb-0 d-flex align-items-center fw-bold"><i class="material-icons">info</i> <span>{% blocktrans %}Expired{% endblocktrans %}</span></p>
+                    {% endif %} {% endcomment %}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>{% blocktrans %}Plan{% endblocktrans %} : {{record.get_plan_display}}</td> 
+                    <td></td>
+                    <td style="text-align:right;">{% blocktrans %}Payment Type{% endblocktrans %} : {{ record.get_payment_type_display }}</td>
+                    <td style="text-align:right;">{% blocktrans %}Payment Date{% endblocktrans %} : {{record.payment_date|date}}</td>
+                    <td style="width: 10%;"></td>
+                    <td><a href="{{ record.receipt_url}}">{% blocktrans %}Receipt{% endblocktrans %}</a></td>
+                  </tr> 
+                
+              </tbody>
+            </table>
+            {% endfor %}
+          </div>
+        </div>
+      {% else %}
+      <br>
+      <a class="btn btn-primary btn-block" href="{% url 'stripe' %}">{% blocktrans %}Subscription{% endblocktrans %}</a>      
+      {% comment "Messages" %}{% endcomment %}
+
+
+
+
+    <!----> 
+    {% endif %}
+
+  </div>
+{% endblock settings %}

@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="jumbotron jumbotron-fluid jumbotron-overlay overlay-wide-content header spacer-n">
   <div class="jumbotron-bg-wrapper">
     {% include "common/components/helpers/image_set.html" with classes="jumbotron-bg" alt=film.title img_source=film.picture_header xsmall_width="576" small_width="758" medium_width="992" large_width="1200" xlarge_width="1920" %}
@@ -14,12 +15,11 @@
           <div class="mb-n2">
             {% if film.youtube_link != "" %}
               <button class="btn btn-primary mb-2 me-2 video-modal-link" data-bs-toggle="modal" data-bs-target="#videoModal"
-                data-video="{{ film.youtube_link }}">Watch
+                data-video="{{ film.youtube_link }}">{% blocktrans %}Watch{% endblocktrans %}
                 {{ film.title }}</button>
-              <a class="btn btn-transparent mb-2" href="{% url 'film-gallery' film.slug %}">Explore
-                Content Gallery</a>
+              <a class="btn btn-transparent mb-2" href="{% url 'film-gallery' film.slug %}">{% blocktrans %}Explore Content Gallery{% endblocktrans %}</a>
             {% else %}
-              <a class="btn btn-primary mb-2" href="{% url 'film-gallery' film.slug %}">Explore Content Gallery</a>
+              <a class="btn btn-primary mb-2" href="{% url 'film-gallery' film.slug %}">{% blocktrans %}Explore Content Gallery{% endblocktrans %}</a>
             {% endif %}
           </div>
         </div>

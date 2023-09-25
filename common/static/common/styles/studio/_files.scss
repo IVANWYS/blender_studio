@@ -267,18 +267,6 @@
   }
 }
 
-//Modal Toolbar
-
-.button-toolbar {
-  @extend .button-toolbar;
-
-  .btn+.btn,
-  .dropdown-menu+.btn {
-    margin-left: $spacer / 2;
-  }
-}
-
-
 .file-lock-text {
   position: absolute;
   width: 100%;

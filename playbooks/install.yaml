@@ -1,0 +1,77 @@
+---
+- import_playbook: download_maxmind_db.yaml
+
+- hosts: http
+  gather_facts: false
+  become: true
+  roles: [common]
+  tasks:
+    - name: Installing required packages
+      ansible.builtin.apt: name={{ item }} state=present
+      with_items:
+        - git
+        - libjpeg-dev
+        - libpq-dev
+        - libxml2-dev
+        - libxslt-dev
+        - nginx
+        - postfix # to be able to configure /etc/aliases for cron
+        - postgresql-client
+        - python3
+        - python3-pip
+        - python3-virtualenv
+        - uwsgi
+        - uwsgi-plugin-python3
+        - vim
+        - zlib1g
+        - zlib1g-dev
+
+    - name: Creating user "{{ user }}:{{ group }}"
+      ansible.builtin.user:
+        name: "{{ user }}"
+        group: "{{ group }}"
+
+    - import_tasks: common/tasks/add_alias.yaml
+
+    # In systemd coming with Ubuntu 22.04 Standard{Output,Error}=syslog is no longer supported
+    # however, we still need it because log aggregation relies on syslog, not journald.
+    # This is why ForwardToSyslog is enabled system-wide.
+    - import_tasks: common/tasks/journald/forward_to_syslog.yaml
+
+    - name: Creating various directories
+      ansible.builtin.file: path={{ item }} state=directory owner={{ user }} group={{ group }} recurse=yes
+      with_items:
+        - "{{ dir.errors }}"
+        - "{{ dir.config }}"
+        - "{{ dir.media }}"
+        - "{{ dir.source }}"
+        - "{{ dir.pipeline_docs }}"
+
+    - import_tasks: tasks/pull.yaml
+
+    - name: Creating {{ env_file }}
+      ansible.builtin.template:
+        src: templates/dotenv
+        dest: "{{ env_file }}"
+        mode: 0644
+        backup: true
+      tags:
+        - dotenv
+
+    - import_tasks: tasks/copy_maxmind_db.yaml
+
+    - import_tasks: tasks/configure_uwsgi.yaml
+
+    - import_tasks: tasks/deploy.yaml
+      become: true
+      become_user: "{{ user }}"
+
+    - import_tasks: tasks/configure_nginx.yaml
+      tags:
+        - nginx
+
+    - import_tasks: tasks/setup_other_services.yaml
+      tags:
+        - services
+
+- import_playbook: install_meilisearch.yaml

@@ -101,7 +101,9 @@ class BaseSearchSerializer(ABC):
         self, instance_dict: Dict[Any, Any], instance: SearchableModel
     ) -> Dict[Any, Any]:
         """Adds fields common to all searchable models to the values dict of the instance."""
-        instance_dict['url'] = instance.url
+        # Exclude language code from url
+        LANG_CODE = ["en", "en-us", "zh-hans", "zh-hant"]
+        instance_dict['url'] = f'/{instance.url.split("/", 2)[2]}' if instance.url.split("/", 2)[1] in LANG_CODE else instance.url
         instance_dict['timestamp'] = instance.date_created.timestamp()
 
         if hasattr(instance, 'description'):

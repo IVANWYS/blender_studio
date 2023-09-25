@@ -5,6 +5,7 @@ from django.db import models
 from django.urls.base import reverse
 from taggit.managers import TaggableManager
 from typing import Optional
+from common.google_trans import trans_SC, trans_TC
 
 import looper.model_mixins
 
@@ -74,6 +75,17 @@ class Section(
             self.slug = uuid.uuid4().hex
 
     def save(self, *args, **kwargs):
+        # Trans name
+        if self.name_zh_hans == None or self.name_zh_hans == "":
+            self.name_zh_hans = trans_SC(self.name_en)
+        if self.name_zh_hant == None or self.name_zh_hant == "":
+            self.name_zh_hant = trans_TC(self.name_en)
+        # Trans description
+        if self.text_en != "":
+            if self.text_zh_hans == "":
+                self.text_zh_hans = trans_SC(self.text_en)
+            if self.text_zh_hant == "":
+                self.text_zh_hant = trans_TC(self.text_en)        
         """Record changes before saving."""
         self.save_and_record_changes(*args, **kwargs)
 

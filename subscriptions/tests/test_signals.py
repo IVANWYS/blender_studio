@@ -44,6 +44,42 @@ class TestAddToTeams(TestCase):
             schedule=datetime.timedelta(seconds=120),
         )
 
+    @responses.activate
+    @patch('users.tasks.grant_blender_id_role')
+    def test_added_to_team_if_email_matches_email_domain_subdomain(
+        self, mock_grant_blender_id_role
+    ):
+        self.assertEqual(self.team_unlimited.users.count(), 0)
+
+        user = UserFactory(email='jane@study.my-awesome-blender-studio.org')
+
+        self.assertTrue(has_active_subscription(user))
+        self.assertEqual(self.team_unlimited.users.count(), 1)
+        mock_grant_blender_id_role.assert_called_once_with(
+            # the call must be delayed because OAuthUserInfo might not exist at the moment
+            # when a newly registered User is added to the team because its email matches.
+            pk=user.pk,
+            role='cloud_subscriber',
+            schedule=datetime.timedelta(seconds=120),
+        )
+
+    @responses.activate
+    @patch('users.tasks.grant_blender_id_role')
+    def test_added_to_team_if_email_matches_email_domain_subsubdomain(
+        self, mock_grant_blender_id_role
+    ):
+        self.assertEqual(self.team_unlimited.users.count(), 0)
+
+        user = UserFactory(email='jane@study.edu.my-awesome-blender-studio.org')
+
+        self.assertTrue(has_active_subscription(user))
+        self.assertEqual(self.team_unlimited.users.count(), 1)
+        mock_grant_blender_id_role.assert_called_once_with(
+            pk=user.pk,
+            role='cloud_subscriber',
+            schedule=datetime.timedelta(seconds=120),
+        )
+
     @patch('users.tasks.grant_blender_id_role')
     def test_added_to_team_granted_subscriber_badge_if_email_is_on_team_emails(
         self, mock_grant_blender_id_role
@@ -98,4 +134,164 @@ class TestAddToTeams(TestCase):
                     pk=user02.pk, role='cloud_subscriber', schedule=datetime.timedelta(seconds=120)
                 ),
             ],
+        )
+
+    @responses.activate
+    @patch('users.tasks.grant_blender_id_role')
+    def test_new_team_existing_user_added_if_email_matches_email_domain(
+        self, mock_grant_blender_id_role
+    ):
+        user = UserFactory(email='jane@some-domain.com')
+        self.assertFalse(has_active_subscription(user))
+
+        # Create a new team with a matching email domain
+        team = TeamFactory(
+            seats=None,
+            name='Team Unlimited',
+            email_domain='some-domain.com',
+            subscription__status='active',
+        )
+
+        self.assertTrue(has_active_subscription(user))
+        self.assertEqual(team.users.count(), 1)
+        mock_grant_blender_id_role.assert_called_with(
+            # the call must be delayed because OAuthUserInfo might not exist at the moment
+            # when a newly registered User is added to the team because its email matches.
+            pk=user.pk,
+            role='cloud_subscriber',
+            schedule=datetime.timedelta(seconds=120),
+        )
+
+    @responses.activate
+    @patch('users.tasks.grant_blender_id_role')
+    def test_new_team_existing_users_added_if_email_matches_email_domain_subdomain(
+        self, mock_grant_blender_id_role
+    ):
+        user1 = UserFactory(email='jane@stud.some-domain.com')
+        user2 = UserFactory(email='josh@edu.some-domain.com')
+        user3 = UserFactory(email='bob@some-domain.com')
+        user4 = UserFactory(email='alice@notsome-domain.com')
+        self.assertFalse(has_active_subscription(user1))
+        self.assertFalse(has_active_subscription(user2))
+        self.assertFalse(has_active_subscription(user3))
+        self.assertFalse(has_active_subscription(user4))
+
+        # Create a new team with a matching email domain
+        team = TeamFactory(
+            seats=None,
+            name='Team Unlimited',
+            email_domain='some-domain.com',
+            subscription__status='active',
+        )
+        self.assertEqual(team.email_domain, 'some-domain.com')
+
+        self.assertTrue(has_active_subscription(user1))
+        self.assertTrue(has_active_subscription(user2))
+        self.assertTrue(has_active_subscription(user3))
+        # Last user has an email at a different TLD, so only three got team subscriptions
+        self.assertFalse(has_active_subscription(user4))
+        self.assertEqual(team.users.count(), 3)
+        mock_grant_blender_id_role.assert_has_calls(
+            [
+                call(
+                    pk=user1.pk,
+                    role='cloud_subscriber',
+                    schedule=datetime.timedelta(seconds=120),
+                ),
+                call(
+                    pk=user2.pk,
+                    role='cloud_subscriber',
+                    schedule=datetime.timedelta(seconds=120),
+                ),
+                call(
+                    pk=user3.pk,
+                    role='cloud_subscriber',
+                    schedule=datetime.timedelta(seconds=120),
+                ),
+            ],
+            any_order=True,
+        )
+
+    @responses.activate
+    @patch('users.tasks.grant_blender_id_role')
+    def test_new_team_existing_users_added_if_email_matches_email_domain_subsubdomain(
+        self, mock_grant_blender_id_role
+    ):
+        user1 = UserFactory(email='jane@stud.edu.some-domain.com')
+        user2 = UserFactory(email='josh@edu.some-domain.com')
+        user3 = UserFactory(email='bob@some-domain.com')
+        user4 = UserFactory(email='alice@notsome-domain.com')
+        self.assertFalse(has_active_subscription(user1))
+        self.assertFalse(has_active_subscription(user2))
+        self.assertFalse(has_active_subscription(user3))
+        self.assertFalse(has_active_subscription(user4))
+
+        # Create a new team with an email domain matchin first two user emails
+        team = TeamFactory(
+            seats=None,
+            name='Team Unlimited',
+            email_domain='edu.some-domain.com',
+            subscription__status='active',
+        )
+        self.assertEqual(team.email_domain, 'edu.some-domain.com')
+
+        self.assertTrue(has_active_subscription(user1))
+        self.assertTrue(has_active_subscription(user2))
+        # Last 2 users don't match team's email_domain, because it's specifies a subdomain
+        self.assertFalse(has_active_subscription(user3))
+        self.assertFalse(has_active_subscription(user4))
+        self.assertEqual(team.users.count(), 2)
+        mock_grant_blender_id_role.assert_has_calls(
+            [
+                call(
+                    pk=user1.pk,
+                    role='cloud_subscriber',
+                    schedule=datetime.timedelta(seconds=120),
+                ),
+                call(
+                    pk=user2.pk,
+                    role='cloud_subscriber',
+                    schedule=datetime.timedelta(seconds=120),
+                ),
+            ],
+            any_order=True,
+        )
+
+    @responses.activate
+    @patch('users.tasks.grant_blender_id_role')
+    def test_not_added_to_team_if_email_domain_is_a_subdomain(self, mock_grant_blender_id_role):
+        team = TeamFactory(
+            seats=None,
+            name='Team Unlimited',
+            email_domain='edu.some-domain.com',
+            subscription__status='active',
+        )
+        self.assertEqual(team.email_domain, 'edu.some-domain.com')
+
+        # Create some new users, first 2 should be added to the team, created just above
+        user1 = UserFactory(email='jane@stud.edu.some-domain.com')
+        user2 = UserFactory(email='josh@edu.some-domain.com')
+        user3 = UserFactory(email='bob@some-domain.com')
+        user4 = UserFactory(email='alice@notsome-domain.com')
+
+        self.assertTrue(has_active_subscription(user1))
+        self.assertTrue(has_active_subscription(user2))
+        # Last 2 users don't match team's email_domain, because it's specifies a subdomain
+        self.assertFalse(has_active_subscription(user3))
+        self.assertFalse(has_active_subscription(user4))
+        self.assertEqual(team.users.count(), 2)
+        mock_grant_blender_id_role.assert_has_calls(
+            [
+                call(
+                    pk=user1.pk,
+                    role='cloud_subscriber',
+                    schedule=datetime.timedelta(seconds=120),
+                ),
+                call(
+                    pk=user2.pk,
+                    role='cloud_subscriber',
+                    schedule=datetime.timedelta(seconds=120),
+                ),
+            ],
+            any_order=True,
         )

@@ -1,29 +1,4 @@
-.button-toolbar-container {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-.button-toolbar {
-  align-self: flex-start;
-  display: flex;
-  flex-grow: 1;
-  flex-shrink: 0;
-  justify-content: flex-end;
-
-  .btn+.btn,
-  .dropdown-menu+.btn {
-    margin-left: $spacer / 2;
-  }
-}
-
-.button-toolbar-details {
-  flex-wrap: nowrap;
-}
-
 .training-video {
-
   .video-player,
   .content-locked {
     @include media-breakpoint-down(sm) {

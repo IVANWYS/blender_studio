@@ -1,0 +1,63 @@
+---
+- import_tasks: copy_error_pages.yaml
+
+- name: Installing Poetry in {{ dir.source }}/.venv
+  ansible.builtin.pip:
+    name: poetry
+    virtualenv: "{{ dir.source }}/.venv"
+    virtualenv_python: python3
+    chdir: "{{ dir.source }}"
+  tags:
+    - pip
+
+- name: Install Python requirements in {{ dir.source }}/.venv
+  environment:
+    CRYPTOGRAPHY_DONT_BUILD_RUST: "1"
+  loop:
+    - "{{ dir.source }}/.venv/bin/poetry install --no-dev"
+    - "{{ dir.source }}/.venv/bin/poetry config virtualenvs.create false"
+    - "{{ dir.source }}/.venv/bin/poetry config virtualenvs.in-project true"
+  ansible.builtin.command: "{{ item }}"
+  args:
+    chdir: "{{ dir.source }}"
+  changed_when: false
+  tags:
+    - pip
+
+- name: Preparing to run database migrations
+  become: true
+  become_user: "{{ user }}"
+  tags:
+    - migrate
+  block:
+    - name: Displaying database migrations
+      import_tasks: managepy.yaml
+      vars:
+        command: migrate --plan
+    - name: Displaying database migrations
+      ansible.builtin.debug:
+        var: management_command_output.stdout
+
+    - name: Confirming database migrations
+      when: ('No planned migration operations' not in management_command_output.stdout)
+      ansible.builtin.pause:
+        prompt: Press return to continue. Press Ctrl+c and then "a" to abort.
+
+    - name: Running database migrations
+      when: ('No planned migration operations' not in management_command_output.stdout)
+      import_tasks: managepy.yaml
+      vars:
+        command: migrate
+      changed_when: ('No planned migration operations' not in management_command_output.stdout)
+
+- import_tasks: managepy.yaml
+  become: true
+  become_user: "{{ user }}"
+  vars:
+    command: collectstatic --noinput
+  tags:
+    - collectstatic
+  notify:
+    - restart service
+    - test nginx
+    - reload nginx

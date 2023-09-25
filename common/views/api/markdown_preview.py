@@ -24,6 +24,7 @@ def markdown_preview(request) -> HttpResponse:
     if 'markdown' not in request_data:
         return HttpResponseBadRequest('Bad request, missing Markdown.')
 
-    md_to_html = markdown.render(request_data['markdown'])
+    content = markdown.clean(request_data['markdown'])
+    md_to_html = markdown.render_unsafe(content)
     final_html = with_shortcodes(md_to_html)
     return JsonResponse({'html': final_html})

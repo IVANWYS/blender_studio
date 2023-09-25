@@ -21,7 +21,7 @@ function timeDifference(datetime) {
   const msPerMonth = msPerDay * 30;
   const msPerYear = msPerDay * 365;
 
-  const elapsed = now - datetime;
+  const elapsed = Math.max(0, now - datetime);
 
   if (elapsed < msPerMinute) {
     const value = Math.round(elapsed / 1000);
@@ -147,11 +147,11 @@ function likeButtonSetup(element) {
             } else {
               delete item.dataset.checked;
             }
-            if (i.querySelector('.likes-count')) {
+            if (i.querySelector('.js-likes-count')) {
               // eslint-disable-next-line no-param-reassign
-              i.querySelector('.likes-count').innerText = data.number_of_likes;
+              i.querySelector('.js-likes-count').innerText = data.number_of_likes;
             } else {
-              const likeCountHTML = `<span class="likes-count">${data.number_of_likes}</span>`;
+              const likeCountHTML = `<span class="js-likes-count">${data.number_of_likes}</span>`;
               i.insertAdjacentHTML('beforeend', likeCountHTML);
             }
           });
@@ -205,12 +205,12 @@ function makeGrid() {
     masonry.layout();
   });
 }
-
+// Edit function videojs | new Plyr(p) -> videojs(p)
 // eslint-disable-next-line no-unused-vars
 function initVideo(container) {
   const players = Array.from(
-    container.querySelectorAll('.video-player video, .video-player-embed')
-  ).map((p) => new Plyr(p));
+    container.querySelectorAll('.video-player video, .video-player-embed, .video-js')
+  ).map((p) => new videojs(p));
 
   const loopButton = `
     <button class="plyr__controls__item plyr__control" type="button" data-plyr="loop">

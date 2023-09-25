@@ -1,0 +1,23 @@
+---
+- name: Enabling forwarding of journal to syslog
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/systemd/journald.conf
+    regexp: ForwardToSyslog
+    line: ForwardToSyslog=yes
+    state: present
+    backup: true
+  tags:
+    - journald
+    - syslog
+
+- name: Restarting journald
+  become: true
+  ansible.builtin.systemd:
+    name: systemd-journald
+    daemon_reload: true
+    state: restarted
+    enabled: true
+  tags:
+    - journald
+    - syslog

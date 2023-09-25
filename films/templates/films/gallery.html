@@ -3,8 +3,9 @@
 {% load film_extras %}
 {% load static %}
 {% load pipeline %}
+{% load i18n %}
 
-{% block title_prepend %}Content Gallery - {{ film.title }} - {% endblock title_prepend %}
+{% block title_prepend %}{% blocktrans %}Content Gallery{% endblocktrans %} - {{ film.title }} - {% endblock title_prepend %}
 
 {% block meta %}
   {% firstof asset.url current_collection.url as url %}
@@ -17,7 +18,7 @@
   {% elif current_collection %}
     {% capture title %}{{ film.title }} - {{ current_collection.name }}{% endcapture %}
   {% else %}
-    {% capture title %}{{ film.title }} - Featured Artwork{% endcapture %}
+    {% capture title %}{{ film.title }} - {% blocktrans %}Featured Artwork{% endblocktrans %}{% endcapture %}
   {% endif %}
   {% firstof title film.title as title %}
   {% include 'common/components/meta.html' %}
@@ -31,7 +32,7 @@
 {% block nav_drawer_inner %}
   <div class="nav-drawer-inner">
     <div class="drawer-nav-header">
-      <p class="subtitle">Content Gallery</p>
+      <p class="subtitle">{% blocktrans %}Content Gallery{% endblocktrans %}</p>
       <h2 class="mb-1">{{ film.title }}</h2>
     </div>
     <div class="drawer-nav-group">
@@ -39,14 +40,14 @@
       <div class="drawer-nav-dropdown-wrapper">
         <a class="drawer-nav-dropdown h3 " href="{% url 'film-gallery' film_slug=film.slug %}">
           <i class="material-icons me-2">grade</i>
-          Featured Artwork
+          {% blocktrans %}Featured Artwork{% endblocktrans %}
         </a>
       </div>
 
       <div class="drawer-nav-dropdown-wrapper">
         <a class="drawer-nav-dropdown fw-bold" href="{% url 'film-all-assets' film_slug=film.slug %}">
           <i class="material-icons me-2">search</i>
-          All Artwork
+          {% blocktrans %}All Artwork{% endblocktrans %}
         </a>
       </div>
 
@@ -77,7 +78,8 @@
         {% endif %}
         {% if user_can_edit_collection %}
           <a href="{{ collection.admin_url }}" class="btn btn-secondary btn-xs btn-icon btn-float">
-            <i class="material-icons btn-material-icons">create</i>
+            <i class="i-edit btn-material-icons"></i>
+            <span>Edit</span>
           </a>
         {% endif %}
       </div>
@@ -98,7 +100,8 @@
                 {% comment %}
                   {% if user_can_edit_collection %}
                     <a href="{{ child_collection.admin_url }}" target="_blank" class="btn btn-secondary btn-xs btn-float btn-icon">
-                      <i class="material-icons btn-material-icons">create</i>
+                      <i class="i-edit btn-material-icons"></i>
+                      <span>Edit</span>
                     </a>
                   {% endif %}
                 {% endcomment %}
@@ -131,7 +134,7 @@
                     <a class="drawer-nav-dropdown fw-bold" href="{% url 'film-gallery' film_slug=film.slug %}"
                       data-bs-tooltip="tooltip-overflow" data-placement="top" title="Featured Artwork">
                       <i class="material-icons me-2">grade</i>
-                      <span class="overflow-text">Featured Artwork</span>
+                      <span class="overflow-text">{% blocktrans %}Featured Artwork{% endblocktrans %}</span>
                     </a>
                   </div>
 
@@ -139,7 +142,7 @@
                     <a class="drawer-nav-dropdown fw-bold" href="{% url 'film-all-assets' film_slug=film.slug %}"
                       data-bs-tooltip="tooltip-overflow" data-placement="top" title="All Artwork">
                       <i class="material-icons me-2">search</i>
-                      <span class="overflow-text">All Artwork</span>
+                      <span class="overflow-text">{% blocktrans %}All Artwork{% endblocktrans %}</span>
                     </a>
                   </div>
 
@@ -224,7 +227,7 @@
                   <div class="d-inline-block w-100">
                     <div class="text-center">
                       <div class="bg-secondary py-4 rounded">
-                        <h3 class="mb-0">No Featured Artwork to display</h3>
+                        <h3 class="mb-0">{% blocktrans %}No Featured Artwork to display{% endblocktrans %}</h3>
                       </div>
                     </div>
                   </div>

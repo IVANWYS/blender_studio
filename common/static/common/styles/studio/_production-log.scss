@@ -1,7 +1,4 @@
 .production-log-week {
-  background: $navigation-gray;
-  border-radius: $border-radius;
-  border: 1px solid $input-gray;
   display: flex;
   flex-direction: column;
   margin-bottom: $spacer;
@@ -24,7 +21,7 @@
 
 .production-log-week-header {
   position: relative;
-  padding: 0 $spacer;
+  border-bottom: 2px solid $input-gray;
 
   h2,
   .h2 {
@@ -32,12 +29,10 @@
   }
 }
 
-.production-log-header-summary {
-}
-
 .production-log-individual {
-  padding: $spacer;
+  padding: $spacer 0;
   position: relative;
+  border-bottom: 2px solid $navigation-gray;
 
   &-summary {
 
@@ -72,12 +67,6 @@
 
 }
 
-.production-log-individual-wrapper {
-  background-color: $body-bg;
-  border-bottom-left-radius: $border-radius;
-  border-bottom-right-radius: $border-radius;
-}
-
 .production-log-individual-files {
   >a {
     display: inline-block;
@@ -85,9 +74,6 @@
 }
 
 .production-log-header-summary-text {
-
-  margin-bottom: $spacer;
-
   h3 {
     margin-bottom: $spacer / 4;
   }
@@ -127,24 +113,6 @@
   >a {
     display: inline-block;
     width: 100%;
-  }
-}
-
-.production-log-individual-summary-profile {
-  @extend .row;
-  margin-bottom: $spacer / 2;
-  flex-wrap: nowrap;
-
-  .profile-image {
-    align-self: flex-start;
-    flex-shrink: 0;
-    padding: 0;
-    height: 40px;
-    width: 40px;
-  }
-
-  .profile-name {
-    margin-bottom: 0;
   }
 }
 

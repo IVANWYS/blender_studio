@@ -28,7 +28,8 @@
   }
 
   .modal-header {
-    border-radius: $border-radius-lg $border-radius-lg 0 0;
+    background-color: black;
+    border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
     flex-direction: column;
     overflow: hidden;
     padding: 0;
@@ -66,7 +67,6 @@
 
       .plyr__poster {
         border-radius: 0;
-        background-color: $navigation-gray;
       }
 
       .plyr:-webkit-full-screen {
@@ -77,10 +77,6 @@
         .plyr__poster {
           background-color: $black;
         }
-      }
-
-      .plyr__video-wrapper {
-        background: $navigation-gray;
       }
 
       .plyr:not(:fullscreen) {
@@ -141,7 +137,7 @@
   pointer-events: auto;
   position: absolute;
   z-index: 1000;
-  border-radius: $border-radius-lg;
+  border-radius: var(--border-radius-lg);
 
 
   &:hover {
@@ -252,7 +248,7 @@
 
 #videoModal {
   .modal-content {
-    border-radius: $border-radius-lg;
+    border-radius: var(--border-radius-lg);
   }
 }
 

@@ -152,3 +152,29 @@ def get_video_progress_seconds(context, video):
         return None
     progress_position = video.get_progress_position(request.user.pk)
     return progress_position.total_seconds() if progress_position else None
+
+
+@register.filter()
+def compact_timesince(timesince):
+    """Make timesince filter super compact."""
+    # Replace long words with letters. (2 days, 3 hours -> 2 d, 3 h)
+    timesince = (
+        timesince.replace('minutes', 'm')
+        .replace('minute', 'm')
+        .replace('hours', 'h')
+        .replace('hour', 'h')
+        .replace('year', 'yr')
+    )
+    timesince = timesince.replace('months', 'mon').replace('weeks', 'w').replace('week', 'w')
+    timesince = timesince.replace('days', 'd').replace('day', 'd').replace('month', 'mon')
+
+    # Remove space between digit and unit. (2 d, 3h -> 2d, 3h)
+    # timesince = timesince.replace('\xa0', '')
+
+    # Take only the first, usually interesting part. (2d, 3h -> 2d)
+    timesince = timesince.split(',', 1)[0]
+
+    if timesince.startswith('0'):
+        timesince = 'just now'
+
+    return timesince

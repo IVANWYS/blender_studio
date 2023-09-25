@@ -1,0 +1,14 @@
+---
+- hosts: http
+  gather_facts: false
+  become: false
+  become_user: "{{ user }}"
+  roles: [common]
+  tasks:
+    - name: Copying pipeline docs
+      ansible.posix.synchronize:
+        src: ../../../blender-studio-pipeline/docs/.vitepress/dist/
+        dest: "{{ dir.pipeline_docs }}"
+        rsync_opts:
+           - "--exclude=.DS_Store"
+        delete: true

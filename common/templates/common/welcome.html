@@ -1,29 +1,29 @@
 {% extends 'common/base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block content %}
   <!-- Header Jumbotron-->
-  <div class="jumbotron jumbotron-fluid jumbotron-overlay overlay-wide-content jumbotron header spacer-n">
+  <div class="welcome jumbotron jumbotron-fluid jumbotron-overlay overlay-wide-content jumbotron header spacer-n">
     <div class="jumbotron-bg-wrapper">
       {% static 'common/images/welcome/welcome-header.jpg' as welcome_header_default %}
       <img class="jumbotron-bg" src="{% firstof welcome_header.url welcome_header_default %}"
         alt="{% firstof welcome_header.text '3D Render of the latest Blender Open Movie' %}">
     </div>
     <div class="container-xxl">
-      <div class="row">
-        <div class="col-lg-6 col-md-8">
+      <div class="row justify-content-center">
+        <div class="col-lg-9 col-md-8">
           <div class="jumbotron-body">
-            <div class="spacer"></div>
-            <h1 class="mb-2">{{ welcome_title.text }}</h1>
-            {{ welcome_primary_text.text|linebreaks }}
-            {% url 'subscriptions:join' as join_url %}
-            <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center mt-4">
+            <h1 class="mb-2">{% blocktrans %}The Creators Who Share{% endblocktrans %}</h1>
+            <p>{% blocktrans %}Blender Studio is a dedicated team of artists and developers who challenge themselves with creative and technical targets to drive Blender development forward.{% endblocktrans %}</p>
+            {% url 'stripe' as join_url %}
+            <div class="d-flex flex-column flex-md-row justify-content-center align-items-center mt-4">
               <a href="{% firstof welcome_button_url.text join_url %}"
                 class="btn btn-lg btn-primary me-md-4 mb-2 mb-md-0">
-                {% firstof welcome_button_text.text "Join the Blender Studio" %}
+                {% blocktrans %}Join Blender Studio{% endblocktrans %}
               </a>
               <div class="d-inline-block">
-                <p class="mb-0">{{ welcome_secondary_text.text|linebreaksbr }}</p>
+                <p>{% blocktrans %}Access to all training, assets <br>and films for €11.50/month{% endblocktrans %}</p>
               </div>
             </div>
           </div>
@@ -32,16 +32,20 @@
     </div>
   </div>
 
-  <div class="container-xxl mt-4 mt-md-5">
+  {% include 'common/components/alert_coupon_announcement.html' %}
+
+  <div class="container-xxl my-6">
     <!-- Training -->
     <section class="mb-4 mb-md-5">
       <div class="row justify-content-center mb-3">
         <div class="col-md-6 text-center">
-          <h2 class="mb-1">Sharing Production Knowledge</h2>
-          <p class="mb-0">
-            With training and docs covering every major topic in Blender, the Blender Studio team
-            shares real production knowledge, which can be freely adopted in a CG pipeline.
-          </p>
+          <h1>{% blocktrans %}Sharing Production Knowledge{% endblocktrans %}</h1>
+          <div class="lead">
+            <p>
+              {% blocktrans %}With training and docs covering every major topic in Blender, the Blender Studio team
+              shares real production knowledge, which can be freely adopted in a CG pipeline.{% endblocktrans %}
+            </p>
+          </div>
         </div>
       </div>
       <div class="row">
@@ -49,38 +53,39 @@
           {% include "common/components/cards/card_training.html" with training=training %}
         {% endfor %}
       </div>
-      <div class="row justify-content-center mb-0">
+      <div class="row justify-content-center mt-4">
         <div class="col-md-6 text-center">
-          <p class="mb-0">Want to see more? <a href="/training">Explore all Blender Studio Training</a>.</p>
+          <p>{% blocktrans %}Not what you're looking for?{% endblocktrans %} <a href="/training">{% blocktrans %}Explore all Blender Studio Training</a>.{% endblocktrans %}</p>
         </div>
       </div>
     </section>
-
-    <!-- Learn (video) -->
-    <section class="mb-4 mb-md-5">
-      <div class="row">
+    <!-- Edit : Learn (video) -->
+    <div class="row">
+      
+      <div class="col-md-6  my-2">
         {% for section in featured_sections|slice:':1' %}
           {% if section.static_asset.source_type == 'video' %}
-            {% include "common/components/video_player.html" with url=section.static_asset.source.url poster=section.thumbnail_m_url classes="col-12 col-md-6 mb-3 mb-md-0 rounded" tracks=section.static_asset.video.tracks.all %}
+            {% include "common/components/video_player.html" with url=section.static_asset.source.url poster=section.thumbnail_m_url classes="col-12 col-md-6 mb-3 mb-md-0 rounded" tracks=section.static_asset.video.tracks.all vid=section.static_asset.id videoType=section.static_asset.content_type m3u8URL=section.static_asset.M3U8Video.all %}
           {% endif %}
         {% endfor %}
-        <div class="col-12 col-md-6 col-lg-5 offset-lg-1 d-flex flex-column justify-content-center">
-          <h2 class="mb-1">The Blender Studio Team</h2>
-          <p>Whether it’s Blender Developer Dr. Sybren teaching <a href="/training/scripting-for-artists/">Scripting for
-            Artists</a>, or Animation Director Hjalti teaching
-            <a href="/training/animation-fundamentals/">Animation Fundamentals</a> — the Blender Studio team shares
-            actual production knowledge.</p>
-          <p>Ask questions and receive replies from the author, download resources and join the discussion.</p>
-          <div class="button-group">
-            <a href="{% url 'subscriptions:join' %}" class="btn btn-primary">Subscribe for €9.90/month</a>
-            <a href="/training" class="btn btn-transparent">Explore Training</a>
-          </div>
-        </div>
       </div>
-    </section>
-
+      <div class="col-md-6 d-flex flex-column justify-content-center px-4">
+          <h1>{% blocktrans %}The Blender Studio Team{% endblocktrans %}</h1>
+          <p>{% blocktrans %}Whether it’s Blender Developer Dr. Sybren teaching{% endblocktrans %} <a href="/training/scripting-for-artists/">{% blocktrans %}Scripting for
+            Artists</a>, or Animation Director Hjalti teaching{% endblocktrans %}
+            <a href="/training/animation-fundamentals/">{% blocktrans %}Animation Fundamentals</a> — the Blender Studio team shares
+            actual production knowledge.{% endblocktrans %}</p>
+          <p>{% blocktrans %}Ask questions and receive replies from the author, download resources and join the discussion.{% endblocktrans %}</p>
+          <div class="btn-row">
+            <a href="{% url 'stripe' %}" class="btn btn-primary">{% blocktrans %}Subscribe for €11.50/month{% endblocktrans %}</a>
+            <a href="/training" class="btn btn-transparent">{% blocktrans %}Explore Training{% endblocktrans %}</a>
+          </div>
+      </div>
+      
+    </div>
+    
     <!-- Latest Project: latest of the featured films -->
-    <section class="mb-5">
+    <section class="my-6">
       <div class="row mb-3">
         <div class="col">
           <div class="jumbotron jumbotron-overlay overlay-wide-content jumbotron-inline header rounded">
@@ -94,10 +99,13 @@
                     <img class="mb-3 film-logo" src="{{ latest_project.logo.url }}"
                       alt="{{ latest_project.title }} Logo">
                     <p class="mb-4">{{ latest_project.description|linebreaksbr }}</p>
-                    <a href="{% url 'subscriptions:join' %}" class="btn btn-primary mb-2 mb-md-0">
-                      Subscribe for €9.90/month
-                    </a>
-                    <a href="{{ latest_project.url }}" class="btn btn-transparent">Explore the Film</a>
+
+                    <div class="btn-row">
+                      <a href="{% url 'stripe' %}" class="btn btn-primary mb-2 mb-md-0">
+                        {% blocktrans %}Subscribe for €11.50/month{% endblocktrans %}
+                      </a>
+                      <a href="{{ latest_project.url }}" class="btn btn-transparent">{% blocktrans %}Explore the Film{% endblocktrans %}</a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -108,49 +116,53 @@
     </section>
 
     <!-- Other featured films -->
-    <section class="mb-4 mb-md-5">
+    <section class="my-6">
       <div class="row justify-content-center mb-3">
         <div class="col-md-6 text-center">
-          <h2 class="mb-1">Support Blender Open Movies</h2>
-          <p class="mb-0">The Blender Open Movie projects are made possible by subscriptions to the Blender
-            Studio.</p>
+          <h1>{% blocktrans %}Support Open Productions{% endblocktrans %}</h1>
+          <div class="lead">
+            <p>
+              {% blocktrans %}The Blender Open Movie projects are made possible by subscriptions to the Blender Studio.{% endblocktrans %}
+            </p>
+          </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 gy-4">
         {% for film in featured_films|slice:'1:4' %}
           {% include "films/components/card_film.html" with film=film %}
         {% endfor %}
       </div>
-      <div class="row justify-content-center mb-0">
+      <div class="row justify-content-center mt-4">
         <div class="col-md-6 text-center">
-          <p class="mb-0">Learn more about our other <a href="/films">open movies</a> and <a
-            href="#faqHeadingHowIsMyMoneySpent">how your
-            contribution is used</a>.</p>
+          <p>{% blocktrans %}Learn more about our other{% endblocktrans %} <a href="/films">{% blocktrans %}open movies</a> and{% endblocktrans %} <a
+            href="#faqHeadingHowIsMyMoneySpent">{% blocktrans %}how your
+            contribution is used</a>.{% endblocktrans %}</p>
         </div>
       </div>
     </section>
 
     <!-- Assets -->
-    {% include 'common/components/cards/card_carousel.html' with title="Access all our production assets!" subtitle="You can access all the production files from our films with a Blender Studio subscription." slides=4 card_set=featured_film_assets media_type="file" id="fromTheArchives" %}
+    {% include 'common/components/cards/card_carousel.html' with title=_("Access all our production assets!") subtitle=_("You can access all the production files from our films with a Blender Studio subscription.") slides=4 card_set=featured_film_assets media_type="file" id="fromTheArchives" %}
 
     <!-- Subscribe -->
-    <section class="my-5">
+    <section class="my-6">
       <div class="row mb-3">
         <div class="col">
           <div class="jumbotron jumbotron-overlay jumbotron-inline overlay-flipped header rounded">
             <div class="jumbotron-bg-wrapper">
               <img class="jumbotron-bg" src="{% static 'common/images/welcome/join-background.jpg' %}"
-                alt="A friendly cartoon character invites you to join Blender Studio.">
+                alt="Character from Sprite Fright">
             </div>
             <div class="row">
               <div class="col-md-7 col-lg-6 offset-md-5 offset-lg-6">
                 <div class="jumbotron-body py-4">
-                  <h2 class="h1">Subscribe to Blender Studio today</h2>
-                  <p class="mb-4">Join Blender Studio and get access to hundreds of hours of training,
-                    production assets and files from the Open Movies as well as a platform to learn at
-                    your own pace, in your own time.</p>
-                  <a href="{% url 'subscriptions:join' %}"
-                    class="btn btn-lg btn-primary">Subscribe for €9.90/month</a>
+                  <h1 class="h1">{% blocktrans %}Join Blender Studio!{% endblocktrans %}</h1>
+                  <div class="lead">
+                    <p class="mb-4">{% blocktrans %}Subscribe to Blender Studio and get access to hundreds of hours of training,
+                      production assets and files from all the Open Movies.{% endblocktrans %}</p>
+                  </div>
+                  <a href="{% url 'stripe' %}"
+                    class="btn btn-lg btn-primary">{% blocktrans %}Subscribe for €11.50/month{% endblocktrans %}</a>
                 </div>
               </div>
             </div>

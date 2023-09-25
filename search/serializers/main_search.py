@@ -104,8 +104,9 @@ class MainSearchSerializer(BaseSearchSerializer):
         instance_dict = super()._set_common_additional_fields(instance_dict, instance)
 
         if isinstance(instance, Post):
-            # TODO(fsiddi) Switch to date_published, and take care of 'None' case
             instance_dict['timestamp'] = instance.date_created.timestamp()
+            if getattr(instance, 'date_published', None):
+                instance_dict['timestamp'] = instance.date_published.timestamp()
         elif isinstance(instance, Film) and instance.release_date is not None:
             instance_dict['timestamp'] = dt.datetime(
                 year=instance.release_date.year,

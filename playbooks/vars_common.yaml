@@ -1,0 +1,72 @@
+domain: studio.blender.org
+project_name: Blender Studio
+project_slug: blender-studio
+service_name: "{{ project_slug }}-{{ env }}"
+background_service_name: '{{ service_name }}-background.service'
+django_settings_module: studio.settings
+
+client_max_body_size: 5500M
+
+dir:
+  source: "/opt/{{ service_name }}"
+  static: "/var/www/{{ service_name }}/static"
+  media: "/var/www/{{ service_name }}/media"
+  errors: "/var/www/{{ service_name }}/html/errors"
+  config: /etc/nginx/snippets
+  pipeline_docs: "/var/www/blender-studio-pipeline-{{ env }}"
+
+env_file: "{{ dir.source }}/.env"
+uwsgi_pid: "{{ dir.source }}/{{ service_name }}.pid"
+uwsgi_module: studio.wsgi
+uwsgi_socket: "unix://{{ dir.source }}/studio.sock"
+host: web-studio.internal
+
+nginx:
+  user: www-data
+  group: www-data
+nginx_conf_dir: /etc/nginx
+# Studio workflows include heavy uploads, so client temp path must have plenty of disk space
+nginx_temp_path: /data/nginx/tmp
+# For prepending to variable names in cases when they have to be set outside server block,
+# e.g. for use in a `map $something ... {}`.
+nginx_var_prefix: "{{ service_name|regex_replace('-', '_') }}"
+user: "studio-{{ env }}"
+group: "{{ nginx.group }}"
+
+mailto: cron@blender.org
+certbot:
+  email: root@blender.org
+
+source_url: https://projects.blender.org/studio/{{ project_slug }}.git
+branch: production
+
+meilisearch_version: 0.25.2
+meilisearch_user: meilisearch
+meilisearch_group: "{{ group }}"
+meilisearch_download_url: https://github.com/meilisearch/meilisearch/releases/download/v{{ meilisearch_version }}/meilisearch-linux-amd64
+meilisearch_host: 127.0.0.1:7700
+meilisearch_endpoint: /s/
+meilisearch_home: /opt/meilisearch
+meilisearch_database: "{{ meilisearch_home }}/data.ms"
+meilisearch_bin: meilisearch-{{ meilisearch_version }}
+meilisearch_bin_path: /usr/bin/{{ meilisearch_bin }}
+
+maxminddb_edition: GeoLite2-Country
+maxminddb_url: https://download.maxmind.com/app/geoip_download
+maxminddb_path: /opt/maxmind
+maxminddb_download_path: /tmp/maxmind
+
+media_url: /media/
+static_url: /static-studio/
+
+allowed_hosts: "{{ domain }},cloudbalance.blender.org,cloud.blender.org"
+redirect_domains:
+  - blender.studio
+
+# The following variables should be encrypted with Ansible Vault
+# and stored in environments/<env>/group_vars/all/99_vault.yaml.
+# These should only be needed during first time use of `install.yaml`.
+
+# sentry_dsn:
+# meili_master_key:
+# maxminddb_license_key:

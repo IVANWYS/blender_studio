@@ -12,6 +12,8 @@ from characters.models import Character
 from films.models import ProductionLog, Asset, AssetCategory
 from static_assets.models.static_assets import StaticAsset
 from training.models import Training
+from payments.models import Subscription
+from django.utils import timezone
 
 User = get_user_model()
 DEFAULT_FEED_PAGE_SIZE = 10
@@ -113,6 +115,18 @@ def has_active_subscription(user: User) -> bool:
 
     # The old way, that supports Store-based and manual team subscriptions
     if user.has_perm('users.can_view_content'):
+        return True
+    
+    # Check Subscription
+    if Subscription.objects.values_list(
+            'end_date').filter(user_id=user.id).exists():
+        end_date = Subscription.objects.values_list(
+            'end_date').filter(user_id=user.id)[0][0]
+        if end_date <= timezone.now():
+            created = Subscription.objects.update_or_create(user_id=user.id, defaults={
+                'status': 'expired', })
+
+    if Subscription.objects.filter(user_id=user.id, status="active").exists():
         return True
 
     # The new way, with subscriptions managed by Studio itself

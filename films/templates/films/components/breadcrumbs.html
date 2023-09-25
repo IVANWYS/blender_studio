@@ -1,5 +1,6 @@
 {% load common_extras %}
 {% load film_extras %}
+{% load i18n %}
 
 <nav class="row mb-3" aria-label="breadcrumb">
 
@@ -60,9 +61,9 @@
     </button>
 
     <div class="dropdown-menu dropdown-menu-end">
-      <a href="https://developer.blender.org/maniphest/task/edit/form/15/" target="_blank" class="dropdown-item">
-        <i class="material-icons">flag</i>
-        <span>Report Problem</span>
+      <a href="https://projects.blender.org/studio/blender-studio/issues/new" target="_blank" class="dropdown-item">
+        <i class="i-flag"></i>
+        <span>{% blocktrans %}Report Problem{% endblocktrans %}</span>
       </a>
     </div>
 

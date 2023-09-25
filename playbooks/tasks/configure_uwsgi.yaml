@@ -1,0 +1,14 @@
+---
+- name: Copying uWSGI config files
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: 0644
+    backup: true
+  loop:
+    - { src: templates/uwsgi/uwsgi.ini, dest: "/etc/uwsgi/{{ service_name }}.ini" }
+    - { src: templates/uwsgi/uwsgi.service, dest: "/etc/systemd/system/{{ service_name }}.service" }
+  notify:
+    - restart service
+  tags:
+    - uwsgi

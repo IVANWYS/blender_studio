@@ -1,0 +1,29 @@
+.profile-avatar
+  img
+    box-shadow: 0 0 0 3px var(--component-bg-light)
+    border-radius: 50%
+    // to hide alt text if the image is missing.
+    font-size: 0
+    height: var(--profile-avatar-size)
+    width: var(--profile-avatar-size)
+
+  &.avatar-sm
+    img
+      height: var(--profile-avatar-size-sm)
+      width: var(--profile-avatar-size-sm)
+
+.profile-card
+  align-items: center
+  display: flex
+
+  .profile-details
+    margin-left: var(--spacer)
+    display: flex
+    flex-direction: column
+
+  .profile-name
+    font-size: var(--font-size-sm)
+
+.profile-title
+  color: var(--body-color-secondary)
+  font-size: var(--font-size-xs)

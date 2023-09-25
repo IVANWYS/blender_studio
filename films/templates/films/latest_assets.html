@@ -15,13 +15,7 @@
 {% block toolbar %}
   <div class="row">
     <div class="col search-bar-wrapper">
-      <div class="input-group input-group-sm" id="search-container">
-        <span class="input-group-text pe-0">
-          <i class="material-icons">search</i>
-        </span>
-        {% comment %} INPUT (Js) {% endcomment %}
-        {% comment %} X (Js) {% endcomment %}
-      </div>
+      {% include "search/components/input.html" with sm=True %}
     </div>
 
     <div class="col-auto mb-3 d-none d-md-block">

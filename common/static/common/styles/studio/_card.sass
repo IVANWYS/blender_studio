@@ -1,0 +1,21 @@
+.card-header-link
+  align-items: center
+  display: flex
+  justify-content: center
+
+  i
+    color: var(--body-color-tertiary)
+    font-size: 3rem
+    rotate: -5deg
+    transition: scale var(--transition-speed)
+
+  &:hover
+    .card-img
+      scale: 1.025
+
+    i
+      scale: 1.1
+
+.card-img
+  border-radius: var(--border-radius-lg)
+  transition: scale var(--transition-speed)

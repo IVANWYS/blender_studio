@@ -8,6 +8,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{% static 'common/images/favicon/favicon.ico' %}">
+    <link href="https://vjs.zencdn.net/8.0.4/video-js.css" rel="stylesheet" />
+
     <title>{% block title_prepend %}{% endblock title_prepend %}Blender Studio{% block title_append %}{% endblock title_append %}</title>
     <meta name="google-site-verification" content="r-8DuUEYwMyb14SRVj0I4mSUSEPmdRRMrT-zMSbFkas">
 
@@ -44,344 +46,16 @@
         aria-valuemax="100"></div>
     </div>
 
-    <div class="blender-navbar bg-dark mt-md-n3 mb-sm-3 border-bottom border-1 border-input">
-      <div class="container-nav">
-        <div class="row justify-content-between">
-
-          <div class="col-auto d-flex align-items-stretch">
-            <a href="https://blender.org" class="blender-navbar-brand" target="_blank">
-              <img src="{% static 'common/images/blender_logo_white.svg' %}">
-            </a>
-          </div>
-
-          <div class="col-auto d-flex align-items-center">
-
-            {% comment %} <a href="https://www.blender.org/download/" target="_blank" class="btn btn-dark btn-sm btn-nav">
-              Download Blender
-            </a> {% endcomment %}
-
-            <button data-bs-toggle="dropdown" class="btn btn-dark btn-sm btn-nav btn-icon">
-              <i class="material-icons">apps</i>
-            </button>
-            <div class="dropdown-menu dropdown-menu-end dropdown-menu-grid bg-dark" style="z-index: 1045;">
-
-              <a href="https://fund.blender.org/" class="dropdown-item" rel="nofollow" target="_blank">
-                <div class="dropdown-item-icon">
-                  <i class="material-icons">favorite</i>
-                </div>
-                <div class="dropdown-item-text">
-                  <h4>Development Fund</h4>
-                  <p>Support Blender Core Development with a monthly contribution.</p>
-                </div>
-              </a>
-
-              <a href="https://studio.blender.org/" class="dropdown-item" rel="nofollow" target="_blank">
-                <div class="dropdown-item-icon">
-                  <i class="material-icons">theaters</i>
-                </div>
-                <div class="dropdown-item-text">
-                  <h4>Blender Studio</h4>
-                  <p>The creators who share. Access production content and knowledge from the Open Movies.</p>
-                </div>
-              </a>
-
-              <a href="https://code.blender.org/" class="dropdown-item" rel="nofollow" target="_blank">
-                <div class="dropdown-item-icon">
-                  <i class="material-icons">code</i>
-                </div>
-                <div class="dropdown-item-text">
-                  <h4>Blender Developer Blog</h4>
-                  <p>Latest news and updates on Blender development.</p>
-                </div>
-              </a>
-
-              <a href="https://www.blender.org/get-involved/" class="dropdown-item" rel="nofollow" target="_blank">
-                <div class="dropdown-item-icon">
-                  <i class="material-icons">people</i>
-                </div>
-                <div class="dropdown-item-text">
-                  <h4>Get Involved</h4>
-                  <p>Join the community and help with design, development, docs and more.</p>
-                </div>
-              </a>
-
-              <a href="https://opendata.blender.org/" class="dropdown-item" rel="nofollow" target="_blank">
-                <div class="dropdown-item-icon">
-                  <i class="material-icons">bar_chart</i>
-                </div>
-                <div class="dropdown-item-text">
-                  <h4>Open Data</h4>
-                  <p>A platform to collect and display the Blender Benchmark results.</p>
-                </div>
-              </a>
-
-              <a href="https://docs.blender.org/" class="dropdown-item" rel="nofollow" target="_blank">
-                <div class="dropdown-item-icon">
-                  <i class="material-icons">menu_book</i>
-                </div>
-                <div class="dropdown-item-text">
-                  <h4>Blender Docs</h4>
-                  <p>Documentation on Blender's features, tools and API.</p>
-                </div>
-              </a>
-
-              <a href="https://conference.blender.org/" class="dropdown-item" rel="nofollow" target="_blank">
-                <div class="dropdown-item-icon">
-                  {% comment %} <i class="material-icons">menu_book</i> {% endcomment %}
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="icon" xmlns="http://www.w3.org/2000/svg">
-                    <g>
-                      <path d="M13.6303 1.5C8.28429 1.5 3.8711 5.61792 3.31955 10.8856C3.71692 10.7717 4.1366 10.7094 4.57217 10.7094C7.11951 10.7094 9.15738 12.7859 9.15738 15.365C9.15738 17.2571 8.05893 18.8612 6.46905 19.5835C8.33238 21.3879 10.8545 22.5 13.6303 22.5C19.3481 22.5 24 17.7898 24 12.0002C24 6.21037 19.3481 1.5 13.6303 1.5Z"/>
-                      <path d="M1.91375 11.5696C0.751498 12.4118 0 13.7946 0 15.365C0 17.9442 2.02487 19.9947 4.57221 19.9947C4.70001 19.9947 4.82607 19.988 4.95096 19.9776C3.05796 17.868 1.90289 15.0681 1.90289 12C1.90289 11.8557 1.90871 11.7127 1.91375 11.5696Z"/>
-                    </g>
-                  </svg>
-                </div>
-                <div class="dropdown-item-text">
-                  <h4>Blender Conference</h4>
-                  <p>The yearly event that brings together the Blender community in one place.</p>
-                </div>
-              </a>
-
-
-              <a href="https://www.blender.org/download/" class="dropdown-item" rel="nofollow" target="_blank">
-                <div class="dropdown-item-icon">
-                  <i class="material-icons">download</i>
-                </div>
-                <div class="dropdown-item-text">
-                  <h4>Get Blender</h4>
-                  <p>Download the latest Blender version, or try the beta!</p>
-                </div>
-              </a>
-
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <nav class="navbar container-nav flex-nowrap d-flex align-center scroll">
-
-      <div class="navbar-main-mobile">
-        <button class="btn btn-secondary btn-nav btn-icon navdrawertoggle">
-          <i class="material-icons">menu</i>
-        </button>
-      </div>
-
-      <a href="/" class="navbar-brand">
-        <h1 style="transform: translateY(1px);" class="h3 mb-0 text-uppercase">Blender Studio</h1>
-      </a>
-
-      <div class="navbar-main-nav">
-        <a href="{% url 'film-list' %}" class="btn btn-secondary btn-nav">
-          <span>Films</span>
-        </a>
-        <a href="{% url 'training-home' %}" class="btn btn-secondary btn-nav">
-          <span>Training</span>
-        </a>
-
-        <a href="{% url 'post-list' %}" class="btn btn-secondary btn-nav">
-          <span>Blog</span>
-        </a>
-
-        <div class="mx-2 position-relative d-none d-md-block d-lg-none">
-          <button class="btn btn-nav btn-icon btn-secondary" data-bs-toggle="dropdown" id="nav-dropdown">
-            <i class="material-icons">arrow_drop_down</i>
-          </button>
-          <div class="dropdown-menu dropdown-menu-end mt-3" aria-labelledby="nav-dropdown">
-            <a href="/training/pipeline-and-tools/" class="dropdown-item">
-              <span>Pipeline and Tools</span>
-            </a>
-
-            <a href="{% url 'character-list' %}" class="dropdown-item">
-              <span>Characters</span>
-            </a>
-          </div>
-        </div>
-
-        <a href="/training/pipeline-and-tools/" class="btn btn-secondary btn-nav d-none d-lg-block ms-2">
-          <span>Pipeline and Tools</span>
-        </a>
-        <a href="{% url 'character-list' %}" class="btn btn-secondary btn-nav d-none d-lg-block ms-2">
-          <span>Characters</span>
-        </a>
-      </div>
-      {% if request.user.is_authenticated %}
-
-        <div class="navbar-main-nav-toolbar">
-
-          <a href="{% url 'search' %}" class="btn btn-secondary btn-nav btn-icon search-button">
-            <i class="material-icons">search</i>
-          </a>
-
-          <div>
-            <button href="{% url 'user-notification' %}" data-bs-toggle="dropdown"
-              class="btn btn-secondary btn-nav btn-icon notification-button me-2">
-              <i class="material-icons">notifications</i>
-              {% if user.notifications_unread.count >= 1 %}
-                <span class="notifications-counter">{{ user.notifications_unread.count }}</span>
-              {% endif %}
-            </button>
-            <div class="dropdown-menu dropdown-menu-end notification-dropdown">
-
-              <div class="dropdown-double">
-                <a href="{% url 'user-notification' verbs='commented,replied to' %}" class="dropdown-item">
-                  <i class="material-icons">notifications</i>
-                  <span>Notifications</span>
-                </a>
-
-                <button class="dropdown-item icon {% if user.notifications_unread.count >= 1 %}unread{% endif %}"
-                  data-bs-toggle="tooltip" data-placement="top"
-                  data-mark-all-read-url="{% url 'api-notifications-mark-read' %}" title="Mark all as read">
-                  <i class="material-icons">markunread_mailbox</i>
-                </button>
-              </div>
-
-              <div class="dropdown-menu-nested">
-
-                {% for notification in user.notifications.all|slice:":10" %}
-                  {% with action=notification.action %}
-                    {% include 'users/components/nav_action.html' %}
-                  {% endwith %}
-                {% empty %}
-                  <p class="px-2 py-2 subtitle text-center">
-                    No notifications yet
-                  </p>
-                {% endfor %}
-
-              </div>
-
-              <a href="{% url 'user-notification' %}" class="dropdown-item small">
-                <span>See all notifications</span>
-              </a>
-
-            </div>
-          </div>
-
-          <div>
-            <button data-bs-toggle="dropdown" class="btn btn-secondary btn-nav btn-profile">
-              {% if request.user.is_authenticated and request.user.image_url %}
-                <div style="background-image:url('{{ request.user.image_url }}');" class="profile"></div>
-              {% else %}
-                <div style="background-image:url('{% static 'common/images/blank-profile-pic.png' %}');" class="profile">
-                </div>
-              {% endif %}
-              {% if request.user|has_group:"demo"  %}
-                <i class="profile-subscription-badge demo material-icons">favorite</i>
-              {% elif request.user|has_active_subscription %}
-                <i class="profile-subscription-badge subscriber material-icons">done</i>
-              {% else %}
-                <i class="profile-subscription-badge unsubscribed material-icons">priority_high</i>
-              {% endif %}
-            </button>
-            <div class="dropdown-menu dropdown-menu-end">
-
-              <a href="{% url 'user-settings' %}" class="dropdown-item">
-                <i class="material-icons">home</i>
-                <span>My Profile</span>
-              </a>
-
-              <div class="dropdown-menu-nested">
-                {% if request.user.is_authenticated %}
-                  {% if request.user|has_group:"demo" %}
-                    <a href="{% url 'user-settings-billing' %}" class="dropdown-item text-blue">
-                      <i class="material-icons">favorite</i>
-                      <span>Free Account</span>
-                    </a>
-                  {% elif request.user|has_active_subscription %}
-                    <a href="{% url 'user-settings-billing' %}" class="dropdown-item text-green">
-                      <i class="material-icons">done</i>
-                      <span>Subscription Active</span>
-                    </a>
-                  {% else %}
-                    <a href="{% url 'user-settings-billing' %}" class="dropdown-item text-red">
-                      <i class="material-icons">error</i>
-                      <span>Subscription Inactive</span>
-                    </a>
-                  {% endif %}
-                {% endif %}
-
-                <a href="/settings/profile" class="dropdown-item">
-                  <i class="material-icons">settings</i>
-                  <span>Settings</span>
-                </a>
-
-                <a href="{% url 'user-settings-billing' %}" class="dropdown-item">
-                  <i class="material-icons">credit_card</i>
-                  <span>Subscription</span>
-                </a>
-              </div>
-
-              <a href="{% url 'user-activity' %}" class="dropdown-item">
-                <i class="material-icons">timeline</i>
-                <span>My Activity</span>
-              </a>
-
-              {% if user.is_superuser or user.is_staff %}
-                <a href="/admin" class="dropdown-item">
-                  <i class="material-icons">security</i>
-                  <span>Admin</span>
-                </a>
-              {% endif %}
-
-              <a href="{% url 'oauth:logout' %}" class="dropdown-item">
-                <i class="material-icons">exit_to_app</i>
-                <span>Sign Out</span>
-              </a>
-              {# For exiing a "Login-As" switcheroo #}
-              {% if is_impersonated_session %}
-                {% with warn="(!) You are currently using login-as to impersonate someone else's session" %}
-                  <a class="dropdown-item" title="{{ warn }}" href="{% url 'loginas-logout' %}">
-                    <i class="text-warning material-icons">exit_to_app</i>
-                    <span class="text-warning">Switch back</span>
-                  </a>
-                {% endwith %}
-              {% endif %}
-            </div>
-          </div>
-
-        </div>
-      {% else %}
-        <div class="navbar-main-nav-toolbar">
-          <a href="{% url 'search' %}" class="btn me-0 btn-secondary btn-nav btn-icon search-button">
-            <i class="material-icons">search</i>
-          </a>
-          <a href="{% url 'oauth:login' %}" class="btn btn-transparent btn-nav login-button me-2">Login</a>
-          <a href="{% url 'subscriptions:join' %}" class="btn btn-primary ">Join
-            <span class="d-none d-lg-inline-block">Blender Studio</span></a>
-        </div>
-      {% endif %}
-    </nav>
+    {% include 'common/components/navbar.html' %}
 
     {% block secondary_nav %}{% endblock secondary_nav %}
 
     {% block jumbotron %}{% endblock jumbotron %}
 
-    {% comment %}
-      <div class="navbar-secondary">
-        <div class="content-holder">
-          <div class="container-xxl">
-            <div class="list-group list-group-flush list-group-horizontal small">
-
-            </div>
-          </div>
-        </div>
-      </div>
-    {% endcomment %}
 
     {% block nav_drawer %}
-
-      <nav class="nav-drawer">
+    <nav class="nav-drawer">
         <div class="nav-drawer-body">
-          {% comment %}
-            <div class="px-2 py-2 d-block d-md-none">
-              <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="material-icons">search</i></span>
-                </div><input class="form-control" type="text" placeholder="Search tags and keywords" />
-              </div>
-            </div>
-          {% endcomment %}
           <div class="navbar-secondary d-md-none">
             <div class="navdrawer-offset">
               <div class="container-fluid px-2 py-1">
@@ -404,7 +78,7 @@
                   </div>
 
                   <div class="col-6 p-0">
-                    <a class="h3 drawer-nav-dropdown" href="/training/pipeline-and-tools/">Pipeline and Tools</a>
+                    <a class="h3 drawer-nav-dropdown" href="/pipeline/">Pipeline and Tools</a>
                   </div>
 
                   <div class="col-6 p-0">
@@ -442,21 +116,10 @@
           {% endblock nav_drawer_inner %}
         </div>
       </nav>
-
     {% endblock nav_drawer %}
 
     <div class="content-holder navdrawer-offset">
       {% block breadcrumbs %}{% endblock breadcrumbs %}
-      {% comment %}
-        <nav class="navbar-secondary" aria-label="breadcrumbs">
-          <div class="content-holder">
-            <div class="container-xxl">
-
-            </div>
-          </div>
-        </nav>
-      {% endcomment %}
-
       {% block content %}{% endblock content %}
     </div>
 
@@ -513,7 +176,7 @@
     {% javascript 'studio' %}
 
     {% block scripts %}{% endblock scripts %}
-
+    <script defer data-domain="studio.blender.org" src="https://analytics.blender.org/js/script.js"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ settings_analytics_id }}"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -538,6 +201,9 @@
       initVideo(document);
     </script>
 
+    <script src="https://vjs.zencdn.net/8.0.4/video.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    
     <script>
       // Init tooltips
       const tooltipTriggerList = [...document.querySelectorAll('[data-bs-toggle="tooltip"]')];

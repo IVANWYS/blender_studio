@@ -1,6 +1,7 @@
 {% extends 'training/base_with_navigation.html' %}
 {% load common_extras %}
 {% load pipeline %}
+{% load i18n %}
 
 {% block title_prepend %}{{ flatpage.title }} - {{ training.name }} - {% endblock title_prepend %}
 
@@ -38,7 +39,8 @@
 
               {% if user.is_staff %}
                 <a href="{{ flatpage.admin_url }}" class="btn btn-sm btn-icon btn-dark">
-                  <i class="material-icons btn-material-icons">create</i>
+                  <i class="i-edit btn-material-icons"></i>
+                  <span>Edit</span>
                 </a>
               {% endif %}
 
@@ -46,10 +48,10 @@
                 <i class="material-icons btn-material-icons">more_horiz</i>
               </button>
               <div class="dropdown-menu dropdown-menu-end">
-                <a href="https://developer.blender.org/maniphest/task/edit/form/15/" target="_blank"
+                <a href="https://projects.blender.org/studio/blender-studio/issues/new" target="_blank"
                   class="dropdown-item">
-                  <i class="material-icons">flag</i>
-                  <span>Report Problem</span>
+                  <i class="i-flag"></i>
+                  <span>{% blocktrans %}Report Problem{% endblocktrans %}</span>
                 </a>
               </div>
 

@@ -3,24 +3,26 @@ from django.db import models
 from django.urls.base import reverse
 from django.utils.text import slugify
 from taggit.managers import TaggableManager
+from django.utils.translation import ugettext_lazy as _
 
 from common import mixins
 from common.upload_paths import get_upload_to_hashed_path
+from common.google_trans import trans_SC, trans_TC
 import common.help_texts
 
 User = get_user_model()
 
 
 class TrainingType(models.TextChoices):
-    workshop = 'workshop', 'Workshop'
-    course = 'course', 'Course'
-    documentation = 'documentation', 'Documentation'
+    workshop = 'workshop', _('Workshop')
+    course = 'course', _('Course')
+    documentation = 'documentation', _('Documentation')
 
 
 class TrainingDifficulty(models.TextChoices):
-    beginner = 'beginner', 'Beginner'
-    intermediate = 'intermediate', 'Intermediate'
-    advanced = 'advanced', 'Advanced'
+    beginner = 'beginner', _('Beginner')
+    intermediate = 'intermediate', _('Intermediate')
+    advanced = 'advanced', _('Advanced')
 
 
 class Training(mixins.CreatedUpdatedMixin, mixins.StaticThumbnailURLMixin, models.Model):
@@ -46,6 +48,28 @@ class Training(mixins.CreatedUpdatedMixin, mixins.StaticThumbnailURLMixin, model
     difficulty = models.TextField(choices=TrainingDifficulty.choices, blank=True)
     picture_header = models.FileField(upload_to=get_upload_to_hashed_path, blank=True)
     thumbnail = models.FileField(upload_to=get_upload_to_hashed_path, blank=True)
+
+
+    def save(self, *args, **kwargs):
+        # Trans name
+        if self.name_zh_hans == None or self.name_zh_hans == "":
+            self.name_zh_hans = trans_SC(self.name_en)
+        if self.name_zh_hant == None or self.name_zh_hant == "":
+            self.name_zh_hant = trans_TC(self.name_en)
+        # Trans description
+        if self.description_en != "":
+            if self.description_zh_hans == "":
+                self.description_zh_hans = trans_SC(self.description_en)
+            if self.description_zh_hant == "":
+                self.description_zh_hant = trans_TC(self.description_en)
+        # Trans summary
+        if self.summary_en != "":
+            if self.summary_zh_hans == "":
+                self.summary_zh_hans = trans_SC(self.summary_en)
+            if self.summary_zh_hant == "":
+                self.summary_zh_hant = trans_TC(self.summary_en)
+        super(Training, self).save(*args, **kwargs)
+
 
     def clean(self) -> None:
         super().clean()

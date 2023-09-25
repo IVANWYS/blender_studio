@@ -4,8 +4,12 @@ import nested_admin
 from looper.admin.filters import ChoicesFieldListWithEmptyFilter
 
 from common.mixins import AdminUserDefaultMixin
-from static_assets.models import static_assets, licenses
+from static_assets.models import static_assets, licenses, m3u8_assets
 
+# Data import export
+from .resource import StaticAssetResource, VideoResource, VideoTrackResource
+
+from import_export.admin import ImportExportModelAdmin
 
 @admin.register(licenses.License)
 class LicenseAdmin(admin.ModelAdmin):
@@ -40,7 +44,7 @@ class VideoInline(nested_admin.NestedTabularInline):
 
 
 @admin.register(static_assets.StaticAsset)
-class StaticAssetAdmin(AdminUserDefaultMixin, nested_admin.NestedModelAdmin):
+class StaticAssetAdmin(ImportExportModelAdmin, AdminUserDefaultMixin, nested_admin.NestedModelAdmin):
     actions = ['process_videos', 'transcribe_videos']
     inlines = [ImageInline, VideoInline]
     autocomplete_fields = ['user', 'author', 'contributors']
@@ -65,7 +69,7 @@ class StaticAssetAdmin(AdminUserDefaultMixin, nested_admin.NestedModelAdmin):
                     ('user', 'author', 'contributors'),
                     'license',
                     'thumbnail',
-                    ('date_created', 'view_count', 'download_count'),
+                    ('slug', 'date_created', 'view_count', 'download_count'),
                 ],
             },
         ),
@@ -105,6 +109,7 @@ class StaticAssetAdmin(AdminUserDefaultMixin, nested_admin.NestedModelAdmin):
         'id',
         'view_count',
         'download_count',
+        'slug',
     ]
 
     def process_videos(self, request, queryset):
@@ -152,8 +157,36 @@ class StaticAssetAdmin(AdminUserDefaultMixin, nested_admin.NestedModelAdmin):
 
     has_tracks.boolean = True
 
+    resource_class = StaticAssetResource
+
+@admin.register(static_assets.Video)
+class VideoAdmin(ImportExportModelAdmin, nested_admin.NestedModelAdmin):
+    list_display = ('id', 'duration', 'static_asset_id')
+    list_display_links = ('id', 'duration', 'static_asset_id')
+
+    resource_class = VideoResource
+
 
 @admin.register(static_assets.VideoTrack)
-class VideoTrackAdmin(nested_admin.NestedModelAdmin):
+class VideoTrackAdmin(ImportExportModelAdmin, nested_admin.NestedModelAdmin):
     list_display = ('id', 'video', 'language')
     readonly_fields = ['video']
+
+    resource_class = VideoTrackResource
+
+
+@admin.register(m3u8_assets.M3u8Playlist)
+class M3u8PlaylistAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'source', 'types', 'sVideo')
+    list_display_links = ('id', 'title')
+    readonly_fields=('slug',)
+    search_fields = ('title', 'types', 'sVideo')
+    list_per_page = 25
+
+
+@admin.register(m3u8_assets.M3u8Source)
+class M3u8SourceAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'source', 'types')
+    list_display_links = ('id', 'title')
+    search_fields = ('title', 'types')
+    list_per_page = 25

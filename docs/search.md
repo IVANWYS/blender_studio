@@ -77,7 +77,7 @@ For more details, see the command's `--help` or the
 
 ## Management commands
 Two Django management commands are available:
- - `create_search_indexes` - creates a new 'main' index, with the uid `MEILISEARCH_INDEX_UID`,
+ - `create_search_indexes` - creates a new 'main' index, with the uid `settings.MEILISEARCH_INDEX_UID`,
  two replica indexes used for alternative search results ordering, and an index for the
  search in training.
  If the indexes already exists, the command only updates their settings to the values they

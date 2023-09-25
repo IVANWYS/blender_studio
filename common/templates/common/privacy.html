@@ -1,0 +1,114 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+  <div class="content-holder navdrawer-offset">
+    <div class="container-fluid pt-4">
+      <section class="flat-page-content mb-4">
+        <div class="row justify-content-center mb-3">
+          <div class="col-md-6 text-center">
+            <h1 class="mb-0">{% blocktrans %}Privacy{% endblocktrans %}</h1>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <p>
+              {% blocktrans %}This Application collects some Personal Data from its Users.{% endblocktrans %}
+            </p>
+            <h3>{% blocktrans %}Data Controller and Owner{% endblocktrans %}</h3>
+            <p>
+              {% blocktrans %}Blender Institute B.V. - Buikslotermeerplein 161 - 1025 ET Amsterdam - the Netherlands, institute@blender.org{% endblocktrans %}
+            </p>
+            <p>
+              {% blocktrans %}Blender Institute has been authorised by Stichting Blender Foundation to conduct these services. Blender Institute is committed to comply to the goals of the public benefit free/open source project and community at blender.org.{% endblocktrans %}
+            </p>
+            <p>
+              {% blocktrans %}This Privacy Policy outlines how this is being achieved.{% endblocktrans %}
+            </p>
+            <h3>{% blocktrans %}Purpose of Service{% endblocktrans %}</h3>
+            <p>
+              {% blocktrans %}Blender Studio is a service that provides or will provide:{% endblocktrans %}
+            </p>
+            <ol>
+              <li>
+                {% blocktrans %}Identification of a person via a unique BlenderID. Websites within the blender.org domain can use it to enable a single login for users of the websites.{% endblocktrans %}
+              </li>
+              <li>
+                {% blocktrans %}Membership - via monthly subscription - to access and share data from Open Projects at blender.org, post feedback or reviews.{% endblocktrans %}
+              </li>
+              <li>
+                {% blocktrans %}Project space - via monthly subscription - to upload and share data with other members.{% endblocktrans %}
+              </li>
+            </ol>
+            <p>
+              {% blocktrans %}Information provided by Users, such as email address and billing information, will only be used for the purpose of the service itself and to monitor traffic and usage.{% endblocktrans %}
+            </p>
+            <h3>{% blocktrans %}Types of Data collected{% endblocktrans %}</h3>
+            <p>
+              {% blocktrans %}Among the types of Personal Data that this Application collects, by itself or through third parties, there are: Cookie and Usage Data, via Google Analytics. The Personal Data may be freely provided by the User, or collected automatically when using this Application. Any use of Cookies - or of other tracking tools - by this Application or by the owners of third party services used by this Application, unless stated otherwise, serves to identify Users and remember their preferences, for the sole purpose of providing the service required by the User. The User assumes responsibility for the Personal Data of third parties published or shared through this Application and declares to have the right to communicate or broadcast them, thus relieving the Data Controller of all responsibility.{% endblocktrans %}
+            </p>
+            <h3>{% blocktrans %}Mode and place of processing the Data{% endblocktrans %}</h3>
+            <h4>{% blocktrans %}Method of processing{% endblocktrans %}</h4>
+            <p>
+              {% blocktrans %}The Data Controller processes the Data of Users in proper manner and shall take appropriate security measures to prevent unauthorized access, disclosure, modification or unauthorized destruction of the Data. The Data processing is carried out using computers and/or IT enabled tools, following organizational procedures and modes strictly related to the purposes indicated. In addition to the Data Controller, in some cases, the Data may be accessible to certain types of persons in charge, involved with the operation of the site (administration, sales, marketing, legal, system administration) or external parties (such as third party technical service providers, mail carriers, hosting providers, IT companies, communications agencies) appointed, if necessary, as Data Processors by the Owner. The updated list of these parties may be requested from the Data Controller at any time.{% endblocktrans %}
+            </p>
+            <h4>{% blocktrans %}Place{% endblocktrans %}</h4>
+            <p>
+              {% blocktrans %}The Data is processed at the Data Controller headquarters, unless stated otherwise in the rest of this document.{% endblocktrans %}
+            </p>
+            <h4>{% blocktrans %}Conservation Time{% endblocktrans %}</h4>
+            <p>
+              {% blocktrans %}The Data is kept for the time necessary to provide the service requested by the User, or stated by the purposes outlined in this document, and the User can always request the Data Controller for their suspension or removal.{% endblocktrans %}
+            </p>
+            <h3>{% blocktrans %}The use of the collected Data{% endblocktrans %}</h3>
+            <p>
+              {% blocktrans %}The Data concerning the User is collected to allow the Application to provide its services, as well as for the following purposes: Traffic and Usage Analytics. The Personal Data used for each purpose is outlined in the specific sections of this document.{% endblocktrans %}
+            </p>
+            <p>
+              {% blocktrans %}Personal Data is collected for the following purposes and using the following services:{% endblocktrans %}
+            </p>
+            <ul>
+              <li>
+                {% blocktrans %}Google Analytics{% endblocktrans %}
+              </li>
+            </ul>
+            <h3>{% blocktrans %}Additional information about Data collection and processing{% endblocktrans %}</h3>
+            <h4>{% blocktrans %}Legal Action{% endblocktrans %}</h4>
+            <p>
+              {% blocktrans %}The User's Personal Data may be used for legal purposes by the Data Controller, in Court or in the stages leading to possible legal action arising from improper use of this Application or the related services.{% endblocktrans %}
+            </p>
+            <h4>{% blocktrans %}Additional Information about User's Personal Data{% endblocktrans %}</h4>
+            <p>
+              {% blocktrans %}In addition to the information in this privacy policy, this Application may provide the User with contextual information concerning particular services or the collection and processing of Personal Data.{% endblocktrans %}
+            </p>
+            <h4>{% blocktrans %}System Logs and Maintenance{% endblocktrans %}</h4>
+            <p>
+              {% blocktrans %}For operation and maintenance purposes, this Application and any third party services may collect files that record interaction with this Application (System Logs) or use for this purpose other Personal Data (such as IP Address).{% endblocktrans %}
+            </p>
+            <h4>{% blocktrans %}Information not contained in this policy{% endblocktrans %}</h4>
+            <p>
+              {% blocktrans %}More details concerning the collection or processing of Personal Data may be requested from the Data Controller at any time at its contact information.{% endblocktrans %}
+            </p>
+            <h4>{% blocktrans %}The rights of Users{% endblocktrans %}</h4>
+            <p>
+              {% blocktrans %}Users have the right, at any time, to know whether their Personal Data has been stored and can consult the Data Controller to learn about their contents and origin, to verify their accuracy or to ask for them to be supplemented, cancelled, updated or corrected, or for their transformation into anonymous format or to block any data held in violation of the law, as well as to oppose their treatment for any and all legitimate reasons. Requests should be sent to the Data Controller at the contact information set out above. This Application does not support "do not track" requests. To understand if any of the third party services it uses honor the "do not track" requests, please read their privacy policies.{% endblocktrans %}
+            </p>
+            <h4>{% blocktrans %}Changes to this privacy policy{% endblocktrans %}</h4>
+            <p>
+              {% blocktrans %}The Data Controller reserves the right to make changes to this privacy policy at any time by giving notice to its Users on this page. It is strongly recommended to check this page often, referring to the date of the last modification listed at the bottom. If a User objects to any of the changes to the Policy, the User must cease using this Application and can request the Data Controller to erase the Personal Data. Unless stated otherwise, the then-current privacy policy applies to all Personal Data the Data Controller has about Users.{% endblocktrans %}
+            </p>
+            <h4>{% blocktrans %}Definitions and legal references{% endblocktrans %}</h4>
+            <p>
+              {% blocktrans %}Original issue: February 27, 2014{% endblocktrans %}
+            </p>
+            <p>
+              {% blocktrans %}Latest update: June 10, 2019 (Updated Blender Institute address){% endblocktrans %}
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+{% endblock %}

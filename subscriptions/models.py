@@ -44,7 +44,8 @@ class Team(mixins.CreatedUpdatedMixin, models.Model):
         blank=True,
         help_text=(
             'Team email domain. If set to "my-awesome-team.org", everyone with an email'
-            ' ending with "@my-awesome-team.org" will be considered a member of this team.'
+            ' ending with "@my-awesome-team.org" and subdomains (e.g. "@edu.my-awesome-team.org")'
+            ' will be considered a member of this team.<br>'
             ' Domains of common email providers are not allowed.'
         ),
         validators=[subscriptions.validators.validate_email_domain],
@@ -144,6 +145,22 @@ class Team(mixins.CreatedUpdatedMixin, models.Model):
             'name': self.name,
             'seats': self.seats,
         }
+
+    def email_matches(self, email: str) -> bool:
+        """Check if given email matches team's email domain.
+
+        This is done case-insentively (even though this is not what RFC states),
+        and only TLD of the given email is used, meaning that emails at any subdomain
+        of the team's `email_domain` will match.
+        """
+        if not email:
+            return False
+        if email.lower() in self.emails:
+            return True
+        if self.email_domain:
+            team_domain = self.email_domain.lower()
+            return team_domain in subscriptions.validators.extract_domains(email)
+        return False
 
 
 class TeamUsers(mixins.CreatedUpdatedMixin, models.Model):

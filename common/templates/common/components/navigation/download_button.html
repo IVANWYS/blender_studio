@@ -1,10 +1,12 @@
+{% load i18n %}
 {% spaceless %}
   {% if static_asset.download_url %}
     <a href="{{ static_asset.download_url }}"
       target="_blank"
       download
       class="{% if additional_download %}dropdown-item{% else %}btn btn-sm btn-dark{% endif %}">
-      Download {% if additional_download %}{{ additional_download|capfirst }} {% endif %}<span class="subtitle">({{ static_asset.download_size }})</span>
+      <i class="i-download me-1"></i>
+      <span>{% blocktrans %}Download{% endblocktrans %} {% if additional_download %}{{ additional_download|capfirst }} {% endif %}<span class="text-muted">({{ static_asset.download_size }})</span></span>
     </a>
   {% endif %}
 {% endspaceless %}

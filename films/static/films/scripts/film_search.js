@@ -34,29 +34,22 @@ const renderSearchBox = (renderOptions, isFirstRender) => {
   const { query, refine, clear, isSearchStalled, widgetParams } = renderOptions;
 
   if (isFirstRender) {
-    const input = document.createElement('input');
-    input.setAttribute('class', 'form-control');
-    input.setAttribute('type', 'text');
-    input.setAttribute('id', 'searchInput');
-    input.setAttribute('placeholder', 'Search tags and keywords');
-
-    const button = document.createElement('button');
-    button.setAttribute('class', 'btn btn-icon btn-sm btn-input');
-    const buttonIcon = document.createElement('i');
-    buttonIcon.setAttribute('class', 'material-icons');
-    buttonIcon.textContent = 'close';
-    button.appendChild(buttonIcon);
-
-    input.addEventListener('input', (event) => {
-      refine(event.target.value);
+    const input = document.getElementById('searchInput');
+    const clearButton = document.getElementById('clearSearchBtn');
+    const searchButton = document.getElementById('searchBtn');
+    // Refine search on Enter, change of focus and button click.
+    input.addEventListener('keypress', (event) => {
+      if (event.keyCode === 13) refine(input.value);
     });
-
-    button.addEventListener('click', () => {
+    input.addEventListener('blur', () => {
+      refine(input.value);
+    });
+    searchButton.addEventListener('click', () => {
+      refine(input.value);
+    });
+    clearButton.addEventListener('click', () => {
       clear();
     });
-
-    widgetParams.container.insertAdjacentElement('beforeend', input);
-    widgetParams.container.insertAdjacentElement('beforeend', button);
   }
 
   widgetParams.container.querySelector('input').value = query;
@@ -190,16 +183,9 @@ const customConfigure = instantsearch.connectors.connectConfigure(renderConfigur
 
 // -------- RENDER -------- //
 
-let timerId;
 search.addWidgets([
   customSearchBox({
     container: document.querySelector('#search-container'),
-    queryHook(query, refine) {
-      clearTimeout(timerId);
-      // Throttle search requests to avoid search lagging in non-ideal network conditions.
-      // (Or in case Studio is too slow to respond to a search request.)
-      timerId = setTimeout(() => refine(query), 500);
-    },
   }),
   customHits({
     container: document.querySelector('#hits'),

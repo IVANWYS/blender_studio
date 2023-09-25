@@ -1,0 +1,11 @@
+---
+- name: Pulling latest branch "{{ branch }}"
+  become: true
+  become_user: "{{ user }}"
+  ansible.builtin.git:
+    repo: "{{ source_url }}"
+    dest: "{{ dir.source }}"
+    accept_hostkey: true
+    version: "{{ branch }}"
+  tags:
+    - git

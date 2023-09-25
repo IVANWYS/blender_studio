@@ -1,0 +1,9 @@
+---
+- name: Run Django management command "{{ command }}"
+  changed_when: true
+  ansible.builtin.shell:
+    cmd: >
+      bash -ca 'source {{ env_file }} &&
+      {{ dir.source }}/.venv/bin/python {{ dir.source }}/manage.py {{ command }}'
+    chdir: "{{ dir.source }}"
+  register: management_command_output

@@ -1,0 +1,20 @@
+.dropdown-menu
+  box-shadow: var(--box-shadow-lg)
+
+.dropdown-item
+  align-items: center
+  border-radius: var(--border-radius)
+  display: flex
+  +font-weight(400)
+  margin: var(--spacer-sm)
+  padding: var(--spacer-sm)
+  width: auto
+
+  &:hover
+    background-color: var(--component-bg-light)
+
+  i
+    margin-inline: var(--spacer-sm)
+
+    &+span
+      margin-left: var(--spacer-sm)

@@ -2,6 +2,7 @@ from typing import Callable, TypeVar
 
 from django.contrib import admin
 from django.utils.html import format_html
+from modeltranslation.admin import TranslationAdmin
 
 import looper.admin
 import looper.admin.mixins as looper_mixins
@@ -10,6 +11,12 @@ from common import mixins
 from training.models import chapters, sections, trainings, flatpages, progress
 import search.signals
 import static_assets.models as models_static_assets
+
+# Data import export
+from .resource import TrainingResource, ChapterResource, SectionResource
+
+from import_export.admin import ImportExportModelAdmin
+
 
 T = TypeVar('T', bound=Callable[..., object])
 
@@ -33,7 +40,7 @@ class ChapterInline(admin.TabularInline):
 
 
 @admin.register(trainings.Training)
-class TrainingAdmin(admin.ModelAdmin):
+class TrainingAdmin(TranslationAdmin, ImportExportModelAdmin, admin.ModelAdmin):
     save_on_top = True
     prepopulated_fields = {'slug': ('name',)}
     list_display = [
@@ -47,7 +54,9 @@ class TrainingAdmin(admin.ModelAdmin):
     ]
     inlines = [ChapterInline]
 
-    actions = [search.signals.reindex]
+    # actions = [search.signals.reindex]
+
+    resource_class = TrainingResource
 
 
 class SectionInline(admin.TabularInline):
@@ -59,7 +68,7 @@ class SectionInline(admin.TabularInline):
 
 
 @admin.register(chapters.Chapter)
-class ChapterAdmin(mixins.ViewOnSiteMixin, admin.ModelAdmin):
+class ChapterAdmin(TranslationAdmin, ImportExportModelAdmin, mixins.ViewOnSiteMixin, admin.ModelAdmin):
     save_on_top = True
     prepopulated_fields = {'slug': ('name',)}
     autocomplete_fields = ['training', 'user']
@@ -77,6 +86,8 @@ class ChapterAdmin(mixins.ViewOnSiteMixin, admin.ModelAdmin):
     ]
     list_editable = ['is_published']
 
+    resource_class = ChapterResource
+
 
 class StaticAssetInline(admin.TabularInline):
     show_change_link = True
@@ -85,7 +96,7 @@ class StaticAssetInline(admin.TabularInline):
 
 
 @admin.register(sections.Section)
-class SectionAdmin(mixins.ViewOnSiteMixin, admin.ModelAdmin):
+class SectionAdmin(TranslationAdmin, ImportExportModelAdmin, mixins.ViewOnSiteMixin, admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     list_display = [
         '__str__',
@@ -120,7 +131,9 @@ class SectionAdmin(mixins.ViewOnSiteMixin, admin.ModelAdmin):
     ]
     autocomplete_fields = ['chapter', 'static_asset', 'user', 'attachments']
 
-    actions = [search.signals.reindex]
+    # actions = [search.signals.reindex]
+
+    resource_class = SectionResource
 
 
 @admin.register(flatpages.TrainingFlatPage)

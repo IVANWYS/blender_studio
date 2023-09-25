@@ -1,0 +1,23 @@
+[Unit]
+Description={{ project_name }} web application
+After=syslog.target
+
+[Service]
+User={{ user }}
+Group={{ group }}
+EnvironmentFile={{ env_file }}
+ExecStart=/usr/bin/uwsgi --ini /etc/uwsgi/{{ service_name }}.ini
+Restart=always
+KillSignal=SIGQUIT
+Type=notify
+SyslogIdentifier={{ service_name }}
+NotifyAccess=all
+WorkingDirectory={{ dir.source }}
+
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=full
+CapabilityBoundingSet=~CAP_SYS_ADMIN
+
+[Install]
+WantedBy=multi-user.target

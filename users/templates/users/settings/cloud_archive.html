@@ -1,0 +1,26 @@
+{% extends 'users/settings/base.html' %}
+
+{% block settings %}
+  <p class="subtitle">Settings</p>
+  <h1 class="mb-3">Download Cloud Files</h1>
+  <div class="settings-form">
+    <div class="row">
+      <div class="col">
+        <div class="mb-3">
+          {% if not download_url %}
+            <p>
+              A download link to a ZIP archive of your Cloud files will show up here, once it's ready.
+            </p>
+          {% endif %}
+          <p>
+            The archive {% if download_url %}contains{% else %}will contain{% endif %} Blender Sync files and any other files you uploaded using Blender Cloud add-on.
+          </p>
+          {# TODO: link to the announcement #}
+        </div>
+        {% if download_url %}
+          <a href="{{ download_url }}" class="btn btn-primary btn-block" download>Download Cloud Files</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock settings %}

@@ -177,7 +177,7 @@ class BaseSubscriptionTestCase(TestCase):
         )
         self.assertContains(
             response,
-            '<span class="x-price">€&nbsp;9.90</span>',
+            '<span class="x-price">€&nbsp;11.50</span>',
             html=True,
         )
         self.assertContains(
@@ -211,7 +211,7 @@ class BaseSubscriptionTestCase(TestCase):
         )
         self.assertContains(
             response,
-            '<span class="x-price">€&nbsp;9.90</span>',
+            '<span class="x-price">€&nbsp;11.50</span>',
             html=True,
         )
         self.assertContains(
@@ -228,7 +228,7 @@ class BaseSubscriptionTestCase(TestCase):
         )
         self.assertContains(
             response,
-            '<span class="x-price">€&nbsp;9.90</span>',
+            '<span class="x-price">€&nbsp;11.50</span>',
             html=True,
         )
         self.assertContains(
@@ -239,7 +239,7 @@ class BaseSubscriptionTestCase(TestCase):
 
     def _assert_total_default_variation_selected_eur(self, response):
         self.assertContains(response, '<h3 class="mb-0">Total</h3>', html=True)
-        self.assertContains(response, '<span class="x-price">€&nbsp;9.90</span>', html=True)
+        self.assertContains(response, '<span class="x-price">€&nbsp;11.50</span>', html=True)
         self.assertContains(response, '/ <span class="x-price-period">1 month</span>', html=True)
 
     def _assert_total_default_variation_selected_no_tax_eur(self, response):
@@ -248,7 +248,7 @@ class BaseSubscriptionTestCase(TestCase):
         self.assertContains(response, '/ <span class="x-price-period">1 month</span>', html=True)
 
         self.assertContains(response, '<h3 class="mb-0">Total</h3>', html=True)
-        self.assertContains(response, '<span class="x-price">€&nbsp;9.90</span>', html=True)
+        self.assertContains(response, '<span class="x-price">€&nbsp;11.50</span>', html=True)
         self.assertNotContains(response, 'Inc.')
 
     def _assert_total_default_variation_selected_tax_21_eur(self, response):

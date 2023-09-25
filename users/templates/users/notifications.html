@@ -1,20 +1,21 @@
 {% extends 'common/base.html' %}
+{% load i18n %}
 
 {% block bodyclasses %}spacer{% endblock bodyclasses %}
 
 {% block content %}
-  <div class="container-md my-4 text-center">
-    {% with verbs=request.resolver_match.kwargs.verbs title="Notifications" %}
+  <div class="container-md my-4">
+    {% with verbs=request.resolver_match.kwargs.verbs title=_("Notifications") %}
       {% if not verbs %}
-        {% include "common/components/simple_header.html" with subtitle="All the latest likes, comments and replies to your content are here." %}
+        {% include "common/components/simple_header.html" with subtitle=_("All the latest likes, comments and replies to your content are here.") %}
       {% elif 'commented' in verbs and 'replied to' in verbs %}
-        {% include "common/components/simple_header.html" with subtitle="All the latest comments and replies to your content are here." %}
+        {% include "common/components/simple_header.html" with subtitle=_("All the latest comments and replies to your content are here.") %}
       {% elif 'commented' in verbs %}
-        {% include "common/components/simple_header.html" with subtitle="All the latest comments about your content are here." %}
+        {% include "common/components/simple_header.html" with subtitle=_("All the latest comments about your content are here.") %}
       {% elif 'replied to' in verbs %}
-        {% include "common/components/simple_header.html" with subtitle="All the latest replies to your comments are here." %}
+        {% include "common/components/simple_header.html" with subtitle=_("All the latest replies to your comments are here.") %}
       {% elif 'liked' in verbs %}
-        {% include "common/components/simple_header.html" with subtitle="All the latest likes of your content are here." %}
+        {% include "common/components/simple_header.html" with subtitle=_("All the latest likes of your content are here.") %}
       {% endif %}
 
       {% url 'user-notification' as all_notifications_url %}
@@ -26,19 +27,17 @@
             <div class="col-auto">
               <div class="row">
                 <div class="nav">
-                  <a class="btn btn-nav btn-secondary {% if request.path == all_notifications_url %}active{% endif %}" href="{{ all_notifications_url }}">All</a>
-                  <a class="btn btn-nav btn-secondary {% if request.path == comments_and_replies_url or 'commented' in verbs and 'replied to' in verbs %}active{% endif %}" href="{{ comments_and_replies_url }}">Comments and replies</a>
-                  <a class="btn btn-nav btn-secondary {% if request.path == likes_url %}active{% endif %}" href="{{ likes_url }}">Likes</a>
+                  <a class="btn btn-nav btn-secondary {% if request.path == all_notifications_url %}active{% endif %}" href="{{ all_notifications_url }}">{% blocktrans %}All{% endblocktrans %}</a>
+                  <a class="btn btn-nav btn-secondary {% if request.path == comments_and_replies_url or 'commented' in verbs and 'replied to' in verbs %}active{% endif %}" href="{{ comments_and_replies_url }}">{% blocktrans %}Comments and replies{% endblocktrans %}</a>
+                  <a class="btn btn-nav btn-secondary {% if request.path == likes_url %}active{% endif %}" href="{{ likes_url }}">{% blocktrans %}Likes{% endblocktrans %}</a>
                 </div>
               </div>
             </div>
             <div class="col-auto">
               <div class="row">
                 <button class="btn btn-dark btn-sm mb-3" data-mark-all-read-url="{% url 'api-notifications-mark-read' %}">
-                  <i class="material-icons {% if user.notifications_unread.count >= 1 %}unread{% endif %}">
-                    markunread_mailbox
-                  </i>
-                  <span>Mark all as read</span>
+                  <i class="i-check {% if user.notifications_unread.count >= 1 %}unread{% endif %}"></i>
+                  <span>{% blocktrans %}Mark all as read{% endblocktrans %}</span>
                 </button>
               </div>
             </div>
@@ -55,7 +54,7 @@
           {% endwith %}
         {% empty %}
           <li class="activity-list-item">
-            No notifications yet
+            {% blocktrans %}No notifications yet{% endblocktrans %}
           </li>
         {% endfor %}
       </ul>

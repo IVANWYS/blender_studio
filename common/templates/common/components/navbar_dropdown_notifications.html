@@ -1,0 +1,45 @@
+{% load i18n %}
+<li>
+  <div>
+    <button href="{% url 'user-notification' %}" data-bs-toggle="dropdown"
+      class="btn btn-secondary btn-nav btn-icon notification-button me-2">
+      <i class="i-bell"></i>
+      {% if user.notifications_unread.count >= 1 %}
+        <span class="notifications-counter">{{ user.notifications_unread.count }}</span>
+      {% endif %}
+    </button>
+    <div class="dropdown-menu dropdown-menu-end notification-dropdown">
+
+      <div class="btn-row-fluid">
+        <a href="{% url 'user-notification' verbs='commented,replied to' %}" class="dropdown-item flex">
+          <span>{% blocktrans %}Notifications{% endblocktrans %}</span>
+        </a>
+
+        <a class="dropdown-item"
+          data-bs-toggle="tooltip" data-placement="top"
+          data-mark-all-read-url="{% url 'api-notifications-mark-read' %}" title={% blocktrans %}"Mark all as read"{% endblocktrans %}>
+          <i class="i-check"></i>
+        </a>
+      </div>
+
+      <div class="dropdown-menu-nested">
+
+        {% for notification in user.notifications.all|slice:":10" %}
+          {% with action=notification.action %}
+            {% include 'users/components/nav_action.html' %}
+          {% endwith %}
+        {% empty %}
+          <p class="px-2 py-2 subtitle text-center">
+            {% blocktrans %}No notifications yet{% endblocktrans %}
+          </p>
+        {% endfor %}
+
+      </div>
+
+      <a href="{% url 'user-notification' %}" class="dropdown-item small">
+        <span>{% blocktrans %}See all notifications{% endblocktrans %}</span>
+      </a>
+
+    </div>
+  </div>
+</li>

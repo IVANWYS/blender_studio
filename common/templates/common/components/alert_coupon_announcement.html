@@ -1,0 +1,7 @@
+{% if coupon_announcement %}
+  <div class="container my-3 text-center">
+    <a href="{% url 'user-settings' %}" class="alert alert-warning show" role="alert">
+      {{ coupon_announcement.text | safe }}
+    </a>
+  </div>
+{% endif %}

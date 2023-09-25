@@ -1,7 +1,9 @@
 {% load common_extras %}
+{% load i18n %}
+
 {% with character_version=character.latest_version %}
   {% with character_version.get_absolute_url as detail_url %}
-    <div class="card col-12 col-sm-6 col-lg-4 card-grid-item">
+    <div class="card">
       <div class="card-header">
         <a class="card-header-link" href="{{ detail_url }}" aria-label="{{ character.name }}">
           {% if character_version.static_asset.thumbnail %}
@@ -15,7 +17,7 @@
       <a href="{{ detail_url }}" class="card-body">
         <h3 class="card-title">
           {% if character.is_new and character.is_published %}
-            <div class="badge bg-primary">New</div>
+            <div class="badge bg-primary">{% blocktrans %}New{% endblocktrans %}</div>
           {% endif %}
           {{ character.name }}
         </h3>
@@ -25,37 +27,30 @@
       <a href="{{ detail_url }}" class="card-footer">
         <div class="card-subtitle-group">
           {% if not character.is_published or not character_version.is_published %}
-            <div class="badge bg-danger me-2">
-              Unpublished
-            </div>
-          {% else %}
-            <p class="card-subtitle">
-              <i class="material-icons icon-inline small">schedule</i>
-              <span class="date">
-                {{ character.date_published|date:"U" }}
-              </span>
-            </p>
+            <span class="badge bg-danger me-2">
+              {% blocktrans %}Unpublished{% endblocktrans %}
+            </span>
           {% endif %}
           {% if character_version.is_free %}
-            <p class="card-subtitle">
-              {% include "common/components/cards/pill.html" with label='Free' %}
-            </p>
+            <span class="card-subtitle">
+              {% include "common/components/cards/pill.html" with label=_('Free') %}
+            </span>
           {% endif %}
           {% if character.likes.count > 0 %}
-            <p class="card-subtitle">
+            <span class="card-subtitle">
               {% if character.liked %}
-                <i class="material-icons icon-inline small text-primary">favorite</i>
+                <i class="i-heart-filled icon-inline small is-liked"></i>
               {% else %}
-                <i class="material-icons icon-inline small">favorite_border</i>
+                <i class="i-heart icon-inline small"></i>
               {% endif %}
               {{ character.likes.count }}
-            </p>
+            </span>
           {% endif %}
           {% if character_version.comments.count > 0 %}
-            <p class="card-subtitle">
+            <span class="card-subtitle">
               <i class="material-icons icon-inline small">chat_bubble_outline</i>
               {{ character_version.comments.count }}
-            </p>
+            </span>
           {% endif %}
         </div>
       </a>

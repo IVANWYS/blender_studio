@@ -1,8 +1,8 @@
 @import '../vendor/bootstrap/functions';
-@import 'functions';
 
 // Settings
-@import 'variables';
+@import '_variables.scss';
+@import '_variables.sass';
 
 @import '../vendor/bootstrap/mixins';
 @import 'mixins';
@@ -19,7 +19,6 @@
 @import '../vendor/bootstrap/grid';
 @import '../vendor/bootstrap/tables';
 @import '../vendor/bootstrap/forms';
-@import '../vendor/bootstrap/buttons';
 @import '../vendor/bootstrap/transitions';
 @import '../vendor/bootstrap/dropdown';
 @import '../vendor/bootstrap/button-group';
@@ -34,10 +33,8 @@
 @import '../vendor/bootstrap/progress';
 @import '../vendor/bootstrap/list-group';
 @import '../vendor/bootstrap/close';
-// @import '../vendor/bootstrap/toasts';
 @import '../vendor/bootstrap/modal';
 @import '../vendor/bootstrap/tooltip';
-// @import '../vendor/bootstrap/popover';
 @import '../vendor/bootstrap/carousel';
 @import '../vendor/bootstrap/spinners';
 @import '../vendor/bootstrap/offcanvas';
@@ -47,55 +44,55 @@
 @import '../vendor/bootstrap/utilities/api';
 
 //Bootstrap Files
-@import 'root';
-@import 'reboot';
-@import 'type';
-@import 'images';
-@import 'containers';
-@import 'grid';
-@import 'tables';
-@import 'forms';
-@import 'buttons';
-@import 'transitions';
-@import 'dropdown';
-@import 'button-group';
-@import 'nav';
-@import 'navbar';
-@import 'card';
-@import 'accordion';
-@import 'breadcrumb';
-@import 'pagination';
-@import 'badge';
 @import 'alert';
-@import 'progress';
-@import 'list-group';
-@import 'close';
-@import 'toasts';
-@import 'modal';
-@import 'tooltip';
-@import 'popover';
+@import 'badge';
+@import 'breadcrumb';
+@import 'button-group';
+@import '_buttons.sass';
+@import '_buttons.scss';
+@import '_card.scss';
+@import '_card.sass';
 @import 'carousel';
-@import 'spinners';
-@import 'offcanvas';
-@import 'placeholders';
+@import 'containers';
+@import '_dropdown.scss';
+@import '_dropdown.sass';
+@import 'forms';
+@import 'images';
+@import 'list-group';
+@import 'modal';
+@import 'navbar';
+@import 'pagination';
+@import 'progress';
+@import 'tables';
+@import 'transitions';
+@import '_type.scss';
+@import '_type.sass';
 
 // Custom
-@import 'icons';
-@import 'comments';
-@import 'navdrawer';
-@import 'footer';
-@import 'files';
+@import 'activity';
+@import 'admin';
 @import 'blog';
-@import 'production-log';
+@import 'body';
+@import 'comments';
+@import 'files';
+@import 'flatpages';
+@import 'footer';
+@import 'icons';
 @import 'jumbotron';
 @import 'media';
-@import 'training';
-@import 'activity';
+@import 'navbar_global';
+@import 'navdrawer';
 @import 'payments';
-@import 'flatpages';
-@import 'admin';
+@import 'production-log';
+@import 'profile';
 @import 'search';
+@import 'training';
+@import 'welcome';
 
 // Vendor
 @import '../vendor/plyr/plyr';
 @import '../vendor/masonry/masonry';
+
+// Fontutti
+@import "font_fontutti";
+@import "font_fontutti_extended";

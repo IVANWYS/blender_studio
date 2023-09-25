@@ -1,0 +1,128 @@
+.comment
+  display: flex
+  flex-direction: column
+  margin-top: var(--spacer)
+  padding: var(--spacer)
+
+  > .comment
+    margin-top: var(--spacer)
+
+  &.archived
+    .comment-name-date-wrapper
+      margin: 0
+
+    .badges,
+    .comment-name,
+    .profile-avatar
+      opacity: .5
+
+    .badge
+      margin-left: $spacer / 2
+      background: $highlight-white
+      color: $highlight-white-xstrong
+
+    .comment-expand-archived
+      &:hover,
+      &:focus
+        color: $white
+
+      color: $highlight-white-xstrong
+      font-size: $x-small-font-size
+      margin-left: $spacer / 2
+      text-decoration: underline
+      transition: $transition-base
+
+  &.highlight
+    box-shadow: inset 0 0 0 2px $primary
+
+.comment-section
+  border-top: var(--border-width) solid var(--component-bg)
+  margin-top: var(--spacer-lg)
+  padding-top: var(--spacer)
+
+.comment-input
+  display: flex
+  flex-direction: row
+  margin-bottom: $spacer / 2
+  margin-top: $spacer / 2
+
+.more-comments-button
+  display: none
+  margin-top: $spacer / 2
+
+  &.collapsed
+    display: inline-block
+
+.comment-name-date-wrapper
+  align-items: center
+  color: var(--body-color-secondary)
+  display: flex
+  gap: .5rem
+  margin-bottom: var(--spacer-sm)
+
+.comment-text
+  img
+    display: block
+    max-height: 300px
+
+.comment-toolbar
+  color: var(--body-color-secondary)
+
+  .btn + .btn,
+  .dropdown-menu + .btn
+    margin-left: $spacer / 4
+
+.comment-dropdown
+  padding: 4px
+
+.comment-content-inner
+  margin-top: $spacer / 4
+
+.comment-date
+  color: var(--body-color-tertiary)
+  margin-left: auto
+
+.comment-input-div
+  @include border-radius($input-border-radius-sm)
+  @include font-size($input-font-size-sm)
+  height: auto
+  line-height: $input-line-height
+  min-height: $input-height-sm
+  padding: $input-padding-y-sm $input-padding-x-sm
+  position: relative
+  text-align: left
+
+  &.disabled
+    opacity: $btn-disabled-opacity
+
+  &:empty
+    &::before
+      color: $input-placeholder-color
+      content: ''
+      left: $spacer / 2
+      position: absolute
+      top: 50%
+      transform: translateY(-50%)
+
+.top-level-comment
+  background: var(--component-bg)
+  border-radius: var(--border-radius-lg)
+
+.replies
+  .comment
+    border-left: 2px solid var(--body-color-tertiary)
+    border-top: 2px solid var(--component-bg-light)
+    margin-left: var(--spacer)
+    margin-top: 0
+    padding-left: var(--spacer)
+    padding-right: 0
+    padding-top: var(--spacer)
+
+    &:first-child
+      border-top: none
+      margin-top: var(--spacer)
+
+.comments
+  h3
+    margin-left: var(--spacer-sm)
+    margin-top: var(--spacer-lg)

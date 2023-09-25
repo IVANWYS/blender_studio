@@ -1,0 +1,11 @@
+---
+- name: Coming up next
+  ansible.builtin.debug:
+    msg: Deploying branch {{ branch }} of {{ source_url }} to {{ env }} ({{ domain }})
+  tags:
+    - debug
+- name: Installing required packages
+  ansible.builtin.apt: name={{ item }} state=present
+  with_items:
+    # acl is required to avoid "Failed to set permissions on the temporary files"
+    - acl

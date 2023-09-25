@@ -10,6 +10,7 @@ from django.utils.text import slugify
 from comments.models import Comment
 from common import mixins, markdown
 from common.upload_paths import get_upload_to_hashed_path
+from common.google_trans import trans_SC, trans_TC
 from films.models import Film
 import common.help_texts
 import static_assets.models as models_static_assets
@@ -37,9 +38,16 @@ class Post(mixins.CreatedUpdatedMixin, mixins.StaticThumbnailURLMixin, models.Mo
     )
     content = models.TextField(help_text=common.help_texts.markdown_with_html)
     content_html = models.TextField(blank=True, editable=False)
-
-    thumbnail = models.FileField(upload_to=get_upload_to_hashed_path, blank=True)
-    header = models.FileField(upload_to=get_upload_to_hashed_path, blank=True)
+    thumbnail = models.FileField(
+        upload_to=get_upload_to_hashed_path,
+        blank=True,
+        help_text='A 1920x1080 picture for the blog list and on social media.',
+    )
+    header = models.FileField(
+        upload_to=get_upload_to_hashed_path,
+        blank=True,
+        help_text='A 2048x640 picture for the blog header. Can be abstract.',
+    )
 
     comments = models.ManyToManyField(Comment, through='PostComment', related_name='post')
     attachments = models.ManyToManyField(models_static_assets.StaticAsset, blank=True)
@@ -51,9 +59,32 @@ class Post(mixins.CreatedUpdatedMixin, mixins.StaticThumbnailURLMixin, models.Mo
         """Generates the html version of the content and saves the object."""
         if not self.slug:
             self.slug = slugify(self.title)
+        # Trans title
+        if self.title_zh_hans == None or self.title_zh_hans == "":
+            self.title_zh_hans = trans_SC(self.title_en)
+        if self.title_zh_hant == None or self.title_zh_hant == "":
+            self.title_zh_hant = trans_TC(self.title_en)
+        # Trans excerpt
+        if self.excerpt_en != "":
+            if self.excerpt_zh_hans == "":
+                self.excerpt_zh_hans = trans_SC(self.excerpt_en)
+            if self.excerpt_zh_hant == "":
+                self.excerpt_zh_hant = trans_TC(self.excerpt_en)
+        # Trans content
+        if self.content_en != "":
+            if self.content_zh_hans == "":
+                self.content_zh_hans = trans_SC(self.content_en)
+            if self.content_zh_hant == "":
+                self.content_zh_hant = trans_TC(self.content_en)
         # Clean but preserve some of the HTML tags
         self.content = markdown.clean(self.content)
         self.content_html = markdown.render_unsafe(self.content)
+        self.content_en = markdown.clean(self.content_en)
+        self.content_html_en = markdown.render_unsafe(self.content_en)
+        self.content_zh_hans = markdown.clean(self.content_zh_hans)
+        self.content_html_zh_hans = markdown.render_unsafe(self.content_zh_hans)
+        self.content_zh_hant = markdown.clean(self.content_zh_hant)
+        self.content_html_zh_hant = markdown.render_unsafe(self.content_zh_hant)
         # Set publish date if it's not set and the post is published
         if not self.date_published and self.is_published:
             self.date_published = timezone.now()

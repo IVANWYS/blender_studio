@@ -1,7 +1,10 @@
 import logging
 
 from actstream import action
-from django.db.models.signals import pre_save, post_save
+from actstream.models import Action
+from django.contrib.contenttypes.models import ContentType
+from django.db.models import Q
+from django.db.models.signals import pre_save, post_save, post_delete
 from django.dispatch import receiver
 
 from comments.models import Comment, Like
@@ -12,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 def _create_action_from_reply(user, comment: Comment) -> None:
-    target = comment.get_action_target()
+    target = comment.reply_to
     verb = 'replied to'
     action.send(user, verb=verb, action_object=comment, target=target, public=False)
 
@@ -51,4 +54,20 @@ def notify_about_reply(sender: object, instance: Comment, created: bool, **kwarg
     if instance.reply_to.user == instance.user:
         return
 
-    _create_action_from_reply(instance.user, instance.reply_to)
+    _create_action_from_reply(instance.user, instance)
+
+
+@receiver(post_delete, sender=Comment)
+def delete_notifications(sender: object, instance: Comment, **kwargs: object) -> None:
+    """Delete notifications linked to a comment that was deleted."""
+    if not instance.pk:
+        return
+
+    comment_content_type = ContentType.objects.get_for_model(Comment)
+    comment_id = instance.pk
+
+    qs = Action.objects.filter(
+        Q(action_object_content_type=comment_content_type, action_object_object_id=comment_id)
+        | Q(target_content_type=comment_content_type, target_object_id=comment_id)
+    )
+    qs.delete()

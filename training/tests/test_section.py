@@ -94,13 +94,13 @@ class TestSectionComments(TestCase):
         self.assertEqual(list(self.user.notifications.all()), [], self.user)
         self.assertEqual(list(self.user.notifications_unread), [], self.user)
         # A notification for the author of the comment they replied to
+        comment = Comment.objects.get(pk=response.json()['id'])
         self.assertEqual(
             [str(_) for _ in Action.objects.notifications(self.section_comment.user)],
-            [f'{self.user} replied to {self.section_comment} on {self.section} 0 minutes ago'],
+            [f'{self.user} replied to {comment} on {self.section_comment} 0 minutes ago'],
             self.section_comment.user,
         )
         # A notification for the author of the training section
-        comment = Comment.objects.get(pk=response.json()['id'])
         self.assertEqual(
             [str(_) for _ in Action.objects.notifications(self.section.user)],
             [f'{self.user} commented {comment} on {self.section} 0 minutes ago'],
@@ -158,9 +158,7 @@ class TestSectionComments(TestCase):
             [f'{self.user} liked {self.section_comment} on {self.section} 0 minutes ago'],
         )
         # but training section's author should not be notified
-        self.assertEqual(
-            list(Action.objects.notifications(self.section.user)), [], self.section.user,
-        )
+        self.assertEqual(list(Action.objects.notifications(self.section.user)), [])
 
     def test_commenting_on_section_creates_notification_for_sections_author(self):
         # No activity yet

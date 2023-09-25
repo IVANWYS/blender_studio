@@ -1,0 +1,2091 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-09-13 14:39+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\blog\templates\blog\blog_toolbar.html:7
+msgid "Author"
+msgstr "作者"
+
+#: .\blog\templates\blog\blog_toolbar.html:50
+#: .\comments\templates\comments\components\comment.html:82
+#: .\common\templates\common\components\navigation\buttons_toolbar.html:57
+#: .\training\templates\training\chapter.html:52
+#: .\training\templates\training\training.html:60
+msgid "Edit"
+msgstr "编辑"
+
+#: .\blog\templates\blog\blog_toolbar.html:61
+#: .\common\templates\common\components\modal_asset_zoom.html:22
+#: .\common\templates\common\components\navigation\buttons_toolbar.html:69
+#: .\films\templates\films\components\breadcrumbs.html:66
+#: .\training\templates\training\chapter.html:63
+#: .\training\templates\training\flatpage.html:54
+#: .\training\templates\training\training.html:71
+msgid "Report Problem"
+msgstr "报告问题"
+
+#: .\blog\templates\blog\post_list.html:4
+#: .\blog\templates\blog\post_list.html:9
+#: .\blog\templates\blog\post_list.html:17
+#: .\common\templates\common\components\navbar.html:40
+#: .\common\templates\common\components\navigation\footer.html:22
+msgid "Blog"
+msgstr "博客"
+
+#: .\blog\templates\blog\post_list.html:9
+#: .\blog\templates\blog\post_list.html:17
+msgid "Follow the latest updates from the Blender Studio."
+msgstr "关注Blender Studio的最新更新。"
+
+#: .\characters\templates\characters\character_list.html:6
+#: .\characters\templates\characters\characterversion_detail.html:44
+#: .\common\templates\common\components\navbar.html:32
+#: .\common\templates\common\components\navigation\footer.html:58
+msgid "Characters"
+msgstr "角色"
+
+#: .\characters\templates\characters\character_list.html:25
+msgid "Character Library"
+msgstr "角色库"
+
+#: .\characters\templates\characters\character_list.html:27
+msgid "Fully rigged characters from the iconic Blender Studio open movies."
+msgstr "来自标志性的Blender Studio开放电影的完全骨骼绑定的角色。"
+
+#: .\characters\templates\characters\charactershowcase_detail.html:45
+msgid "Character Showcase"
+msgstr "角色展示"
+
+#: .\characters\templates\characters\charactershowcase_detail.html:70
+#: .\characters\templates\characters\characterversion_detail.html:84
+#: .\characters\templates\characters\components\card_character.html:36
+#: .\characters\templates\characters\components\card_character_showcase.html:42
+#: .\common\templates\common\components\file.html:69
+#: .\common\templates\common\components\file_section.html:28
+#: .\common\templates\common\components\modal_asset.html:155
+#: .\common\templates\common\components\navigation\nav_drawer_section_progress.html:22
+#: .\training\templates\training\components\card_training.html:49
+msgid "Free"
+msgstr "免费"
+
+#: .\characters\templates\characters\charactershowcase_detail.html:73
+msgid "Blender Version"
+msgstr "Blender版本"
+
+#: .\characters\templates\characters\charactershowcase_detail.html:86
+#: .\characters\templates\characters\characterversion_detail.html:79
+#: .\common\templates\common\components\modal_asset.html:85
+#: .\training\templates\training\section.html:90
+msgid "Publisher"
+msgstr "发布者"
+
+#: .\characters\templates\characters\characterversion_detail.html:114
+msgid "Showcases"
+msgstr "展示"
+
+#: .\characters\templates\characters\components\card_character.html:20
+#: .\characters\templates\characters\components\card_character_showcase.html:19
+#: .\common\templates\common\components\cards\card_blog.html:20
+msgid "New"
+msgstr "最新"
+
+#: .\characters\templates\characters\components\card_character.html:31
+#: .\characters\templates\characters\components\card_character_showcase.html:30
+#: .\common\templates\common\components\cards\card_blog.html:36
+msgid "Unpublished"
+msgstr "未发布"
+
+#: .\comments\templates\comments\components\comment.html:33
+msgid "Archived"
+msgstr "已存档"
+
+#: .\comments\templates\comments\components\comment.html:37
+msgid "Show comment"
+msgstr "显示评论"
+
+#: .\comments\templates\comments\components\comment.html:70
+msgid "Reply"
+msgstr "回覆"
+
+#: .\comments\templates\comments\components\comment.html:91
+msgid "Delete"
+msgstr "删除"
+
+#: .\comments\templates\comments\components\comment.html:108
+msgid "Un-archive comment"
+msgstr "取消存档"
+
+#: .\comments\templates\comments\components\comment.html:111
+msgid "Archive comment"
+msgstr "评论存档"
+
+#: .\comments\templates\comments\components\comment.html:121
+msgid "Delete Tree"
+msgstr "删除评论内容"
+
+#: .\comments\templates\comments\components\comment.html:128
+msgid "Hard Delete Tree"
+msgstr "删除整个评论"
+
+#: .\comments\templates\comments\components\comment.html:167
+msgid "Show more replies"
+msgstr "显示更多回覆"
+
+#: .\comments\templates\comments\components\comment_input.html:9
+msgid "\"Leave a comment\""
+msgstr "\"发表评论\""
+
+#: .\comments\templates\comments\components\comment_input.html:20
+msgid "Comment"
+msgstr "评论"
+
+#: .\comments\templates\comments\components\comment_section.html:11
+#: .\common\templates\common\components\navbar.html:58
+msgid "Join"
+msgstr "加入"
+
+#: .\comments\templates\comments\components\comment_section.html:11
+msgid "to comment publicly."
+msgstr "以发表公开评论。"
+
+#: .\comments\templates\comments\components\comment_section.html:24
+msgid "comment"
+msgstr "评论"
+
+#: .\common\templates\admin\change_form_object_tools.html:5
+msgid "History"
+msgstr "历史"
+
+#: .\common\templates\admin\change_form_object_tools.html:8
+#: .\common\templates\admin\edit_inline\stacked.html:15
+#: .\common\templates\admin\edit_inline\tabular.html:37
+msgid "View on site"
+msgstr ""
+
+#: .\common\templates\admin\edit_inline\stacked.html:12
+#: .\common\templates\admin\edit_inline\tabular.html:34
+msgid "Change"
+msgstr ""
+
+#: .\common\templates\admin\edit_inline\stacked.html:12
+#: .\common\templates\admin\edit_inline\tabular.html:34
+#: .\payments\templates\payments\stripe.html:38
+msgid "View"
+msgstr ""
+
+#: .\common\templates\admin\edit_inline\tabular.html:20
+msgid "Delete?"
+msgstr ""
+
+#: .\common\templates\common\components\content_locked.html:12
+msgid "You need to login to view this content"
+msgstr "您需要登录才能查看此内容"
+
+#: .\common\templates\common\components\content_locked.html:13
+#: .\common\templates\common\components\content_locked.html:18
+msgid ""
+"You can join Blender Studio for €11.50/month and get access to all of our "
+"training & film content instantly!"
+msgstr ""
+"您可以以每月€11.50欧元的价格加入Blender Studio，并立即访问我们所有的培训和电"
+"影内容！"
+
+#: .\common\templates\common\components\content_locked.html:14
+#: .\payments\templates\payments\stripe.html:268
+msgid "Login"
+msgstr "登录"
+
+#: .\common\templates\common\components\content_locked.html:15
+#: .\common\templates\common\components\content_locked.html:19
+#: .\common\templates\common\welcome.html:23
+msgid "Join Blender Studio"
+msgstr "加入Blender Studio"
+
+#: .\common\templates\common\components\content_locked.html:17
+msgid "You need to subscribe to view this content"
+msgstr "您需要订阅才能查看此内容"
+
+#: .\common\templates\common\components\faq.html:5
+msgid "Frequently Asked Questions"
+msgstr "常见问题解答"
+
+#: .\common\templates\common\components\faq.html:10
+msgid "General"
+msgstr "一般"
+
+#: .\common\templates\common\components\faq.html:19
+msgid "What is Blender Studio?"
+msgstr "什么是 Blender Studio？"
+
+#: .\common\templates\common\components\faq.html:25
+msgid ""
+"Blender Studio is a Film and Training publishing platform for everything "
+"produced by the Studio team."
+msgstr ""
+"Blender Studio 是一个电影和培训出版平台，发布由 Studio 团队制作的所有内容。"
+
+#: .\common\templates\common\components\faq.html:35
+msgid "How is my money spent?"
+msgstr "订阅所得的费用使用在什么地方？"
+
+#: .\common\templates\common\components\faq.html:41
+msgid ""
+"The money Blender Studio makes through subscriptions is used to keep our "
+"services running, and to make\n"
+"              open source and open content productions possible. Throughout "
+"the production cycle our team produce\n"
+"              training, rigs and assets for publishing to Blender Studio "
+"subscribers."
+msgstr ""
+"Blender Studio 通过订阅赚取的资金用于维护我们的服务，并使开源和开放内容制作成"
+"为可能。在整个生产周期中，我们的团队制作培训、装备和资源，以发布给 Blender "
+"Studio 的订阅者。"
+
+#: .\common\templates\common\components\faq.html:53
+msgid "How does Blender Studio support Blender?"
+msgstr "Blender Studio 如何支持 Blender？"
+
+#: .\common\templates\common\components\faq.html:59
+msgid ""
+"The Blender Studio website funds the Blender Studio team, who rigorously "
+"tests and use Blender in the Open Movie\n"
+"              productions. The team works with core Blender developers at "
+"the Blender Institute to plan, design and\n"
+"              test core Blender features."
+msgstr ""
+"Blender Studio 网站为 Blender Studio 团队提供资金支持，他们在开源电影制作中严"
+"格测试和使用 Blender。该团队与 Blender Institute 的核心 Blender 开发人员合"
+"作，规划、设计和测试核心 Blender 特性。"
+
+#: .\common\templates\common\components\faq.html:71
+msgid "Payment & Billing"
+msgstr "付款 & 账单"
+
+#: .\common\templates\common\components\faq.html:80
+msgid "What payment methods do you accept?"
+msgstr "你们接受哪些付款方式？"
+
+#: .\common\templates\common\components\faq.html:87
+msgid ""
+"Blender Studio offers payment through major credit cards, PayPal or direct "
+"bank transfer."
+msgstr "Blender Studio 提供通过信用卡、PayPal 或直接银行转账进行付款。"
+
+#: .\common\templates\common\components\faq.html:97
+msgid "How easy is it to cancel my subscription?"
+msgstr "如何轻松取消订阅？"
+
+#: .\common\templates\common\components\faq.html:104
+msgid ""
+"You may cancel your subscription at any time via your personal account page, "
+"or by contacting us at"
+msgstr "您可以随时通过您的个人帐户页面取消订阅，或通过以下方式联系我们 "
+
+#: .\common\templates\common\components\faq.html:107
+msgid ""
+"In case of suspected fraud or abuse of the service after registration and "
+"membership payment, the\n"
+"              account owner will be contacted and asked for clarification. "
+"Failure to alleviate charges of fraud may\n"
+"              result in the termination of the member’s account."
+msgstr ""
+"如果在注册和会员付款后怀疑存在欺诈或滥用服务的情况，将联系账户所有者并要求澄"
+"清。如果无法消除欺诈指控，则可能会导致会员账户的终止。"
+
+#: .\common\templates\common\components\faq.html:111
+msgid ""
+"Upon termination, all licenses granted by the Blender Studio will terminate. "
+"In the event of account\n"
+"              deletion for any reason, content that you submitted may no "
+"longer be available. The Blender Studio shall\n"
+"              not be responsible for the loss of such content."
+msgstr ""
+"一旦终止，Blender Studio 授予的所有许可证都将终止。如果因任何原因删除账户，则"
+"您提交的内容可能不再可用。Blender Studio 不对此类内容的丢失负责。"
+
+#: .\common\templates\common\components\faq.html:122
+msgid "Can I get a refund?"
+msgstr "我可以退款吗？"
+
+#: .\common\templates\common\components\faq.html:128
+msgid ""
+"Membership fees and supporter contributions are non-refundable. That money "
+"keeps our services running,\n"
+"              and is used to make open source and open content productions "
+"possible."
+msgstr ""
+"会员费和支持者贡献不可退款。这些资金用于维护我们的服务，并用于使开源和开放内"
+"容制作成为可能。"
+
+#: .\common\templates\common\components\faq.html:131
+msgid ""
+"We really care about our members and supporters though — in case you are "
+"really not happy with\n"
+"              our Blender Studio we will kindly respond to your comments and "
+"try to settle a dispute with you in\n"
+"              harmony."
+msgstr ""
+"我们真的很关心我们的会员和支持者 — 如果您真的不满意我们的 Blender Studio，我"
+"们将善意地回应您的评论并尝试与您和谐解决争端。"
+
+#: .\common\templates\common\components\faq.html:135
+msgid ""
+"Refunds will happen without delay when we get a report of fraud, abuse or "
+"non-authorised usage of\n"
+"              funds."
+msgstr "如果我们收到欺诈、滥用或未经授权使用资金的报告，我们将立即退款。"
+
+#: .\common\templates\common\components\faq.html:138
+msgid "Contact: "
+msgstr "联系方式："
+
+#: .\common\templates\common\components\file.html:32
+msgid "Subscribe to view"
+msgstr "订阅即可观看"
+
+#: .\common\templates\common\components\home_headers\film_general_left.html:19
+msgid "See the project"
+msgstr "查看项目"
+
+#: .\common\templates\common\components\navbar.html:26
+#: .\common\templates\common\components\navigation\footer.html:16
+#: .\films\templates\films\films.html:9 .\films\templates\films\films.html:16
+msgid "Films"
+msgstr "电影"
+
+#: .\common\templates\common\components\navbar.html:29
+#: .\common\templates\common\components\navigation\footer.html:19
+#: .\training\templates\training\components\jumbotron.html:12
+#: .\training\templates\training\home_authenticated.html:8
+#: .\training\templates\training\home_not_authenticated.html:8
+msgid "Training"
+msgstr "培训"
+
+#: .\common\templates\common\components\navbar.html:36
+msgid "Pipeline"
+msgstr "管道"
+
+#: .\common\templates\common\components\navbar.html:55
+msgid "Sign in"
+msgstr "登录"
+
+#: .\common\templates\common\components\navbar.html:100
+#: .\common\templates\common\components\navigation\download_button.html:9
+#: .\common\templates\common\components\navigation\download_subtitles.html:7
+msgid "Download"
+msgstr "下载"
+
+#: .\common\templates\common\components\navbar.html:101
+msgid "Get the latest Blender, older versions, or experimental builds."
+msgstr "获取最新的Blender，旧版本或实验版本。"
+
+#: .\common\templates\common\components\navbar.html:108
+msgid "What&apos;s New"
+msgstr "最新消息"
+
+#: .\common\templates\common\components\navbar.html:109
+msgid "Stay up-to-date with the new features in the latest Blender releases."
+msgstr "了解最新的Blender版本中的新功能。"
+
+#: .\common\templates\common\components\navbar.html:115
+msgid "LEARNING & RESOURCES"
+msgstr "学习 & 资源"
+
+#: .\common\templates\common\components\navbar.html:127
+msgid "Access production assets and knowledge from the open movies."
+msgstr "从开放电影中访问制作资源和知识。"
+
+#: .\common\templates\common\components\navbar.html:134
+msgid "Manual"
+msgstr "手册"
+
+#: .\common\templates\common\components\navbar.html:135
+msgid "Documentation on the usage and features in Blender."
+msgstr "有关Blender使用和功能的文档。"
+
+#: .\common\templates\common\components\navbar.html:141
+msgid "DEVELOPMENT"
+msgstr "开发"
+
+#: .\common\templates\common\components\navbar.html:152
+msgid "Developers Blog"
+msgstr "开发者博客"
+
+#: .\common\templates\common\components\navbar.html:153
+msgid "Latest development updates, by Blender developers."
+msgstr "Blender开发者的最新开发更新。"
+
+#: .\common\templates\common\components\navbar.html:160
+#: .\training\models\trainings.py:19
+msgid "Documentation"
+msgstr "文件"
+
+#: .\common\templates\common\components\navbar.html:161
+msgid "Guidelines, release notes and development docs."
+msgstr "指南，发行说明和开发文档。"
+
+#: .\common\templates\common\components\navbar.html:175
+msgid "Benchmark"
+msgstr "基准测试"
+
+#: .\common\templates\common\components\navbar.html:176
+msgid "A platform to collect and share results of the Blender Benchmark."
+msgstr "收集和共享Blender基准测试结果的平台。"
+
+#: .\common\templates\common\components\navbar.html:183
+msgid "Blender Conference"
+msgstr "Blender会议"
+
+#: .\common\templates\common\components\navbar.html:184
+msgid "The yearly event that brings the community together."
+msgstr "每年一次的将社区聚集在一起的活动。"
+
+#: .\common\templates\common\components\navbar.html:191
+msgid "DONATE"
+msgstr "捐赠"
+
+#: .\common\templates\common\components\navbar.html:202
+msgid "Development Fund"
+msgstr "开发基金"
+
+#: .\common\templates\common\components\navbar.html:203
+msgid "Support core development with a monthly contribution."
+msgstr "通过月度捐款支持核心开发。"
+
+#: .\common\templates\common\components\navbar.html:210
+msgid "One-time Donations"
+msgstr "单次捐款"
+
+#: .\common\templates\common\components\navbar.html:211
+msgid "Perform a single donation with more payment options available."
+msgstr "提供更多付款选项的单次捐款。"
+
+#: .\common\templates\common\components\navbar_dropdown_notifications.html:15
+#: .\users\templates\users\notifications.html:8
+msgid "Notifications"
+msgstr "通知"
+
+#: .\common\templates\common\components\navbar_dropdown_notifications.html:20
+msgid "\"Mark all as read\""
+msgstr "\"全部标记为已读\""
+
+#: .\common\templates\common\components\navbar_dropdown_notifications.html:33
+#: .\users\templates\users\notifications.html:57
+msgid "No notifications yet"
+msgstr "尚未收到任何通知"
+
+#: .\common\templates\common\components\navbar_dropdown_notifications.html:40
+msgid "See all notifications"
+msgstr "查看所有通知"
+
+#: .\common\templates\common\components\navbar_dropdown_user.html:35
+msgid "Free Account"
+msgstr "免费账户"
+
+#: .\common\templates\common\components\navbar_dropdown_user.html:40
+msgid "Subscription Active"
+msgstr "订阅生效中"
+
+#: .\common\templates\common\components\navbar_dropdown_user.html:45
+msgid "Subscription Inactive"
+msgstr "订阅未激活"
+
+#: .\common\templates\common\components\navbar_dropdown_user.html:52
+msgid "My Activity"
+msgstr "我的活动"
+
+#: .\common\templates\common\components\navbar_dropdown_user.html:57
+#: .\users\templates\users\settings\base.html:18
+#: .\users\templates\users\settings\delete.html:7
+#: .\users\templates\users\settings\emails.html:5
+#: .\users\templates\users\settings\record.html:7
+msgid "Settings"
+msgstr "设置"
+
+#: .\common\templates\common\components\navbar_dropdown_user.html:64
+msgid "Sign Out"
+msgstr "登出"
+
+#: .\common\templates\common\components\navigation\buttons_toolbar.html:23
+msgid "Login to Download"
+msgstr "登录下载"
+
+#: .\common\templates\common\components\navigation\buttons_toolbar.html:25
+msgid "Subscribe to Download"
+msgstr "订阅下载"
+
+#: .\common\templates\common\components\navigation\download_subtitles.html:7
+msgid "Subtitles"
+msgstr "字幕"
+
+#: .\common\templates\common\components\navigation\footer.html:31
+msgid "Pipeline and Tools"
+msgstr "管道和工具"
+
+#: .\common\templates\common\components\navigation\footer.html:34
+msgid "Cloud Rig"
+msgstr ""
+
+#: .\common\templates\common\components\navigation\footer.html:40
+msgid "Blender Kitsu"
+msgstr ""
+
+#: .\common\templates\common\components\navigation\footer.html:46
+msgid "Contact Sheet Add-on"
+msgstr "Contact Sheet 插件"
+
+#: .\common\templates\common\components\navigation\footer.html:49
+msgid "Blender Purge"
+msgstr ""
+
+#: .\common\templates\common\components\navigation\footer.html:52
+msgid "Blender Cloud Services"
+msgstr "Blender 云端服务"
+
+#: .\common\templates\common\components\navigation\footer.html:69
+msgid "Studio"
+msgstr ""
+
+#: .\common\templates\common\components\navigation\footer.html:72
+#: .\common\templates\common\components\navigation\footer_simple.html:8
+msgid "Terms &amp; Conditions"
+msgstr "条款及细则"
+
+#: .\common\templates\common\components\navigation\footer.html:75
+#: .\common\templates\common\components\navigation\footer_simple.html:11
+msgid "Privacy Policy"
+msgstr "隐私政策"
+
+#: .\common\templates\common\components\navigation\footer.html:78
+#: .\common\templates\common\contact.html:11
+msgid "Contact"
+msgstr "联系我们"
+
+#: .\common\templates\common\components\navigation\footer.html:81
+msgid "Remixing Music"
+msgstr "混音音乐"
+
+#: .\common\templates\common\components\navigation\footer.html:84
+#: .\common\templates\common\components\navigation\footer_simple.html:14
+msgid "blender.org"
+msgstr ""
+
+#: .\common\templates\common\components\navigation\footer.html:94
+msgid "Blender Studio"
+msgstr ""
+
+#: .\common\templates\common\components\navigation\footer.html:97
+msgid "The creators who share."
+msgstr "共享的创作者"
+
+#: .\common\templates\common\components\navigation\nav_drawer_section_file.html:15
+msgid "\"Unpublished\""
+msgstr "\"未发布\""
+
+#: .\common\templates\common\components\navigation\pagination.html:33
+msgid "Prev"
+msgstr "上一页"
+
+#: .\common\templates\common\components\navigation\pagination.html:57
+#: .\common\templates\common\components\navigation\pagination.html:67
+msgid "Next"
+msgstr "下一页"
+
+#: .\common\templates\common\contact.html:17
+msgid "Report a bug"
+msgstr "报告错误"
+
+#: .\common\templates\common\contact.html:19
+msgid ""
+"If you encounter any technical issue or a \"page not found\" or \"server "
+"error\" you can report it at <a href=\"https://projects.blender.org/studio/"
+"blender-studio/issues/new\">projects.blender.org</a>."
+msgstr ""
+"如果您遇到任何技术问题或“找不到页面”或“服务器错误”，请在<a href=\"https://"
+"projects.blender.org/studio/blender-studio/issues/new\">projects.blender."
+"org</a>报告。"
+
+#: .\common\templates\common\contact.html:21
+msgid "Get in touch"
+msgstr "参与讨论"
+
+#: .\common\templates\common\contact.html:23
+msgid ""
+"If you have any billing, account or related query, please get in touch with "
+"<a href=\"mailto:cloudsupport@blender.org\">cloudsupport@blender.org</a> "
+"with as much detail on the issue as possible."
+msgstr ""
+"如果您有任何账单，帐户或相关查询，请通过<a href=\"mailto:"
+"cloudsupport@blender.org\">cloudsupport@blender.org</a>尽可能详细地描述问题与"
+"我们联系。"
+
+#: .\common\templates\common\contact.html:25
+msgid "Join the conversation"
+msgstr "参与讨论"
+
+#: .\common\templates\common\contact.html:27
+msgid ""
+"If you have other questions or suggestions about Blender Studio, you can "
+"join the Blender Studio Website Support channel on <a href=\"https://blender."
+"chat/channel/blender-studio-website-support\">Blender Chat</a> by logging in "
+"with your Blender ID."
+msgstr ""
+"如果您对Blender Studio有其他问题或建议，可以通过使用Blender ID登录<a href="
+"\"https://blender.chat/channel/blender-studio-website-support\">Blender "
+"Chat</a>上的Blender Studio网站支持频道。"
+
+#: .\common\templates\common\home.html:20
+msgid "Latest Blog Posts"
+msgstr "最新博客文章"
+
+#: .\common\templates\common\home.html:20
+msgid "Hear the latest news about the Blender Studio."
+msgstr "了解有关Blender Studio的最新消息。"
+
+#: .\common\templates\common\home.html:25
+msgid "Continue training"
+msgstr "继续培训"
+
+#: .\common\templates\common\home.html:25
+msgid ""
+"Recently watched videos appear here! Continue watching where you left off."
+msgstr "最近观看的视频出现在这里！ 继续观看上次停下的地方。"
+
+#: .\common\templates\common\home.html:29
+msgid "Latest Training"
+msgstr "最新培训"
+
+#: .\common\templates\common\home.html:29
+msgid "Want to see more? <a href='/training'>Explore all training</a>"
+msgstr "想看更多内容吗？<a href='/training'>探索所有培训</a>"
+
+#: .\common\templates\common\home.html:36
+msgid "Featured Open Movies"
+msgstr "特色开放电影"
+
+#: .\common\templates\common\home.html:37
+msgid ""
+"The Blender <a href=\"/films\">Open Movie projects</a> are made possible by "
+"subscriptions to the\n"
+"            Blender Studio."
+msgstr "Blender<a href=\"/films\">开源电影项目</a>对Blender Studio的订阅支持。"
+
+#: .\common\templates\common\home.html:50
+msgid "From The Archives"
+msgstr "从档案中"
+
+#: .\common\templates\common\home.html:50
+msgid "Want to see more? <a href='/films'>Explore all films</a>"
+msgstr "想看更多内容吗？<a href='/films'>探索所有电影</a>"
+
+#: .\common\templates\common\privacy.html:11
+msgid "Privacy"
+msgstr "隐私政策"
+
+#: .\common\templates\common\privacy.html:18
+msgid "This Application collects some Personal Data from its Users."
+msgstr "此应用程序从用户那里收集一些个人数据。"
+
+#: .\common\templates\common\privacy.html:20
+msgid "Data Controller and Owner"
+msgstr "数据控制器和所有者"
+
+#: .\common\templates\common\privacy.html:22
+msgid ""
+"Blender Institute B.V. - Buikslotermeerplein 161 - 1025 ET Amsterdam - the "
+"Netherlands, institute@blender.org"
+msgstr ""
+"Blender Studio是Blender Institute BV的一项活动。- Buikslotermeerplein "
+"161-1025 ET阿姆斯特丹-荷兰，联系方式：institute@blender.org。"
+
+#: .\common\templates\common\privacy.html:25
+msgid ""
+"Blender Institute has been authorised by Stichting Blender Foundation to "
+"conduct these services. Blender Institute is committed to comply to the "
+"goals of the public benefit free/open source project and community at "
+"blender.org."
+msgstr ""
+"Blender Institute已获得Stichting Blender Foundation的授权，在blender.org上提"
+"供这些服务。 Blender Institute致力于遵守并支持blender.org上公益性免费/开源项"
+"目和社区的目标。"
+
+#: .\common\templates\common\privacy.html:28
+msgid "This Privacy Policy outlines how this is being achieved."
+msgstr "本隐私政策概述了如何实现这一目标。"
+
+#: .\common\templates\common\privacy.html:30
+msgid "Purpose of Service"
+msgstr "服务目的"
+
+#: .\common\templates\common\privacy.html:32
+msgid "Blender Studio is a service that provides or will provide:"
+msgstr "Blender Studio是提供或将提供以下服务的服务："
+
+#: .\common\templates\common\privacy.html:36
+msgid ""
+"Identification of a person via a unique BlenderID. Websites within the "
+"blender.org domain can use it to enable a single login for users of the "
+"websites."
+msgstr ""
+"唯一的BlenderID识别人员。blender.org域内的网站可以使用它为用户提供单个登录。"
+
+#: .\common\templates\common\privacy.html:39
+msgid ""
+"Membership - via monthly subscription - to access and share data from Open "
+"Projects at blender.org, post feedback or reviews."
+msgstr ""
+"会员资格 - 按月订阅 - 访问和共享 blender.org 开放项目的数据，发布反馈或评论。"
+
+#: .\common\templates\common\privacy.html:42
+msgid ""
+"Project space - via monthly subscription - to upload and share data with "
+"other members."
+msgstr "项目空间 - 按月订购 - 上传数据并与其他会员共享。"
+
+#: .\common\templates\common\privacy.html:46
+msgid ""
+"Information provided by Users, such as email address and billing "
+"information, will only be used for the purpose of the service itself and to "
+"monitor traffic and usage."
+msgstr ""
+"用户提供的信息，例如电子邮件地址和结算信息，仅用于服务本身的目的以及用于监控"
+"流量和使用情况。"
+
+#: .\common\templates\common\privacy.html:48
+msgid "Types of Data collected"
+msgstr "收集的数据类型"
+
+#: .\common\templates\common\privacy.html:50
+msgid ""
+"Among the types of Personal Data that this Application collects, by itself "
+"or through third parties, there are: Cookie and Usage Data, via Google "
+"Analytics. The Personal Data may be freely provided by the User, or "
+"collected automatically when using this Application. Any use of Cookies - or "
+"of other tracking tools - by this Application or by the owners of third "
+"party services used by this Application, unless stated otherwise, serves to "
+"identify Users and remember their preferences, for the sole purpose of "
+"providing the service required by the User. The User assumes responsibility "
+"for the Personal Data of third parties published or shared through this "
+"Application and declares to have the right to communicate or broadcast them, "
+"thus relieving the Data Controller of all responsibility."
+msgstr ""
+"此应用程序自己或通过第三方收集的个人数据类型包括：Cookie和使用数据（通过"
+"Google Analytics）。用户可以自由提供个人数据，或在使用此应用程序时自动收集。"
+"此应用程序或此应用程序使用的第三方服务的所有者（除非另有说明）使用Cookie或其"
+"他跟踪工具，仅为识别用户并记住其偏好，以提供用户所需的服务。用户承担通过此应"
+"用程序发布或共享的第三方个人数据的责任，并声明有权沟通或广播它们，从而使数据"
+"控制器免于所有责任。"
+
+#: .\common\templates\common\privacy.html:52
+msgid "Mode and place of processing the Data"
+msgstr "数据的处理方式和地点"
+
+#: .\common\templates\common\privacy.html:53
+msgid "Method of processing"
+msgstr "处理方式"
+
+#: .\common\templates\common\privacy.html:55
+msgid ""
+"The Data Controller processes the Data of Users in proper manner and shall "
+"take appropriate security measures to prevent unauthorized access, "
+"disclosure, modification or unauthorized destruction of the Data. The Data "
+"processing is carried out using computers and/or IT enabled tools, following "
+"organizational procedures and modes strictly related to the purposes "
+"indicated. In addition to the Data Controller, in some cases, the Data may "
+"be accessible to certain types of persons in charge, involved with the "
+"operation of the site (administration, sales, marketing, legal, system "
+"administration) or external parties (such as third party technical service "
+"providers, mail carriers, hosting providers, IT companies, communications "
+"agencies) appointed, if necessary, as Data Processors by the Owner. The "
+"updated list of these parties may be requested from the Data Controller at "
+"any time."
+msgstr ""
+"数据控制器以适当的方式处理用户数据，并采取适当的安全措施，以防止未经授权的访"
+"问，披露，修改或未经授权的销毁数据。数据处理使用计算机和/或IT工具进行，遵循与"
+"指示目的严密相关的组织程序和模式。除了数据控制器外，在某些情况下，数据可能可"
+"由某些类型的负责人访问，这些负责人与站点的运营有关（管理，销售，营销，法律，"
+"系统管理）或外部方面（例如第三方技术服务提供商，邮递员，托管提供商，IT公司，"
+"通信代理），必要时由所有者任命为数据处理器。这些方当事人的更新列表可以随时从"
+"数据控制器那里请求。"
+
+#: .\common\templates\common\privacy.html:57
+msgid "Place"
+msgstr "地点"
+
+#: .\common\templates\common\privacy.html:59
+msgid ""
+"The Data is processed at the Data Controller headquarters, unless stated "
+"otherwise in the rest of this document."
+msgstr "数据在数据控制器总部处理，除非本文档的其余部分另有说明。"
+
+#: .\common\templates\common\privacy.html:61
+msgid "Conservation Time"
+msgstr "保藏时间"
+
+#: .\common\templates\common\privacy.html:63
+msgid ""
+"The Data is kept for the time necessary to provide the service requested by "
+"the User, or stated by the purposes outlined in this document, and the User "
+"can always request the Data Controller for their suspension or removal."
+msgstr ""
+"数据保留必要的时间，以提供用户所需的服务，或根据本文档中概述的目的，用户始终"
+"可以要求数据控制器暂停或删除它们的数据。"
+
+#: .\common\templates\common\privacy.html:65
+msgid "The use of the collected Data"
+msgstr "收集数据的使用"
+
+#: .\common\templates\common\privacy.html:67
+msgid ""
+"The Data concerning the User is collected to allow the Application to "
+"provide its services, as well as for the following purposes: Traffic and "
+"Usage Analytics. The Personal Data used for each purpose is outlined in the "
+"specific sections of this document."
+msgstr ""
+"收集有关用户的数据，以使应用程序提供其服务，以及以下目的：流量和使用分析。用"
+"于每个目的的个人数据在本文档的特定部分中概述。"
+
+#: .\common\templates\common\privacy.html:70
+msgid ""
+"Personal Data is collected for the following purposes and using the "
+"following services:"
+msgstr "收集个人数据的目的和使用以下服务："
+
+#: .\common\templates\common\privacy.html:74
+msgid "Google Analytics"
+msgstr ""
+
+#: .\common\templates\common\privacy.html:77
+msgid "Additional information about Data collection and processing"
+msgstr "关于数据收集和处理的其他信息"
+
+#: .\common\templates\common\privacy.html:78
+msgid "Legal Action"
+msgstr "法律行动"
+
+#: .\common\templates\common\privacy.html:80
+msgid ""
+"The User's Personal Data may be used for legal purposes by the Data "
+"Controller, in Court or in the stages leading to possible legal action "
+"arising from improper use of this Application or the related services."
+msgstr ""
+"数据控制器可以在法院或可能由于不当使用此应用程序或相关服务而引起的法律行动"
+"中，出于法律目的使用用户的个人数据。"
+
+#: .\common\templates\common\privacy.html:82
+msgid "Additional Information about User's Personal Data"
+msgstr "有关用户个人数据的其他信息"
+
+#: .\common\templates\common\privacy.html:84
+msgid ""
+"In addition to the information in this privacy policy, this Application may "
+"provide the User with contextual information concerning particular services "
+"or the collection and processing of Personal Data."
+msgstr ""
+"除了本隐私政策中的信息外，此应用程序还可以为用户提供有关特定服务或个人数据收"
+"集和处理的上下文信息。"
+
+#: .\common\templates\common\privacy.html:86
+msgid "System Logs and Maintenance"
+msgstr "系统日志和维护"
+
+#: .\common\templates\common\privacy.html:88
+msgid ""
+"For operation and maintenance purposes, this Application and any third party "
+"services may collect files that record interaction with this Application "
+"(System Logs) or use for this purpose other Personal Data (such as IP "
+"Address)."
+msgstr ""
+"出于运营和维护目的，此应用程序和任何第三方服务可能会收集记录与此应用程序的交"
+"互（系统日志）或用于此目的的其他个人数据（例如IP地址）的文件。"
+
+#: .\common\templates\common\privacy.html:90
+msgid "Information not contained in this policy"
+msgstr "不包含在此政策中的信息"
+
+#: .\common\templates\common\privacy.html:92
+msgid ""
+"More details concerning the collection or processing of Personal Data may be "
+"requested from the Data Controller at any time at its contact information."
+msgstr ""
+"有关个人数据的收集或处理的更多详细信息，可以随时从数据控制器那里请求其联系信"
+"息。"
+
+#: .\common\templates\common\privacy.html:94
+msgid "The rights of Users"
+msgstr "用户的权利"
+
+#: .\common\templates\common\privacy.html:96
+msgid ""
+"Users have the right, at any time, to know whether their Personal Data has "
+"been stored and can consult the Data Controller to learn about their "
+"contents and origin, to verify their accuracy or to ask for them to be "
+"supplemented, cancelled, updated or corrected, or for their transformation "
+"into anonymous format or to block any data held in violation of the law, as "
+"well as to oppose their treatment for any and all legitimate reasons. "
+"Requests should be sent to the Data Controller at the contact information "
+"set out above. This Application does not support \"do not track\" requests. "
+"To understand if any of the third party services it uses honor the \"do not "
+"track\" requests, please read their privacy policies."
+msgstr ""
+"用户有权随时了解其个人数据是否已存储，并可以咨询数据控制器了解其内容和来源，"
+"以验证其准确性或要求补充，取消，更新或更正它们，或将它们转换为匿名格式或阻止"
+"任何违反法律的数据，以及出于任何和所有合法原因反对其处理。请求应发送到上面设"
+"定的数据控制器的联系信息。此应用程序不支持“不跟踪”请求。要了解其使用是否尊"
+"重“不跟踪”请求的任何第三方服务，请阅读其隐私政策。"
+
+#: .\common\templates\common\privacy.html:98
+msgid "Changes to this privacy policy"
+msgstr "此隐私政策的更改"
+
+#: .\common\templates\common\privacy.html:100
+msgid ""
+"The Data Controller reserves the right to make changes to this privacy "
+"policy at any time by giving notice to its Users on this page. It is "
+"strongly recommended to check this page often, referring to the date of the "
+"last modification listed at the bottom. If a User objects to any of the "
+"changes to the Policy, the User must cease using this Application and can "
+"request the Data Controller to erase the Personal Data. Unless stated "
+"otherwise, the then-current privacy policy applies to all Personal Data the "
+"Data Controller has about Users."
+msgstr ""
+"数据控制器保留随时通过在此页面向其用户发出通知来更改此隐私政策的权利。强烈建"
+"议经常检查此页面，参考底部列出的最后修改日期。如果用户反对政策的任何更改，则"
+"用户必须停止使用此应用程序，并可以请求数据控制器删除个人数据。除非另有说明，"
+"否则当前隐私政策适用于数据控制器拥有的所有用户个人数据。"
+
+#: .\common\templates\common\privacy.html:102
+msgid "Definitions and legal references"
+msgstr "定义和法律参考"
+
+#: .\common\templates\common\privacy.html:104
+msgid "Original issue: February 27, 2014"
+msgstr "最初发布日期：2014年2月27日"
+
+#: .\common\templates\common\privacy.html:107
+msgid "Latest update: June 10, 2019 (Updated Blender Institute address)"
+msgstr "最新更新：2019年6月10日（更新了Blender Institute地址）"
+
+#: .\common\templates\common\remixing.html:11
+msgid "Remixing Content"
+msgstr "内容再创作"
+
+#: .\common\templates\common\remixing.html:17
+msgid ""
+"Blender Studio content is generally released under Creative Commons "
+"Attribution License (CC-BY), with copyright © Blender Foundation. Each asset "
+"published on the Blender Studio website is presented with a text snippet "
+"specifying the license. If you have any doubt about content licensing, reach "
+"out to cloudsupport@blender.org."
+msgstr ""
+"Blender Studio的内容通常根据知识共享署名许可证（CC-BY）发布，版权属于Blender "
+"Foundation。 Blender Studio网站上发布的每个资产都带有指定许可证的文本片段。如"
+"果您对内容许可有任何疑问，请通过cloudsupport@blender.org联系。"
+
+#: .\common\templates\common\remixing.html:18
+msgid "Music and Sound"
+msgstr "音乐和声音"
+
+#: .\common\templates\common\remixing.html:19
+msgid ""
+"If you are a sound designer or a musician looking for film versions to "
+"rescore or edit, here is the content currently available:"
+msgstr ""
+"如果您是寻找电影版本进行重新制作或编辑的音效设计师或音乐家，则以下是当前可用"
+"的内容："
+
+#: .\common\templates\common\remixing.html:22
+msgid "Charge"
+msgstr ""
+
+#: .\common\templates\common\remixing.html:22
+#: .\common\templates\common\remixing.html:34
+#: .\common\templates\common\remixing.html:40
+msgid "All tracks"
+msgstr "所有曲目"
+
+#: .\common\templates\common\remixing.html:25
+msgid "Spring"
+msgstr ""
+
+#: .\common\templates\common\remixing.html:25
+#: .\common\templates\common\remixing.html:31
+msgid "FX without music"
+msgstr "没有音乐的FX"
+
+#: .\common\templates\common\remixing.html:28
+msgid "Cosmos Laundromat"
+msgstr ""
+
+#: .\common\templates\common\remixing.html:28
+msgid "All tracks and full sound mix"
+msgstr "所有曲目和完整的音频混音"
+
+#: .\common\templates\common\remixing.html:31
+msgid "Caminandes 3"
+msgstr ""
+
+#: .\common\templates\common\remixing.html:34
+msgid "Glass Half"
+msgstr ""
+
+#: .\common\templates\common\remixing.html:37
+msgid "Sintel"
+msgstr ""
+
+#: .\common\templates\common\remixing.html:37
+msgid "Only soundtrack (without voices)"
+msgstr "仅配乐（没有人声）"
+
+#: .\common\templates\common\remixing.html:40
+msgid "Sprite Fright"
+msgstr ""
+
+#: .\common\templates\common\terms-and-conditions.html:11
+msgid "Terms and Conditions"
+msgstr "条款及细则"
+
+#: .\common\templates\common\terms-and-conditions.html:18
+msgid ""
+"The Blender Studio ('we' or 'us', or 'the Service') is an open production "
+"funding/donation platform that offers access for registered members to "
+"project space and repositories of creative content and data. By registering "
+"as a member or by using the service in any way, you accept these Terms of "
+"Service (\"Agreement\"), which forms a binding agreement between you and the "
+"Blender Studio. If you do not wish to be bound by this Agreement, do not use "
+"the Blender Studio Service."
+msgstr ""
+"Blender Studio（“我们”或“我们”，或“服务”）是一个开放的生产资助/捐赠平台，为注"
+"册会员提供访问项目空间和创意内容和数据存储库的机会。通过注册成为会员或以任何"
+"方式使用服务，您接受这些服务条款（“协议”），该协议构成您与Blender Studio之间"
+"的约束性协议。如果您不希望受此协议的约束，请不要使用Blender Studio服务。"
+
+#: .\common\templates\common\terms-and-conditions.html:21
+msgid ""
+"Blender Studio is an activity of Blender Institute B.V. - "
+"Buikslotermeerplein 161 - 1025 ET Amsterdam - the Netherlands, contact: "
+"institute@blender.org."
+msgstr ""
+"Blender Studio是Blender Institute BV的一项活动。- Buikslotermeerplein "
+"161-1025 ET阿姆斯特丹-荷兰，联系方式：institute@blender.org。"
+
+#: .\common\templates\common\terms-and-conditions.html:24
+msgid ""
+"Blender Institute has been authorised by Stichting Blender Foundation to "
+"conduct these services on blender.org. Blender Institute is committed to "
+"comply to and support the goals of the public benefit free/open source "
+"project and community at blender.org."
+msgstr ""
+"Blender Institute已获得Stichting Blender Foundation的授权，在blender.org上提"
+"供这些服务。 Blender Institute致力于遵守并支持blender.org上公益性免费/开源项"
+"目和社区的目标。"
+
+#: .\common\templates\common\terms-and-conditions.html:26
+msgid "Registration, the Blender ID"
+msgstr "注册，Blender ID"
+
+#: .\common\templates\common\terms-and-conditions.html:28
+msgid ""
+"By registration at the Blender Studio, your email address will become the "
+"identification (\"Blender ID\") for services on blender.org in general. "
+"Registration is free, and only requires a confirmation of the owner of the "
+"email address - by responding to an authentication email."
+msgstr ""
+"通过在Blender Studio注册，您的电子邮件地址将成为在blender.org上使用Blender ID"
+"的身份标识。注册是免费的，只需要对电子邮件地址的所有者进行确认-通过响应身份验"
+"证电子邮件。"
+
+#: .\common\templates\common\terms-and-conditions.html:31
+msgid ""
+"Blender Studio currently offers no additional services for Blender ID "
+"registrations. These might be offered later, and will always be approved by "
+"Blender Foundation and be offered as opt-in."
+msgstr ""
+"Blender Studio目前没有为Blender ID注册提供其他服务。这些可能稍后提供，并始终"
+"得到Blender Foundation的批准，并作为选择加入提供。"
+
+#: .\common\templates\common\terms-and-conditions.html:33
+msgid "Badges: Supporters and Members"
+msgstr "徽章：支持者和成员"
+
+#: .\common\templates\common\terms-and-conditions.html:35
+msgid ""
+"After registration to the Blender Studio, a user will get options to upgrade "
+"his account with a number of options. Currently these options are for "
+"supporting, crediting or membership. All options are called \"Badges\" - "
+"which will be used to show as a special property (icon) as part of your "
+"Blender ID - for these places at blender.org that support it (forums or "
+"reviews)."
+msgstr ""
+"在注册到Blender Studio之后，用户将获得升级帐户的几个选项。目前，这些选项是支"
+"持、认证或会员资格。所有选项都称为“徽章”-它将用作您的Blender ID的特殊属性（图"
+"标）的一部分-用于支持它的这些地方（论坛或评论）。"
+
+#: .\common\templates\common\terms-and-conditions.html:38
+msgid ""
+"The Membership Badge is based on a monthly subscription, which can be "
+"applied for via recurring payments or via a pre-payment. Members get access "
+"to all services of Blender Studio, which includes previous Open Movies, Open "
+"Workshop videos and the current running Open Production. By keeping your "
+"membership active a user can earn a Credit Badge. Rules for this will be "
+"mentioned on the campaign page for an Open Production."
+msgstr ""
+"会员徽章基于每月订阅，可以通过定期付款或预付款来申请。成员可以访问Blender "
+"Studio的所有服务，包括以前的Open Movies、Open Workshop视频和当前正在运行的"
+"Open Production。通过保持会员资格活动，用户可以获得信用徽章。有关此规则将在"
+"Open Production的运动页面上提到。"
+
+#: .\common\templates\common\terms-and-conditions.html:41
+msgid ""
+"The other Badges are sold as special 'funding perks' - such as access to a "
+"film download, an online screening or a film/website credit. A supporter can "
+"choose to claim a badge, and only agree to pay for it after the production "
+"campaign reached its funding limit."
+msgstr ""
+"其他徽章作为特殊的“资金筹集福利”出售-例如访问电影下载、在线放映或电影/网站信"
+"贷。支持者可以选择声称徽章，并在生产运动达到其筹资限制后同意支付。"
+
+#: .\common\templates\common\terms-and-conditions.html:43
+msgid "Blender Studio Membership fee"
+msgstr "Blender Studio会员费"
+
+#: .\common\templates\common\terms-and-conditions.html:45
+msgid ""
+"To register and activate a membership an additional charge will apply, "
+"including a minimum of 1 month of membership fees. Fees are: (Apr 09, 2020)"
+msgstr ""
+"要注册并激活会员资格，将适用额外费用，其中包括至少1个月的会员费。费用为："
+"（2020年4月9日）"
+
+#: .\common\templates\common\terms-and-conditions.html:48
+msgid ""
+"9.90 EUR/month for subscription with automatic renewal and 14.90 EUR/month "
+"for subscriptions with manual renewal."
+msgstr "自动续订的订阅为9.90欧元/月，手动续订的订阅为14.90欧元/月。"
+
+#: .\common\templates\common\terms-and-conditions.html:50
+msgid "Refund policy"
+msgstr "退款政策"
+
+#: .\common\templates\common\terms-and-conditions.html:52
+msgid ""
+"Membership fees and supporter contributions are non-refundable. That money "
+"we really need to keep our services running, and to make open source and "
+"open content productions possible."
+msgstr ""
+"会员费和支持者捐款不可退还。我们确实需要这笔资金来维持我们的服务，并使开放源"
+"代码和开放内容制作成为可能。"
+
+#: .\common\templates\common\terms-and-conditions.html:55
+msgid ""
+"We really care about our members and supporters though - in case you are "
+"really not happy with our Blender Studio we will kindly respond to your "
+"comments and try to settle a dispute with you in harmony."
+msgstr ""
+"我们真的很关心我们的成员和支持者 — 如果您对我们的Blender Studio真的不满意，我"
+"们将很乐意回应您的评论，并尝试以和谐的方式解决争端。"
+
+#: .\common\templates\common\terms-and-conditions.html:58
+msgid ""
+"Refunds will happen without delay when we get a report of fraud, abuse or "
+"non-authorised usage of funds."
+msgstr "如果我们收到欺诈、滥用或未经授权使用资金的报告，我们将立即退款。"
+
+#: .\common\templates\common\terms-and-conditions.html:61
+msgid "Contact: cloudsupport@blender.org."
+msgstr "联系人：cloudsupport@blender.org。"
+
+#: .\common\templates\common\terms-and-conditions.html:63
+msgid "Blender Studio Membership cancellation"
+msgstr "Blender Studio会员资格取消"
+
+#: .\common\templates\common\terms-and-conditions.html:65
+msgid ""
+"You may delete your account at any time via your personal account page, or "
+"by contacting us at cloudsupport@blender.org."
+msgstr ""
+"您可以随时通过个人帐户页面或通过与我们联系cloudsupport@blender.org删除您的帐"
+"户。"
+
+#: .\common\templates\common\terms-and-conditions.html:68
+msgid ""
+"In case of suspected fraud or abuse of the service after registration and "
+"membership payment, the account owner will be contacted and asked for "
+"clarification. Failure to alleviate charges of fraud may result in the "
+"termination of the member's account."
+msgstr ""
+"如果在注册和会员费支付后怀疑存在欺诈或滥用服务的行为，将联系帐户所有者并要求"
+"澄清。未能缓解欺诈指控可能会导致终止会员帐户。"
+
+#: .\common\templates\common\terms-and-conditions.html:71
+msgid ""
+"In the event of account deletion for any reason, content that you submitted "
+"may no longer be available. The Blender Studio shall not be responsible for "
+"the loss of such content."
+msgstr ""
+"如果因任何原因删除帐户，则您提交的内容可能不再可用。 Blender Studio对此类内容"
+"的丢失不承担任何责任。"
+
+#: .\common\templates\common\terms-and-conditions.html:73
+msgid "Blender Studio licences"
+msgstr "Blender Studio许可证"
+
+#: .\common\templates\common\terms-and-conditions.html:75
+msgid ""
+"Unless notified otherwise, all digital content (webpages, video, artwork, 3D "
+"data) is available under the Creative Commons Attribution 4.0."
+msgstr ""
+"除非另有通知，所有数字内容（网页、视频、艺术作品、3D数据）都可在Creative "
+"Commons Attribution 4.0下使用。"
+
+#: .\common\templates\common\terms-and-conditions.html:78
+msgid ""
+"All software provided on Blender Studio will be under a free and open "
+"license as recognised as such by the Free Software Foundation."
+msgstr ""
+"在Blender Studio提供的所有软件将在自由软件基金会认可的自由和开放许可下提供。"
+
+#: .\common\templates\common\terms-and-conditions.html:81
+msgid ""
+"Trademarks and logos - including the Blender logo - are copyrighted "
+"properties, with all rights reserved by its owners."
+msgstr ""
+"商标和标志，包括Blender标志，均为受版权保护的财产，其所有权人保留所有权利。"
+
+#: .\common\templates\common\terms-and-conditions.html:83
+msgid "Indemnification"
+msgstr "赔偿"
+
+#: .\common\templates\common\terms-and-conditions.html:85
+msgid ""
+"You will indemnify, defend, and hold harmless the Blender Studio and its "
+"affiliates, directors, officers, employees, and agents, from and against all "
+"third party actions that: arise from your activities on the Blender Studio "
+"Service; assert a violation by you of any term of this Agreement; or assert "
+"that any content you submitted to the Blender Studio violates any law or "
+"infringes any third party right, including any intellectual property or "
+"privacy right."
+msgstr ""
+"您将赔偿、捍卫和使Blender Studio及其关联公司、董事、高级职员、员工和代理人免"
+"受所有第三方行动的损害，这些行动：由您在Blender Studio服务上的活动引起；声称"
+"您违反了本协议的任何条款；或声称您提交给Blender Studio的任何内容违反了任何法"
+"律或侵犯了任何第三方权利，包括任何知识产权或隐私权。"
+
+#: .\common\templates\common\terms-and-conditions.html:87
+msgid "Availability of the service"
+msgstr "服务的可用性"
+
+#: .\common\templates\common\terms-and-conditions.html:89
+msgid ""
+"The Blender Studio is not responsible for any damages resulting from the "
+"unavailability of the Service."
+msgstr "Blender Studio对服务不可用造成的任何损害概不负责。"
+
+#: .\common\templates\common\terms-and-conditions.html:91
+msgid "Modification"
+msgstr "修改"
+
+#: .\common\templates\common\terms-and-conditions.html:93
+msgid ""
+"This Agreement may not be modified except by a revised Terms of Service "
+"posted by the Blender Studio on the Blender Studio Site or a written "
+"amendment signed by an authorized representative of the Blender Studio. A "
+"revised Terms of Service will be effective as of the date it is posted on "
+"the Blender Studio Site."
+msgstr ""
+"除非Blender Studio在Blender Studio网站上发布修订的服务条款或由Blender Studio"
+"的授权代表签署的书面修订，否则本协议不得修改。修订的服务条款将于发布日期在"
+"Blender Studio网站上生效。"
+
+#: .\common\templates\common\terms-and-conditions.html:96
+msgid ""
+"THE BLENDER STUDIO WILL NOT BE LIABLE FOR ANY LOSS OF INCOME, LOSS OF "
+"PROFITS, LOSS OF CONTRACTS, LOSS OF DATA OR FOR ANY INDIRECT, INCIDENTAL, "
+"EXEMPLARY, SPECIAL, PUNITIVE OR CONSEQUENTIAL LOSS OR DAMAGE OF ANY KIND "
+"HOWSOEVER ARISING AND WHETHER CAUSED BY TORT (INCLUDING NEGLIGENCE), BREACH "
+"OF CONTRACT, WARRANTY OR OTHERWISE. OUR MAXIMUM AGGREGATE LIABILITY UNDER "
+"THESE TERMS AND CONDITIONS WHETHER IN TORT (INCLUDING NEGLIGENCE) OR "
+"OTHERWISE SHALL IN NO CIRCUMSTANCES EXCEED YOUR ANNUAL MEMBERSHIP FEE."
+msgstr ""
+"Blender Studio将不承担任何收入损失、利润损失、合同损失、数据损失或任何间接"
+"的、附带的、示范性的、特殊的、惩罚性的或后果性的损失或损害，无论如何产生或由"
+"侵权（包括疏忽）、合同违约、保证或其他方式引起。根据这些条款和条件，我们的最"
+"大总责任无论是在侵权（包括疏忽）或其他方面都不得超过您的年度会费。"
+
+#: .\common\templates\common\terms-and-conditions.html:98
+msgid "Disputes"
+msgstr "争议"
+
+#: .\common\templates\common\terms-and-conditions.html:100
+msgid ""
+"These Terms and any Additional Terms are governed by and construed by the "
+"laws of the Netherlands exclusively. The parties agree that any disputes or "
+"proceedings between us and you concerning these Terms, any Additional Terms, "
+"and/or any of the Websites or Services shall be brought in a court of "
+"competent jurisdiction sitting in the Netherlands, and hereby consent to the "
+"personal jurisdiction and venue of such court."
+msgstr ""
+"这些条款和任何附加条款仅受荷兰法律的管辖和解释。双方同意我们与您之间的任何争"
+"端或诉讼涉及这些条款、任何附加条款和/或任何网站或服务都应在荷兰的有管辖权的法"
+"院中审理，并在此同意该法院的个人管辖权和地点。"
+
+#: .\common\templates\common\welcome.html:17
+msgid "The Creators Who Share"
+msgstr "共享的创作者"
+
+#: .\common\templates\common\welcome.html:18
+msgid ""
+"Blender Studio is a dedicated team of artists and developers who challenge "
+"themselves with creative and technical targets to drive Blender development "
+"forward."
+msgstr ""
+"Blender Studio是一个由艺术家和开发人员组成的团队，他们以创新技术为目标，推动"
+"Blender的发展。"
+
+#: .\common\templates\common\welcome.html:26
+msgid "Access to all training, assets <br>and films for €11.50/month"
+msgstr "观看所有培训、资源和电影，<br>订阅费为€11.50/月"
+
+#: .\common\templates\common\welcome.html:42
+msgid "Sharing Production Knowledge"
+msgstr "分享制作知识"
+
+#: .\common\templates\common\welcome.html:45
+msgid ""
+"With training and docs covering every major topic in Blender, the Blender "
+"Studio team\n"
+"              shares real production knowledge, which can be freely adopted "
+"in a CG pipeline."
+msgstr ""
+"通过涵盖Blender中的每个主要主题的培训和文档，Blender Studio团队分享了真正的制"
+"作知识，可以自由地在CG管道中采用。"
+
+#: .\common\templates\common\welcome.html:58
+msgid "Not what you're looking for?"
+msgstr "不是您要找的？"
+
+#: .\common\templates\common\welcome.html:58
+msgid "Explore all Blender Studio Training</a>."
+msgstr "浏览所有Blender Studio培训</a>。"
+
+#: .\common\templates\common\welcome.html:73
+msgid "The Blender Studio Team"
+msgstr "Blender Studio团队"
+
+#: .\common\templates\common\welcome.html:74
+msgid "Whether it’s Blender Developer Dr. Sybren teaching"
+msgstr "无论是Blender开发人员Sybren博士讲授的"
+
+#: .\common\templates\common\welcome.html:74
+msgid ""
+"Scripting for\n"
+"            Artists</a>, or Animation Director Hjalti teaching"
+msgstr "艺术家的脚本</a>，还是动画导演Hjalti讲授的"
+
+#: .\common\templates\common\welcome.html:76
+msgid ""
+"Animation Fundamentals</a> — the Blender Studio team shares\n"
+"            actual production knowledge."
+msgstr "动画基础</a> — Blender Studio团队都分享了真正的制作知识。"
+
+#: .\common\templates\common\welcome.html:78
+msgid ""
+"Ask questions and receive replies from the author, download resources and "
+"join the discussion."
+msgstr "提问并获得作者的回复，下载资源并加入讨论。"
+
+#: .\common\templates\common\welcome.html:80
+#: .\common\templates\common\welcome.html:105
+#: .\common\templates\common\welcome.html:165
+msgid "Subscribe for €11.50/month"
+msgstr "订阅费为€11.50/月"
+
+#: .\common\templates\common\welcome.html:81
+msgid "Explore Training"
+msgstr "浏览培训"
+
+#: .\common\templates\common\welcome.html:107
+msgid "Explore the Film"
+msgstr "浏览电影"
+
+#: .\common\templates\common\welcome.html:122
+msgid "Support Open Productions"
+msgstr "支持开源制作"
+
+#: .\common\templates\common\welcome.html:125
+msgid ""
+"The Blender Open Movie projects are made possible by subscriptions to the "
+"Blender Studio."
+msgstr "Blender开源电影项目得以实现，是因为Blender Studio的订阅。"
+
+#: .\common\templates\common\welcome.html:137
+msgid "Learn more about our other"
+msgstr "了解更多关于我们的"
+
+#: .\common\templates\common\welcome.html:137
+msgid "open movies</a> and"
+msgstr "开源电影</a> 和"
+
+#: .\common\templates\common\welcome.html:138
+msgid ""
+"how your\n"
+"            contribution is used</a>."
+msgstr "您的捐赠将会如何使用</a>。"
+
+#: .\common\templates\common\welcome.html:145
+msgid "Access all our production assets!"
+msgstr "取得所有我们的制作资源！"
+
+#: .\common\templates\common\welcome.html:145
+msgid ""
+"You can access all the production files from our films with a Blender Studio "
+"subscription."
+msgstr "您可以通过订阅Blender Studio取得我们所有电影的制作文件。"
+
+#: .\common\templates\common\welcome.html:159
+msgid "Join Blender Studio!"
+msgstr "加入Blender Studio！"
+
+#: .\common\templates\common\welcome.html:161
+msgid ""
+"Subscribe to Blender Studio and get access to hundreds of hours of "
+"training,\n"
+"                      production assets and files from all the Open Movies."
+msgstr "订阅Blender Studio并获取所有开源电影的数百小时培训、制作资源和文件。"
+
+#: .\emails\templates\admin\emails\subscriptionemailpreview\submit_line.html:5
+msgid "Send a test email"
+msgstr ""
+
+#: .\emails\templates\admin\emails\subscriptionemailpreview\submit_line.html:5
+msgid "Save and view"
+msgstr ""
+
+#: .\films\models\assets.py:21
+msgid "Artwork"
+msgstr "作品"
+
+#: .\films\models\assets.py:22
+msgid "Production File"
+msgstr "制作文件"
+
+#: .\films\models\assets.py:23
+msgid "Production Lesson"
+msgstr "制作课程"
+
+#: .\films\models\films.py:15
+msgid "In Development"
+msgstr "开发中"
+
+#: .\films\models\films.py:16
+msgid "In Production"
+msgstr "生产中"
+
+#: .\films\models\films.py:17
+msgid "Released"
+msgstr "已发布"
+
+#: .\films\templates\films\base_films.html:35
+#: .\films\templates\films\gallery.html:8
+#: .\films\templates\films\gallery.html:35
+msgid "Content Gallery"
+msgstr "内容画廊"
+
+#: .\films\templates\films\components\jumbotron_film.html:18
+msgid "Watch"
+msgstr "观看"
+
+#: .\films\templates\films\components\jumbotron_film.html:20
+#: .\films\templates\films\components\jumbotron_film.html:22
+msgid "Explore Content Gallery"
+msgstr "探索内容画廊"
+
+#: .\films\templates\films\film_detail.html:67
+msgid "Featured Content Gallery"
+msgstr "精选内容画廊"
+
+#: .\films\templates\films\film_detail.html:68
+msgid "Want to see more?"
+msgstr "想要看更多？"
+
+#: .\films\templates\films\film_detail.html:69
+msgid "Explore the Content Gallery"
+msgstr "探索内容画廊"
+
+#: .\films\templates\films\film_detail.html:90
+#: .\films\templates\films\gallery.html:231
+msgid "No Featured Artwork to display"
+msgstr "没有要展示的精选艺术作品"
+
+#: .\films\templates\films\films.html:9 .\films\templates\films\films.html:16
+msgid ""
+"The iconic Blender Open Movies. Featuring all the production files, assets, "
+"artwork, and never-seen-before content."
+msgstr ""
+"标志性的Blender开放电影。包含所有的制作文件、资产、艺术作品和从未公开的内容。"
+
+#: .\films\templates\films\gallery.html:21
+#: .\films\templates\films\gallery.html:43
+#: .\films\templates\films\gallery.html:138
+msgid "Featured Artwork"
+msgstr "精选艺术作品"
+
+#: .\films\templates\films\gallery.html:50
+#: .\films\templates\films\gallery.html:146
+msgid "All Artwork"
+msgstr "所有作品"
+
+#: .\logentry_admin\admin.py:13
+msgctxt "logentry_admin:action_type"
+msgid "Addition"
+msgstr ""
+
+#: .\logentry_admin\admin.py:14
+msgctxt "logentry_admin:action_type"
+msgid "Deletion"
+msgstr ""
+
+#: .\logentry_admin\admin.py:15
+msgctxt "logentry_admin:action_type"
+msgid "Change"
+msgstr ""
+
+#: .\logentry_admin\admin.py:20 .\logentry_admin\admin.py:127
+msgid "action"
+msgstr ""
+
+#: .\logentry_admin\admin.py:44
+msgid "Metadata"
+msgstr ""
+
+#: .\logentry_admin\admin.py:48
+msgid "Details"
+msgstr ""
+
+#: .\logentry_admin\admin.py:96
+msgid "object"
+msgstr ""
+
+#: .\logentry_admin\admin.py:113
+msgid "user"
+msgstr ""
+
+#: .\logentry_admin\admin.py:133
+msgid "change message"
+msgstr ""
+
+#: .\payments\models.py:10 .\payments\models.py:23
+#: .\users\templates\users\settings\record.html:67
+msgid "Active"
+msgstr "生效"
+
+#: .\payments\models.py:11 .\payments\models.py:24
+msgid "On Hold"
+msgstr "搁置"
+
+#: .\payments\models.py:12 .\payments\models.py:25
+#: .\users\templates\users\settings\record.html:69
+msgid "Expired"
+msgstr "过期"
+
+#: .\payments\models.py:16
+msgid "1 Month"
+msgstr "1个月"
+
+#: .\payments\models.py:17
+msgid "3 Month"
+msgstr "3个月"
+
+#: .\payments\models.py:18
+msgid "6 Month"
+msgstr "6个月"
+
+#: .\payments\models.py:19
+msgid "1 Year"
+msgstr "1年"
+
+#: .\payments\models.py:29
+msgid "Card"
+msgstr "信用卡"
+
+#: .\payments\models.py:30
+msgid "Alipay"
+msgstr "支付宝"
+
+#: .\payments\models.py:31
+msgid "Wechat Pay"
+msgstr "微信支付"
+
+#: .\payments\models.py:32
+msgid "Other"
+msgstr "其他"
+
+#: .\payments\templates\payments\stripe.html:11
+#: .\source_upload\templates\m3u8_upload\files_upload.html:12
+msgid "Source Upload"
+msgstr ""
+
+#: .\payments\templates\payments\stripe.html:33
+msgid "Your subscription is now active and will expire on"
+msgstr "您的订阅现已生效，到期日为"
+
+#: .\payments\templates\payments\stripe.html:35
+msgid "Your subscription expired on"
+msgstr "您的订阅已到期，到期日为"
+
+#: .\payments\templates\payments\stripe.html:81
+#: .\payments\templates\payments\stripe.html:119
+#: .\payments\templates\payments\stripe.html:157
+#: .\payments\templates\payments\stripe.html:210
+#: .\users\templates\users\settings\record.html:98
+msgid "Plan"
+msgstr "方案"
+
+#: .\payments\templates\payments\stripe.html:82
+msgid "/month"
+msgstr "/每月"
+
+#: .\payments\templates\payments\stripe.html:85
+#: .\payments\templates\payments\stripe.html:123
+#: .\payments\templates\payments\stripe.html:161
+#: .\payments\templates\payments\stripe.html:215
+msgid "All Films"
+msgstr "所有电影"
+
+#: .\payments\templates\payments\stripe.html:86
+#: .\payments\templates\payments\stripe.html:124
+#: .\payments\templates\payments\stripe.html:162
+#: .\payments\templates\payments\stripe.html:216
+msgid "All Courses"
+msgstr "所有课程"
+
+#: .\payments\templates\payments\stripe.html:87
+#: .\payments\templates\payments\stripe.html:125
+#: .\payments\templates\payments\stripe.html:163
+#: .\payments\templates\payments\stripe.html:217
+msgid "All Workshops"
+msgstr "所有工作坊"
+
+#: .\payments\templates\payments\stripe.html:88
+#: .\payments\templates\payments\stripe.html:126
+#: .\payments\templates\payments\stripe.html:164
+#: .\payments\templates\payments\stripe.html:218
+msgid "All Aassets"
+msgstr "所有资产"
+
+#: .\payments\templates\payments\stripe.html:107
+msgid "Join the Studio - 1 Month"
+msgstr "加入工作室 - 1 个月"
+
+#: .\payments\templates\payments\stripe.html:120
+msgid "/3 month"
+msgstr "/3个月"
+
+#: .\payments\templates\payments\stripe.html:145
+msgid "Join the Studio - 3 Month"
+msgstr "加入工作室 - 3 个月"
+
+#: .\payments\templates\payments\stripe.html:158
+msgid "/6 month"
+msgstr "/6个月"
+
+#: .\payments\templates\payments\stripe.html:183
+msgid "Join the Studio - 6 Month"
+msgstr "加入工作室 - 6 个月"
+
+#: .\payments\templates\payments\stripe.html:207
+msgid "Hot"
+msgstr "热销"
+
+#: .\payments\templates\payments\stripe.html:211
+msgid "/year"
+msgstr "每年"
+
+#: .\payments\templates\payments\stripe.html:237
+msgid "Join the Studio - 1 Year"
+msgstr "加入工作室 - 1 年"
+
+#: .\payments\templates\payments\stripe.html:266
+msgid "You need to login before subscribing."
+msgstr "您需要登录后才能订阅。"
+
+#: .\search\templates\search\components\input.html:7
+msgid "\"Search tags and keywords\""
+msgstr "\"搜索标签和关键字\""
+
+#: .\static_assets\models\m3u8_assets.py:23
+msgid "Playlist"
+msgstr "播放列表"
+
+#: .\static_assets\models\m3u8_assets.py:24
+#: .\static_assets\models\static_assets.py:35
+msgid "Video"
+msgstr "视频"
+
+#: .\static_assets\models\m3u8_assets.py:25
+msgid "Audio"
+msgstr "音频"
+
+#: .\static_assets\models\static_assets.py:33
+msgid "File"
+msgstr "档案"
+
+#: .\static_assets\models\static_assets.py:34
+msgid "Image"
+msgstr "图片"
+
+#: .\studio\settings.py:174
+msgid "English"
+msgstr ""
+
+#: .\studio\settings.py:175
+msgid "Simplified Chinese"
+msgstr ""
+
+#: .\studio\settings.py:176
+msgid "Traditional Chinese"
+msgstr ""
+
+#: .\subscriptions\validators.py:32
+msgid ""
+"VAT identification number must start with a valid 2-letter country code."
+msgstr ""
+
+#: .\subscriptions\validators.py:34
+#, python-format
+msgid "%(vatin)s is not a valid VAT identification number."
+msgstr ""
+
+#: .\subscriptions\validators.py:35
+#, python-format
+msgid "%(vatin)s is not a registered VAT identification number."
+msgstr ""
+
+#: .\subscriptions\validators.py:36
+msgid "Unable to verify VAT identification number. Please try again later."
+msgstr ""
+
+#: .\training\models\trainings.py:17
+msgid "Workshop"
+msgstr "工作坊"
+
+#: .\training\models\trainings.py:18
+msgid "Course"
+msgstr "课程"
+
+#: .\training\models\trainings.py:23
+msgid "Beginner"
+msgstr "初学者"
+
+#: .\training\models\trainings.py:24
+msgid "Intermediate"
+msgstr "中级"
+
+#: .\training\models\trainings.py:25
+msgid "Advanced"
+msgstr "高级"
+
+#: .\training\templates\training\components\jumbotron.html:14
+msgid ""
+"Learn by example. Courses, workshops and production lessons with .blend "
+"files included."
+msgstr "通过实例学习。课程、研讨会以及包含.blend文件的生产课程。"
+
+#: .\training\templates\training\home_authenticated.html:27
+msgid "Continue Learning"
+msgstr "继续学习"
+
+#: .\training\templates\training\home_authenticated.html:27
+msgid "Continue watching where you left off."
+msgstr "继续观看上次停下的地方。"
+
+#: .\training\templates\training\home_authenticated.html:31
+msgid "Your Saved Training"
+msgstr "您保存的培训"
+
+#: .\training\templates\training\home_authenticated.html:31
+msgid ""
+"You can add and remove items from this list by clicking the plus or the tick."
+msgstr "您可以通过单击加号或勾号在此列表中添加和删除项目。"
+
+#: .\training\templates\training\home_authenticated.html:41
+#: .\training\templates\training\home_not_authenticated.html:28
+msgid "Featured Training"
+msgstr "精选培训"
+
+#: .\training\templates\training\home_authenticated.html:55
+#: .\training\templates\training\home_not_authenticated.html:41
+msgid "All Training"
+msgstr "全部培训"
+
+#: .\training\templates\training\home_authenticated.html:59
+#: .\training\templates\training\home_not_authenticated.html:46
+msgid "Sort by:"
+msgstr "排序方式："
+
+#: .\training\templates\training\training.html:50
+msgid "\"Save for later\""
+msgstr "\"保存稍后观看\""
+
+#: .\training\templates\training\training.html:51
+msgid "\" Remove from saved for later\""
+msgstr "\" 从保存中删除\""
+
+#: .\training\templates\training\training.html:53
+msgid "Save"
+msgstr "保存"
+
+#: .\training\templates\training\training.html:53
+msgid "Saved"
+msgstr "已保存"
+
+#: .\users\admin.py:37
+msgid "subscriptions"
+msgstr ""
+
+#: .\users\admin.py:60
+msgid "Braintree Customer IDs"
+msgstr ""
+
+#: .\users\admin.py:121
+msgid "Personal info"
+msgstr ""
+
+#: .\users\admin.py:125
+msgid "Permissions"
+msgstr ""
+
+#: .\users\admin.py:129
+msgid "Important dates"
+msgstr ""
+
+#: .\users\admin.py:132
+msgid "Activity"
+msgstr ""
+
+#: .\users\models.py:30
+msgid "email address"
+msgstr ""
+
+#: .\users\templates\admin\users\user\change_form_object_tools.html:9
+msgid "Show in Blender ID"
+msgstr ""
+
+#: .\users\templates\admin\users\user\change_form_object_tools.html:14
+msgid "Find in Blender ID"
+msgstr ""
+
+#: .\users\templates\users\notifications.html:10
+msgid "All the latest likes, comments and replies to your content are here."
+msgstr "所有对您内容的最新点赞、评论和回复都在这里。"
+
+#: .\users\templates\users\notifications.html:12
+msgid "All the latest comments and replies to your content are here."
+msgstr "所有对您内容的最新评论和回复都在这里。"
+
+#: .\users\templates\users\notifications.html:14
+msgid "All the latest comments about your content are here."
+msgstr "所有对您内容的最新评论都在这里。"
+
+#: .\users\templates\users\notifications.html:16
+msgid "All the latest replies to your comments are here."
+msgstr "所有对您内容的最新回复都在这里。"
+
+#: .\users\templates\users\notifications.html:18
+msgid "All the latest likes of your content are here."
+msgstr "所有对您内容的最新点赞都在这里。"
+
+#: .\users\templates\users\notifications.html:30
+msgid "All"
+msgstr "全部"
+
+#: .\users\templates\users\notifications.html:31
+msgid "Comments and replies"
+msgstr "评论和回复"
+
+#: .\users\templates\users\notifications.html:32
+msgid "Likes"
+msgstr "点赞"
+
+#: .\users\templates\users\notifications.html:40
+msgid "Mark all as read"
+msgstr "全部标记为已读"
+
+#: .\users\templates\users\settings\delete.html:8
+#: .\users\templates\users\settings\tabs.html:84
+msgid "Delete account"
+msgstr "删除账户"
+
+#: .\users\templates\users\settings\delete.html:15
+msgid "You can request deletion of your account in "
+msgstr "您可以请求删除您的账户透过"
+
+#: .\users\templates\users\settings\delete.html:20
+msgid ""
+"Note that your account has publicly visible content, such as blog posts or "
+"assets, that cannot be deleted from Blender Studio."
+msgstr ""
+"注意，您的帐户有公开可见的内容，例如博客文章或资产，这些内容无法从Blender "
+"Studio中删除。"
+
+#: .\users\templates\users\settings\emails.html:6
+#: .\users\templates\users\settings\tabs.html:14
+msgid "Emails"
+msgstr "电子邮件"
+
+#: .\users\templates\users\settings\emails.html:10
+msgid "Newsletter"
+msgstr "通讯"
+
+#: .\users\templates\users\settings\emails.html:11
+msgid ""
+"We occasionally send out emails with updates on whats new in the Blender "
+"Studio."
+msgstr "我们偶尔会发送一些电子邮件，更新Blender Studio的最新情况。"
+
+#: .\users\templates\users\settings\emails.html:21
+msgid "Keep me updated with Blender Studio news."
+msgstr "让我了解Blender Studio的最新动态。"
+
+#: .\users\templates\users\settings\emails.html:25
+msgid "Save changes"
+msgstr "保存更改"
+
+#: .\users\templates\users\settings\profile.html:9
+#: .\users\templates\users\settings\tabs.html:7
+msgid "Profile"
+msgstr "我的资料"
+
+#: .\users\templates\users\settings\profile.html:13
+msgid "These details are part of your Blender ID, visit"
+msgstr "这些详细信息是您的 Blender ID 的一部分，请访问"
+
+#: .\users\templates\users\settings\profile.html:14
+msgid "to change."
+msgstr "进行更改。"
+
+#: .\users\templates\users\settings\profile.html:20
+msgid "Name"
+msgstr "姓名"
+
+#: .\users\templates\users\settings\profile.html:23
+#: .\users\templates\users\settings\profile.html:38
+#: .\users\templates\users\settings\profile.html:43
+msgid "This is displayed in comments."
+msgstr "这显示在评论中。"
+
+#: .\users\templates\users\settings\profile.html:26
+msgid "Email"
+msgstr "电子邮件"
+
+#: .\users\templates\users\settings\profile.html:29
+msgid "This is how we contact you."
+msgstr "这是我们与您联系的方式。"
+
+#: .\users\templates\users\settings\profile.html:35
+msgid "Username"
+msgstr "用户名"
+
+#: .\users\templates\users\settings\profile.html:41
+msgid "Profile Picture"
+msgstr "个人图片"
+
+#: .\users\templates\users\settings\profile.html:51
+msgid "Badges"
+msgstr "徽章"
+
+#: .\users\templates\users\settings\profile.html:57
+msgid "These are displayed next to your name."
+msgstr "这些显示在你的名字旁边。"
+
+#: .\users\templates\users\settings\profile.html:64
+msgid "Preview"
+msgstr "预览"
+
+#: .\users\templates\users\settings\profile.html:76
+msgid "This is how your profile is displayed."
+msgstr "这是您的个人资料的显示方式。"
+
+#: .\users\templates\users\settings\profile.html:85
+msgid "Coupons"
+msgstr "优惠券"
+
+#: .\users\templates\users\settings\profile.html:87
+msgid "It looks like no coupon is available at the moment."
+msgstr "目前好像没有优惠券。"
+
+#: .\users\templates\users\settings\record.html:8
+#: .\users\templates\users\settings\record.html:85
+#: .\users\templates\users\settings\record.html:113
+#: .\users\templates\users\settings\tabs.html:30
+msgid "Subscription"
+msgstr "订阅"
+
+#: .\users\templates\users\settings\record.html:9
+msgid "If you have any problems with billing, contact the team directly on "
+msgstr "如果您在结算方面遇到任何问题，请直接联系团队，发送电子邮件至"
+
+#: .\users\templates\users\settings\record.html:40
+msgid "Manage Subscription"
+msgstr "管理订阅"
+
+#: .\users\templates\users\settings\record.html:42
+msgid ""
+"You have full access to the Blender Studio website, provided by Blender "
+"Studio. This account is meant for free evaluation of the service. Get in "
+"touch with"
+msgstr ""
+"您可以访问所有Blender Studio网站的内容。此帐户用于免费评估服务。如果您有任何"
+"疑问，请通过"
+
+#: .\users\templates\users\settings\record.html:42
+msgid "if you have any questions."
+msgstr "聯繫我們。"
+
+#: .\users\templates\users\settings\record.html:59
+msgid "Status"
+msgstr "状态"
+
+#: .\users\templates\users\settings\record.html:60
+msgid "Expiry date"
+msgstr "有效期"
+
+#: .\users\templates\users\settings\record.html:77
+msgid "Renew"
+msgstr "续订"
+
+#: .\users\templates\users\settings\record.html:80
+msgid "Record"
+msgstr "订阅记录"
+
+#: .\users\templates\users\settings\record.html:100
+msgid "Payment Type"
+msgstr "付款方式"
+
+#: .\users\templates\users\settings\record.html:101
+msgid "Payment Date"
+msgstr "订阅日期"
+
+#: .\users\templates\users\settings\record.html:103
+msgid "Receipt"
+msgstr "收据"
+
+#: .\users\templates\users\settings\tabs.html:22
+msgid "Production Credits"
+msgstr "制作积分"

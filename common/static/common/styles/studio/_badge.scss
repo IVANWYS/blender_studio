@@ -7,14 +7,12 @@
   }
 }
 
-
 .badge-pill {
   background: $highlight-white;
   color: $white;
 }
 
 .card {
-
   .badge-pill {
     background: $highlight-white;
     color: $highlight-white-xstrong;
@@ -23,7 +21,6 @@
 }
 
 .pills {
-
   display: flex;
   flex-wrap: wrap;
   margin-bottom: -$spacer / 4;

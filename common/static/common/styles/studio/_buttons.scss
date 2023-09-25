@@ -18,13 +18,6 @@
   }
 }
 
-.btn-transparent {
-  &:hover,
-  &:focus {
-    color: $white;
-  }
-}
-
 //This button has special text colours
 .btn-nav {
   color: $highlight-white-xstrong;
@@ -53,6 +46,7 @@
 
 .btn-profile {
   padding: $profile-nav-padding;
+  cursor: pointer;
 }
 
 //
@@ -119,10 +113,6 @@
   width: auto;
 }
 
-.likes-count {
-  margin-left: .25em;
-}
-
 .btn-highlight {
   color: $white;
 
@@ -148,9 +138,7 @@
 }
 
 .checkbox-like {
-
   span {
-    color: $highlight-white-xstrong;
     pointer-events: none;
   }
 

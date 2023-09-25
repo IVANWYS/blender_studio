@@ -1,0 +1,9 @@
+---
+- hosts: http
+  gather_facts: false
+  become: true
+  become_user: "{{ user }}"
+  roles: [common]
+  tasks:
+    - import_tasks: tasks/pull.yaml
+    - import_tasks: tasks/deploy.yaml

@@ -1,0 +1,20 @@
+{% load static %}
+{% load i18n %}
+<!-- z-index is due to negative bottom margin causing second section not to be clickable -->
+<div class="jumbotron jumbotron-fluid jumbotron-overlay header" style="z-index:-1; overflow:visible;">
+  <div class="jumbotron-bg-wrapper" style="height: 500px;">
+    <img class="jumbotron-bg" src="{% static 'training/images/placeholders/jumbotron.jpg' %}">
+  </div>
+  <div class="container-xxl">
+    <div class="row">
+      <div class="col-lg-6 col-xl-7">
+        <div class="jumbotron-body">
+          <h1>{% blocktrans %}Training{% endblocktrans %}</h1>
+          <div class="lead">
+            <p>{% blocktrans %}Learn by example. Courses, workshops and production lessons with .blend files included.{% endblocktrans %}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

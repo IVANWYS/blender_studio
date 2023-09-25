@@ -1,14 +1,12 @@
-<div class="card card-poster {{ card_sizes|default:"col-12 col-sm-6 col-md-4 col-lg-4" }} card-grid-item">
+<div class="card card-poster">
   <div class="card-header">
     <a href="{{ film.url }}" class="card-header-link">
-
       {% include "common/components/helpers/image_resize.html" with alt=film.title classes="img-fluid" img_source=film.poster width="500" %}
-
     </a>
   </div>
 
   <a class="card-body text-center" href="{{ film.url }}">
-    <h2 class="card-title">
+    <h2 class="card-title my-2">
       {{ film.title }}
 
       {% if film.status == "2_released" %}
@@ -22,6 +20,6 @@
       {% endif %}
 
     </h2>
-    <p class="card-text mb-0">{{ film.description }}</p>
+    <div class="card-text">{{ film.description }}</div>
   </a>
 </div>

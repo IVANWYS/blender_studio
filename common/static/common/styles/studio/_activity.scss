@@ -1,100 +1,68 @@
 .activity-list-wrapper {
   border-radius: $border-radius;
-  background: $navigation-gray;
-  border: 1px solid $input-gray;
   padding: $spacer;
 }
 
 .activity-list {
+  background: $navigation-gray;
+  border-radius: var(--border-radius-lg);
   display: flex;
   flex-direction: column;
-  padding-left: 0;
-  margin-bottom: 0;
-  border-radius: $border-radius;
-  padding: $spacer / 4 0;
-  background: $navigation-gray;
-  border: 1px solid $input-gray;
-  border-radius: $border-radius;
   flex-wrap: wrap;
+  margin-bottom: 0;
+  padding-left: 0;
+  padding: var(--spacer-sm);
 }
 
 .activity-list-item {
-  position: relative;
+  border-radius: var(--border-radius) !important;
+  color: var(--body-color-secondary) !important;
   display: flex;
-  flex-direction: row;
-  padding: $spacer * .6 $spacer;
-  color: $highlight-white-xstrong;
-  border: 0 solid;
-  transition: $transition-base;
   flex-wrap: wrap;
-  flex-grow: 1;
-
-  .date {
-    float: right;
-    color: $highlight-white-strong;
-    flex-shrink: 0;
-    margin-left: auto;
-  }
-
-  .name {
-    font-weight: bold;
-    margin-right: $spacer / 4;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-  }
-
-  .text {
-    white-space: normal;
-    text-align: left;
-  }
-
-  .profile {
-    margin-right: $spacer / 2;
-    height: 1.25rem;
-    width: 1.25rem;
-    border-radius: $border-radius-sm;
-    flex-shrink: 0;
-    display: block;
-  }
-
-  &::before {
-    background: $highlight-white;
-    border-radius: $border-radius;
-    content: close-quote;
-    height: calc(100% - #{$spacer / 2});
-    left: $spacer / 2;
-    opacity: 0;
-    position: absolute;
-    top: 5px;
-    transition: $transition-base;
-    width: calc(100% - #{$spacer});
-    pointer-events: none;
-    // z-index: -1;
-  }
+  margin: 0 var(--spacer-sm);
+  padding: var(--spacer-sm);
+  position: relative;
+  transition: $transition-base;
+  opacity: .5;
+  width: 100%;
 
   &:hover {
-    color: $white;
+    background-color: var(--component-bg-light);
     text-decoration: none;
+  }
 
-    &::before {
-      opacity: 1;
-    }
+  em {
+    font-style: normal;
+  }
+
+  .description, .icon, .date {
+    padding: var(--spacer-xs);
+  }
+
+  .description {
+    flex: 1;
+    line-height: 1.2;
+  }
+
+  .date {
+    color: var(--body-color-tertiary);
+    margin-left: var(--spacer-sm);
+    text-align: right;
+  }
+
+  .icon {
+    margin-right: var(--spacer-xs);
+  }
+
+  .icon, .i-liked {
+    color: inherit;
   }
 
   &.unread {
-    .text {
-      color: $white;
-    }
+    opacity: 1;
 
-    .name {
-      color: $white;
-    }
-
-    .date {
-      color: $primary;
+    em {
+      color: var(--body-color) !important;
     }
   }
 }
@@ -108,38 +76,16 @@
   .activity-list-item+.markasread {
     margin-right: $spacer / 2;
   }
-
-  @include media-breakpoint-down(md) {
-    .name {
-      order: 1;
-    }
-
-    .date {
-      order: 2;
-    }
-
-    .text {
-      width: 100%;
-      font-size: $font-size-sm;
-      order: 3;
-    }
-  }
 }
 
 .notification-dropdown {
   flex-direction: column;
-  max-height: calc(100vh - #{$navbar-height + $spacer * 2});
-  width: 350px;
+  font-size: var(--font-size-sm);
+  max-height: calc(100vh - var(--spacer));
+  width: 500px;
 
   &.show {
     display: flex;
-  }
-
-  .dropdown-menu-nested {
-    overflow-y: auto;
-    flex-shrink: 1;
-
-    @include scroll-bar($dark, $input-gray);
   }
 }
 
@@ -155,35 +101,16 @@
 }
 
 .notifications-counter {
+  background: var(--color-danger);
+  border-radius: var(--border-radius);
+  color: white;
+  font-size: var(--font-size-xs);
+  padding: 1px 3px;
   position: absolute;
-  top: 0;
   right: 0;
-  background: $primary;
-  border-radius: $border-radius-lg;
-  color: $white;
-  font-size: 0.75rem;
-  min-width: $font-size-sm;
   text-align: center;
-  padding: 1px $spacer / 8;
-  font-weight: $font-weight-bold;
-}
-
-.dropdown-menu {
-  .activity-list-item-wrapper {
-    .name {
-      order: 1;
-    }
-
-    .date {
-      order: 2;
-    }
-
-    .text {
-
-      font-size: $font-size-sm;
-      order: 3;
-    }
-  }
+  top: 0;
+  @include font-weight(500);
 }
 
 .dropdown-item.unread {

@@ -1,6 +1,7 @@
 {% extends 'common/base.html' %}
 {% load static %}
 {% load common_extras %}
+{% load i18n %}
 
 {% block bodyclasses %}
 
@@ -31,7 +32,7 @@
       {% endfor %}
       <a class="list-group-item {% if current_collection %}active{% endif %}"
         href="{% url 'film-gallery' film_slug=film.slug %}">
-        Content Gallery
+        {% blocktrans %}Content Gallery{% endblocktrans %}
       </a>
       {% if film.show_production_logs_nav_link %}
         <a class="list-group-item {% if date_list or production_log.name %}active{% endif %}" href="{% url 'film-production-logs' film_slug=film.slug %}">
@@ -74,14 +75,13 @@
 
               <div class="dropdown-double">
                 <a href="{% url 'user-notification' %}" class="dropdown-item">
-                  <i class="material-icons">notifications</i>
                   <span>Notifications</span>
                 </a>
 
                 <button class="dropdown-item icon {% if user.notifications_unread.count >= 1 %}unread{% endif %}"
                   data-bs-toggle="tooltip" data-placement="top"
                   data-mark-all-read-url="{% url 'api-notifications-mark-read' %}" title="Mark all as read">
-                  <i class="material-icons">markunread_mailbox</i>
+                  <i class="i-check"></i>
                 </button>
               </div>
 
@@ -109,9 +109,9 @@
           <div>
             <a data-bs-toggle="dropdown" class="list-group-item icon btn-profile">
               {% if request.user.is_authenticated and request.user.image_url %}
-                <div style="background-image:url('{{ request.user.image_url }}');" class="profile"></div>
+                <div style="background-image:url('{{ request.user.image_url }}');" class="profile-avatar"></div>
               {% else %}
-                <div style="background-image:url('{% static 'common/images/blank-profile-pic.png' %}');" class="profile">
+                <div style="background-image:url('{% static 'common/images/blank-profile-pic.png' %}');" class="profile-avatar">
                 </div>
               {% endif %}
             </a>
@@ -188,7 +188,7 @@
             <i class="material-icons">search</i>
           </a>
           <a href="{% url 'oauth:login' %}" class="list-group-item login-button">Login</a>
-          <a href="{% url 'subscriptions:join' %}" class="list-group-item primary">Join
+          <a href="{% url 'stripe' %}" class="list-group-item primary">Join
             <span class="d-none d-lg-inline-block">Blender Studio</span></a>
 
         </div>

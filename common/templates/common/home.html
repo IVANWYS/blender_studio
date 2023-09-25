@@ -1,7 +1,10 @@
 {% extends 'common/base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block content %}
+
+  {% include 'common/components/alert_coupon_announcement.html' %}
 
   <!-- Header -->
   {% include 'common/components/home_headers/film_general_left.html' with film=featured_films.0 %}
@@ -13,28 +16,28 @@
 
     <!-- Latest Blog Posts -->
     {% url 'post-list' as blog_url %}
-    {% include 'common/components/cards/card_carousel.html' with title="Latest Blog Posts" title_link=blog_url subtitle="Hear the latest news about the Blender Studio right here." slides=3 card_set=latest_posts media_type="blog" id="latestPosts" %}
+    {% include 'common/components/cards/card_carousel.html' with title=_("Latest Blog Posts") title_link=blog_url subtitle=_("Hear the latest news about the Blender Studio.") slides=3 card_set=latest_posts media_type="blog" id="latestPosts" %}
 
     <!-- Recently watched -->
     {% url 'training-home' as training_url %}
     {% if recently_watched_sections %}
-      {% include 'common/components/cards/card_carousel.html' with title="Continue training" title_link=training_url subtitle="Recently watched videos appear here! Continue watching where you left off." slides=4 card_set=recently_watched_sections media_type="section" id="continueTraining" %}
+      {% include 'common/components/cards/card_carousel.html' with title=_("Continue training") title_link=training_url subtitle=_("Recently watched videos appear here! Continue watching where you left off.") slides=4 card_set=recently_watched_sections media_type="section" id="continueTraining" %}
     {% endif %}
 
     <!-- Latest Training -->
-    {% include 'common/components/cards/card_carousel.html' with title="Latest Training" title_link=training_url subtitle="Want to see more? <a href='/training'>Explore all training</a>" slides=3 card_set=featured_trainings media_type="training" id="featuredTrainings" %}
+    {% include 'common/components/cards/card_carousel.html' with title=_("Latest Training") title_link=training_url subtitle=_("Want to see more? <a href='/training'>Explore all training</a>") slides=3 card_set=featured_trainings media_type="training" id="featuredTrainings" %}
 
     <!-- Featured Movies -->
     <section class="mb-4">
       <div class="row justify-content-center mb-3">
         <div class="col-md-6 text-center">
 
-          <a class="mb-0 h2" href="{% url 'film-list' %}">Featured Open Movies</a>
-          <p class="mb-0">The Blender <a href="/films">Open Movie projects</a> are made possible by subscriptions to the
-            Blender Studio.</p>
+          <a class="mb-0 h2" href="{% url 'film-list' %}">{% blocktrans %}Featured Open Movies{% endblocktrans %}</a>
+          <p class="mb-0">{% blocktrans %}The Blender <a href="/films">Open Movie projects</a> are made possible by subscriptions to the
+            Blender Studio.{% endblocktrans %}</p>
         </div>
       </div>
-      <div class="row">
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 gy-4">
         {% for film in featured_films|slice:':3' %}
           {% include "films/components/card_film.html" with film=film %}
         {% endfor %}
@@ -43,7 +46,7 @@
 
     <!-- From the Archives -->
     {% url 'film-list' as film_url %}
-    {% include 'common/components/cards/card_carousel.html' with title="From The Archives" title_link=film_url subtitle="Want to see more? <a href='/films'>Explore all films</a>" slides=4 card_set=featured_film_assets media_type="file" id="fromTheArchives" %}
+    {% include 'common/components/cards/card_carousel.html' with title=_("From The Archives") title_link=film_url subtitle=_("Want to see more? <a href='/films'>Explore all films</a>") slides=4 card_set=featured_film_assets media_type="file" id="fromTheArchives" %}
 
   </div>
 

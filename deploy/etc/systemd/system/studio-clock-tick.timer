@@ -1,7 +1,0 @@
-[Timer]
-OnCalendar=hourly
-RandomizedDelaySec=180
-AccuracySec=1us
-
-[Install]
-WantedBy=timer.target

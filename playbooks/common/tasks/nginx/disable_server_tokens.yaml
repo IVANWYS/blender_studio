@@ -1,0 +1,11 @@
+---
+- name: Disabling nginx server tokens
+  ansible.builtin.lineinfile:
+    path: "{{ nginx_conf_dir }}/nginx.conf"
+    regexp: "server_tokens "
+    line: "\tserver_tokens off;" # noqa: no-tabs
+    state: present
+    backup: true
+  tags:
+    - nginx
+    - server_tokens

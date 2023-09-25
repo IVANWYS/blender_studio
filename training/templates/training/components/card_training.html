@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="card card-training {{ card_sizes|default:"col-12 col-sm-6 col-lg-4" }} card-grid-item" {% if training.favorited %}data-checked="checked"
 {% endif %} data-favorite-url="{{ training.favorite_url }}" data-training-id="{{ training.id }}">
 
@@ -44,7 +45,7 @@
         {% endif %}
       </p>
       {% if training.is_free %}
-        {% include "common/components/cards/pill.html" with label='Free' %}
+        {% include "common/components/cards/pill.html" with label=_('Free') %}
       {% endif %}
     </div>
   </a>
