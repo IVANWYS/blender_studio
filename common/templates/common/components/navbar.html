@@ -1,76 +1,81 @@
 {% load i18n %}
-<div class="nav-global" >
+<div class="nav-global">
   <div class="nav-global-container">
     <nav>
-      <a href="/" class="nav-global-logo {% if request.path == '/' %}is-active{% endif %}">
+      <a href="/" class="nav-global-logo {% if request.path == '/' %}{% endif %}">
         <svg fill-rule="nonzero" viewBox="0 0 200 162.05">
-          <path
-            d="M61.1 104.56c.05 2.6.88 7.66 2.12 11.61a61.27 61.27 0 0 0 13.24 22.92 68.39 68.39 0 0 0 23.17 16.64 74.46 74.46 0 0 0 30.42 6.32 74.52 74.52 0 0 0 30.4-6.42 68.87 68.87 0 0 0 23.15-16.7 61.79 61.79 0 0 0 13.23-22.97 58.06 58.06 0 0 0 2.07-25.55 59.18 59.18 0 0 0-8.44-23.1 64.45 64.45 0 0 0-15.4-16.98h.02L112.76 2.46l-.16-.12c-4.09-3.14-10.96-3.13-15.46.02-4.55 3.18-5.07 8.44-1.02 11.75l-.02.02 26 21.14-79.23.08h-.1c-6.55.01-12.85 4.3-14.1 9.74-1.27 5.53 3.17 10.11 9.98 10.14v.02l40.15-.07-71.66 55-.27.2c-6.76 5.18-8.94 13.78-4.69 19.23 4.32 5.54 13.51 5.55 20.34.03l39.1-32s-.56 4.32-.52 6.91zm100.49 14.47c-8.06 8.2-19.34 12.86-31.54 12.89-12.23.02-23.5-4.6-31.57-12.79-3.93-4-6.83-8.59-8.61-13.48a35.57 35.57 0 0 1 2.34-29.25 39.1 39.1 0 0 1 9.58-11.4 44.68 44.68 0 0 1 28.24-9.85 44.59 44.59 0 0 1 28.24 9.77 38.94 38.94 0 0 1 9.58 11.36 35.58 35.58 0 0 1 4.33 14.18 35.1 35.1 0 0 1-1.98 15.05 37.7 37.7 0 0 1-8.61 13.52zm-57.6-27.91a23.55 23.55 0 0 1 8.55-16.68 28.45 28.45 0 0 1 18.39-6.57 28.5 28.5 0 0 1 18.38 6.57 23.57 23.57 0 0 1 8.55 16.67c.37 6.83-2.37 13.19-7.2 17.9a28.18 28.18 0 0 1-19.73 7.79c-7.83 0-14.84-3-19.75-7.8a23.13 23.13 0 0 1-7.19-17.88z" />
+          <path d="M61.1 104.56c.05 2.6.88 7.66 2.12 11.61a61.27 61.27 0 0 0 13.24 22.92 68.39 68.39 0 0 0 23.17 16.64 74.46 74.46 0 0 0 30.42 6.32 74.52 74.52 0 0 0 30.4-6.42 68.87 68.87 0 0 0 23.15-16.7 61.79 61.79 0 0 0 13.23-22.97 58.06 58.06 0 0 0 2.07-25.55 59.18 59.18 0 0 0-8.44-23.1 64.45 64.45 0 0 0-15.4-16.98h.02L112.76 2.46l-.16-.12c-4.09-3.14-10.96-3.13-15.46.02-4.55 3.18-5.07 8.44-1.02 11.75l-.02.02 26 21.14-79.23.08h-.1c-6.55.01-12.85 4.3-14.1 9.74-1.27 5.53 3.17 10.11 9.98 10.14v.02l40.15-.07-71.66 55-.27.2c-6.76 5.18-8.94 13.78-4.69 19.23 4.32 5.54 13.51 5.55 20.34.03l39.1-32s-.56 4.32-.52 6.91zm100.49 14.47c-8.06 8.2-19.34 12.86-31.54 12.89-12.23.02-23.5-4.6-31.57-12.79-3.93-4-6.83-8.59-8.61-13.48a35.57 35.57 0 0 1 2.34-29.25 39.1 39.1 0 0 1 9.58-11.4 44.68 44.68 0 0 1 28.24-9.85 44.59 44.59 0 0 1 28.24 9.77 38.94 38.94 0 0 1 9.58 11.36 35.58 35.58 0 0 1 4.33 14.18 35.1 35.1 0 0 1-1.98 15.05 37.7 37.7 0 0 1-8.61 13.52zm-57.6-27.91a23.55 23.55 0 0 1 8.55-16.68 28.45 28.45 0 0 1 18.39-6.57 28.5 28.5 0 0 1 18.38 6.57 23.57 23.57 0 0 1 8.55 16.67c.37 6.83-2.37 13.19-7.2 17.9a28.18 28.18 0 0 1-19.73 7.79c-7.83 0-14.84-3-19.75-7.8a23.13 23.13 0 0 1-7.19-17.88z" />
           <strong>Blender Studio</strong>
         </svg>
       </a>
 
       <button class="nav-global-logo js-dropdown-toggle" data-toggle-menu-id="nav-global-nav-links">
         <svg fill-rule="nonzero" viewBox="0 0 200 162.05">
-          <path
-            d="M61.1 104.56c.05 2.6.88 7.66 2.12 11.61a61.27 61.27 0 0 0 13.24 22.92 68.39 68.39 0 0 0 23.17 16.64 74.46 74.46 0 0 0 30.42 6.32 74.52 74.52 0 0 0 30.4-6.42 68.87 68.87 0 0 0 23.15-16.7 61.79 61.79 0 0 0 13.23-22.97 58.06 58.06 0 0 0 2.07-25.55 59.18 59.18 0 0 0-8.44-23.1 64.45 64.45 0 0 0-15.4-16.98h.02L112.76 2.46l-.16-.12c-4.09-3.14-10.96-3.13-15.46.02-4.55 3.18-5.07 8.44-1.02 11.75l-.02.02 26 21.14-79.23.08h-.1c-6.55.01-12.85 4.3-14.1 9.74-1.27 5.53 3.17 10.11 9.98 10.14v.02l40.15-.07-71.66 55-.27.2c-6.76 5.18-8.94 13.78-4.69 19.23 4.32 5.54 13.51 5.55 20.34.03l39.1-32s-.56 4.32-.52 6.91zm100.49 14.47c-8.06 8.2-19.34 12.86-31.54 12.89-12.23.02-23.5-4.6-31.57-12.79-3.93-4-6.83-8.59-8.61-13.48a35.57 35.57 0 0 1 2.34-29.25 39.1 39.1 0 0 1 9.58-11.4 44.68 44.68 0 0 1 28.24-9.85 44.59 44.59 0 0 1 28.24 9.77 38.94 38.94 0 0 1 9.58 11.36 35.58 35.58 0 0 1 4.33 14.18 35.1 35.1 0 0 1-1.98 15.05 37.7 37.7 0 0 1-8.61 13.52zm-57.6-27.91a23.55 23.55 0 0 1 8.55-16.68 28.45 28.45 0 0 1 18.39-6.57 28.5 28.5 0 0 1 18.38 6.57 23.57 23.57 0 0 1 8.55 16.67c.37 6.83-2.37 13.19-7.2 17.9a28.18 28.18 0 0 1-19.73 7.79c-7.83 0-14.84-3-19.75-7.8a23.13 23.13 0 0 1-7.19-17.88z" />
+          <path d="M61.1 104.56c.05 2.6.88 7.66 2.12 11.61a61.27 61.27 0 0 0 13.24 22.92 68.39 68.39 0 0 0 23.17 16.64 74.46 74.46 0 0 0 30.42 6.32 74.52 74.52 0 0 0 30.4-6.42 68.87 68.87 0 0 0 23.15-16.7 61.79 61.79 0 0 0 13.23-22.97 58.06 58.06 0 0 0 2.07-25.55 59.18 59.18 0 0 0-8.44-23.1 64.45 64.45 0 0 0-15.4-16.98h.02L112.76 2.46l-.16-.12c-4.09-3.14-10.96-3.13-15.46.02-4.55 3.18-5.07 8.44-1.02 11.75l-.02.02 26 21.14-79.23.08h-.1c-6.55.01-12.85 4.3-14.1 9.74-1.27 5.53 3.17 10.11 9.98 10.14v.02l40.15-.07-71.66 55-.27.2c-6.76 5.18-8.94 13.78-4.69 19.23 4.32 5.54 13.51 5.55 20.34.03l39.1-32s-.56 4.32-.52 6.91zm100.49 14.47c-8.06 8.2-19.34 12.86-31.54 12.89-12.23.02-23.5-4.6-31.57-12.79-3.93-4-6.83-8.59-8.61-13.48a35.57 35.57 0 0 1 2.34-29.25 39.1 39.1 0 0 1 9.58-11.4 44.68 44.68 0 0 1 28.24-9.85 44.59 44.59 0 0 1 28.24 9.77 38.94 38.94 0 0 1 9.58 11.36 35.58 35.58 0 0 1 4.33 14.18 35.1 35.1 0 0 1-1.98 15.05 37.7 37.7 0 0 1-8.61 13.52zm-57.6-27.91a23.55 23.55 0 0 1 8.55-16.68 28.45 28.45 0 0 1 18.39-6.57 28.5 28.5 0 0 1 18.38 6.57 23.57 23.57 0 0 1 8.55 16.67c.37 6.83-2.37 13.19-7.2 17.9a28.18 28.18 0 0 1-19.73 7.79c-7.83 0-14.84-3-19.75-7.8a23.13 23.13 0 0 1-7.19-17.88z" />
           <strong>Blender Studio</strong>
         </svg>
         <svg class="nav-global-icon nav-global-icon-dropdown-toggle" height="100px" width="100px" viewBox="0 0 1000 1000">
-          <path d="m 206.53824,376.41174 a 42,42 0 0 1 71,-29 l 221,220 220,-220 a 42,42 0 1 1 59,59 l -250,250 a 42,42 0 0 1 -59,0 l -250,-250 a 42,42 0 0 1 -12,-30 z"/>
+          <path d="m 206.53824,376.41174 a 42,42 0 0 1 71,-29 l 221,220 220,-220 a 42,42 0 1 1 59,59 l -250,250 a 42,42 0 0 1 -59,0 l -250,-250 a 42,42 0 0 1 -12,-30 z" />
         </svg>
       </button>
 
       <ul class="nav-global-nav-links nav-global-dropdown js-dropdown-menu" id="nav-global-nav-links">
         <li>
-          <a href="{% url 'film-list' %}" class="{% if '/films' in request.path %}is-active{% endif %}">{% blocktrans %}Films{% endblocktrans %}</a>
+          <a href="{% url 'film-list' %}" class="{% if '/films' in request.path %}{% endif %}">{% blocktrans %}Films{% endblocktrans %}</a>
         </li>
         <li>
-          <a href="{% url 'training-home' %}" class="{% if '/training' in request.path %}is-active{% endif %}">{% blocktrans %}Training{% endblocktrans %}</a>
+          <a href="{% url 'training-home' %}" class="{% if '/training' in request.path %}{% endif %}">{% blocktrans %}Training{% endblocktrans %}</a>
         </li>
         <li>
-          <a href="{% url 'character-list' %}" class="{% if '/characters' in request.path %}is-active{% endif %}">{% blocktrans %}Characters{% endblocktrans %}</a>
+          <a href="{% url 'character-list' %}" class="{% if '/characters' in request.path %}{% endif %}">{% blocktrans %}Characters{% endblocktrans %}</a>
         </li>
-        {% comment "Pipeline" %}
-        <li>
+        {% comment %}Pipeline<li>
           <a href="/pipeline/">{% blocktrans %}Pipeline{% endblocktrans %}</a>
         </li>
         {% endcomment %}
         <li>
-          <a href="{% url 'post-list' %}" class="{% if '/blog' in request.path %}is-active{% endif %}">{% blocktrans %}Blog{% endblocktrans %}</a>
+          <a href="{% url 'post-list' %}" class="{% if '/blog' in request.path %}{% endif %}">{% blocktrans %}Blog{% endblocktrans %}</a>
         </li>
       </ul>
 
       <ul class="nav-global-links-right">
         <li>
-          <a href="{% url 'search' %}">
-            <i class="i-search"></i>
-          </a>
+          <a href="{% url 'search' %}"><i class="i-search"></i></a>
         </li>
         {% if request.user.is_authenticated %}
           {% include 'common/components/navbar_dropdown_notifications.html' %}
           {% include 'common/components/navbar_dropdown_user.html' %}
         {% else %}
+        {% comment %}
           <li>
             <a href="{% url 'oauth:login' %}">{% blocktrans %}Sign in{% endblocktrans %}</a>
           </li>
           <li>
             <a href="{% url 'stripe' %}">{% blocktrans %}Join{% endblocktrans %}</a>
           </li>
+        {% endcomment %}
+          <li>
+            <a href="{% url 'login' %}">{% blocktrans %}Sign in{% endblocktrans %}</a>
+          </li>
+          <li>
+            <a href="{% url 'register' %}">{% blocktrans %}Join{% endblocktrans %}</a>
+          </li>
         {% endif %}
         <li>
-          <form method="POST" action="{% url "set_language" %}">
+          <form method="POST" action="{% url 'set_language' %}">
             {% csrf_token %}
-            <input type="hidden" name="next" value="{{ redirect_to }}"/>
-            <select name="language" onchange="this.form.submit()" class="rounded bg-secondary text-light form-control" >
-                {% get_current_language as LANGUAGE_CODE %}
-                {% get_available_languages as LANGUAGES %}
-                {% get_language_info_list for LANGUAGES as languages %}
-                {% for language in languages %}
-                    <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
-                      &#x1F310;  {{ language.name_local }}
-                    </option>
-                {% endfor %}
+            <input type="hidden" name="next" value="{{ redirect_to }}" />
+            <select name="language" onchange="this.form.submit()" class="rounded bg-secondary text-light form-control">
+              {% get_current_language as LANGUAGE_CODE %}
+              {% get_available_languages as LANGUAGES %}
+              {% get_language_info_list for LANGUAGES as languages %}
+              {# prettier-ignore-start #}
+              {% for language in languages %}
+                <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
+                  &#x1F310;  {{ language.name_local }}
+                </option>
+              {% endfor %}
+              {# prettier-ignore-end #}
             </select>
           </form>
         </li>
@@ -79,15 +84,12 @@
           <div class="nav-global-apps-dropdown-container">
             <button class="js-dropdown-toggle" data-toggle-menu-id="nav-global-apps-menu">
               <svg class="nav-global-icon" height="100px" width="100px" viewBox="0 0 1000 1000">
-                <path
-                  d="m 150.5,899 a 50,50 0 0 1 -49,-50 V 749 a 50,50 0 0 1 49,-50 h 100 a 50,50 0 0 1 50,50 v 100 a 50,50 0 0 1 -50,50 z m 299,0 a 50,50 0 0 1 -50,-50 V 749 a 50,50 0 0 1 50,-50 h 100 a 50,50 0 0 1 50,50 v 100 a 50,50 0 0 1 -50,50 z m 299,0 a 50,50 0 0 1 -50,-50 V 749 a 50,50 0 0 1 50,-50 h 100 a 50,50 0 0 1 50,50 v 100 a 50,50 0 0 1 -50,50 z m -598,-299 a 50,50 0 0 1 -49,-50 V 450 a 50,50 0 0 1 49,-50 h 100 a 50,50 0 0 1 50,50 v 100 a 50,50 0 0 1 -50,50 z m 299,0 a 50,50 0 0 1 -50,-50 V 450 a 50,50 0 0 1 50,-50 h 100 a 50,50 0 0 1 50,50 v 100 a 50,50 0 0 1 -50,50 z m 299,0 a 50,50 0 0 1 -50,-50 V 450 a 50,50 0 0 1 50,-50 h 100 a 50,50 0 0 1 50,50 v 100 a 50,50 0 0 1 -50,50 z m -598,-299 a 50,50 0 0 1 -49,-50 V 151 a 50,50 0 0 1 49,-50 h 100 a 50,50 0 0 1 50,50 v 100 a 50,50 0 0 1 -50,50 z m 299,0 a 50,50 0 0 1 -50,-50 V 151 a 50,50 0 0 1 50,-50 h 100 a 50,50 0 0 1 50,50 v 100 a 50,50 0 0 1 -50,50 z m 299,0 a 50,50 0 0 1 -50,-50 V 151 a 50,50 0 0 1 50,-50 h 100 a 50,50 0 0 1 50,50 v 100 a 50,50 0 0 1 -50,50 z"/>
+                <path d="m 150.5,899 a 50,50 0 0 1 -49,-50 V 749 a 50,50 0 0 1 49,-50 h 100 a 50,50 0 0 1 50,50 v 100 a 50,50 0 0 1 -50,50 z m 299,0 a 50,50 0 0 1 -50,-50 V 749 a 50,50 0 0 1 50,-50 h 100 a 50,50 0 0 1 50,50 v 100 a 50,50 0 0 1 -50,50 z m 299,0 a 50,50 0 0 1 -50,-50 V 749 a 50,50 0 0 1 50,-50 h 100 a 50,50 0 0 1 50,50 v 100 a 50,50 0 0 1 -50,50 z m -598,-299 a 50,50 0 0 1 -49,-50 V 450 a 50,50 0 0 1 49,-50 h 100 a 50,50 0 0 1 50,50 v 100 a 50,50 0 0 1 -50,50 z m 299,0 a 50,50 0 0 1 -50,-50 V 450 a 50,50 0 0 1 50,-50 h 100 a 50,50 0 0 1 50,50 v 100 a 50,50 0 0 1 -50,50 z m 299,0 a 50,50 0 0 1 -50,-50 V 450 a 50,50 0 0 1 50,-50 h 100 a 50,50 0 0 1 50,50 v 100 a 50,50 0 0 1 -50,50 z m -598,-299 a 50,50 0 0 1 -49,-50 V 151 a 50,50 0 0 1 49,-50 h 100 a 50,50 0 0 1 50,50 v 100 a 50,50 0 0 1 -50,50 z m 299,0 a 50,50 0 0 1 -50,-50 V 151 a 50,50 0 0 1 50,-50 h 100 a 50,50 0 0 1 50,50 v 100 a 50,50 0 0 1 -50,50 z m 299,0 a 50,50 0 0 1 -50,-50 V 151 a 50,50 0 0 1 50,-50 h 100 a 50,50 0 0 1 50,50 v 100 a 50,50 0 0 1 -50,50 z" />
               </svg>
             </button>
 
             <div class="nav-global-apps-menu nav-global-dropdown js-dropdown-menu" id="nav-global-apps-menu">
-              <a href="https://www.blender.org/?utm_medium=nav-global" target="_blank">
-                <h3>BLENDER.ORG</h3>
-              </a>
+              <a href="https://www.blender.org/?utm_medium=nav-global" target="_blank"><h3>BLENDER.ORG</h3></a>
               <ul>
                 <li>
                   <a href="https://www.blender.org/download/?utm_medium=nav-global" target="_blank">
@@ -98,7 +100,9 @@
                     </figure>
                     <div>
                       <h4>{% blocktrans %}Download{% endblocktrans %}</h4>
-                      <p>{% blocktrans %}Get the latest Blender, older versions, or experimental builds.{% endblocktrans %}</p>
+                      <p>
+                        {% blocktrans %}Get the latest Blender, older versions, or experimental builds.{% endblocktrans %}
+                      </p>
                     </div>
                   </a>
                 </li>
@@ -106,14 +110,14 @@
                   <a href="https://www.blender.org/download/releases/?utm_medium=nav-global" target="_blank">
                     <div>
                       <h4>{% blocktrans %}What&apos;s New{% endblocktrans %}</h4>
-                      <p>{% blocktrans %}Stay up-to-date with the new features in the latest Blender releases.{% endblocktrans %}</p>
+                      <p>
+                        {% blocktrans %}Stay up-to-date with the new features in the latest Blender releases.{% endblocktrans %}
+                      </p>
                     </div>
                   </a>
                 </li>
               </ul>
-              <a href="https://studio.blender.org/?utm_medium=nav-global" target="_blank">
-                <h3>{% blocktrans %}LEARNING & RESOURCES{% endblocktrans %}</h3>
-              </a>
+              <a href="https://studio.blender.org/?utm_medium=nav-global" target="_blank"><h3>{% blocktrans %}LEARNING & RESOURCES{% endblocktrans %}</h3></a>
               <ul>
                 <li>
                   <a href="https://studio.blender.org/?utm_medium=nav-global" target="_blank">
@@ -124,7 +128,9 @@
                     </figure>
                     <div>
                       <h4>Blender Studio</h4>
-                      <p>{% blocktrans %}Access production assets and knowledge from the open movies.{% endblocktrans %}</p>
+                      <p>
+                        {% blocktrans %}Access production assets and knowledge from the open movies.{% endblocktrans %}
+                      </p>
                     </div>
                   </a>
                 </li>
@@ -132,14 +138,14 @@
                   <a href="https://docs.blender.org/manual/en/latest/?utm_medium=nav-global" target="_blank">
                     <div>
                       <h4>{% blocktrans %}Manual{% endblocktrans %}</h4>
-                      <p>{% blocktrans %}Documentation on the usage and features in Blender.{% endblocktrans %}</p>
+                      <p>
+                        {% blocktrans %}Documentation on the usage and features in Blender.{% endblocktrans %}
+                      </p>
                     </div>
                   </a>
                 </li>
               </ul>
-              <a href="https://projects.blender.org/?utm_medium=nav-global" target="_blank">
-                <h3>{% blocktrans %}DEVELOPMENT{% endblocktrans %}</h3>
-              </a>
+              <a href="https://projects.blender.org/?utm_medium=nav-global" target="_blank"><h3>{% blocktrans %}DEVELOPMENT{% endblocktrans %}</h3></a>
               <ul>
                 <li>
                   <a href="https://code.blender.org/?utm_medium=nav-global" target="_blank">
@@ -150,7 +156,9 @@
                     </figure>
                     <div>
                       <h4>{% blocktrans %}Developers Blog{% endblocktrans %}</h4>
-                      <p>{% blocktrans %}Latest development updates, by Blender developers.{% endblocktrans %}</p>
+                      <p>
+                        {% blocktrans %}Latest development updates, by Blender developers.{% endblocktrans %}
+                      </p>
                     </div>
                   </a>
                 </li>
@@ -158,7 +166,9 @@
                   <a href="https://wiki.blender.org/?utm_medium=nav-global" target="_blank">
                     <div>
                       <h4>{% blocktrans %}Documentation{% endblocktrans %}</h4>
-                      <p>{% blocktrans %}Guidelines, release notes and development docs.{% endblocktrans %}</p>
+                      <p>
+                        {% blocktrans %}Guidelines, release notes and development docs.{% endblocktrans %}
+                      </p>
                     </div>
                   </a>
                 </li>
@@ -173,7 +183,9 @@
                     </figure>
                     <div>
                       <h4>{% blocktrans %}Benchmark{% endblocktrans %}</h4>
-                      <p>{% blocktrans %}A platform to collect and share results of the Blender Benchmark.{% endblocktrans %}</p>
+                      <p>
+                        {% blocktrans %}A platform to collect and share results of the Blender Benchmark.{% endblocktrans %}
+                      </p>
                     </div>
                   </a>
                 </li>
@@ -181,15 +193,15 @@
                   <a href="https://conference.blender.org/?utm_medium=nav-global" target="_blank">
                     <div>
                       <h4>{% blocktrans %}Blender Conference{% endblocktrans %}</h4>
-                      <p>{% blocktrans %}The yearly event that brings the community together.{% endblocktrans %}</p>
+                      <p>
+                        {% blocktrans %}The yearly event that brings the community together.{% endblocktrans %}
+                      </p>
                     </div>
                   </a>
                 </li>
               </ul>
               <div class="nav-global-apps-menu-section-donate">
-                <a href="https://fund.blender.org/?utm_medium=nav-global" target="_blank">
-                  <h3>{% blocktrans %}DONATE{% endblocktrans %}</h3>
-                </a>
+                <a href="https://fund.blender.org/?utm_medium=nav-global" target="_blank"><h3>{% blocktrans %}DONATE{% endblocktrans %}</h3></a>
                 <ul>
                   <li>
                     <a href="https://fund.blender.org/?utm_medium=nav-global" target="_blank">
@@ -200,7 +212,9 @@
                       </figure>
                       <div>
                         <h4>{% blocktrans %}Development Fund{% endblocktrans %}</h4>
-                        <p>{% blocktrans %}Support core development with a monthly contribution.{% endblocktrans %}</p>
+                        <p>
+                          {% blocktrans %}Support core development with a monthly contribution.{% endblocktrans %}
+                        </p>
                       </div>
                     </a>
                   </li>
@@ -208,14 +222,15 @@
                     <a href="https://www.blender.org/about/donations/?utm_medium=nav-global" target="_blank">
                       <div>
                         <h4>{% blocktrans %}One-time Donations{% endblocktrans %}</h4>
-                        <p>{% blocktrans %}Perform a single donation with more payment options available.{% endblocktrans %}</p>
+                        <p>
+                          {% blocktrans %}Perform a single donation with more payment options available.{% endblocktrans %}
+                        </p>
                       </div>
                     </a>
                   </li>
                 </ul>
               </div>
             </div>
-
           </div>
         </li>
       </ul>
@@ -224,57 +239,57 @@
 </div>
 
 <script>
-  const dropdownToggles = document.getElementsByClassName("js-dropdown-toggle");
-  const btnActiveClass = 'nav-global-btn-active';
-  const isVisibleClass = 'is-visible';
-
+  const dropdownToggles = document.getElementsByClassName('js-dropdown-toggle')
+  const btnActiveClass = 'nav-global-btn-active'
+  const isVisibleClass = 'is-visible'
+  
   /* Hide all dropdowns. */
   function dropdownHideAll() {
-    const dropdownMenus = document.getElementsByClassName("js-dropdown-menu");
-
+    const dropdownMenus = document.getElementsByClassName('js-dropdown-menu')
+  
     if (dropdownMenus) {
       for (let i = 0; i < dropdownMenus.length; i++) {
-        dropdownMenus[i].classList.remove(isVisibleClass);
+        dropdownMenus[i].classList.remove(isVisibleClass)
       }
     }
-
+  
     /* Remove styling from all dropdown toggles. */
     for (let i = 0; i < dropdownToggles.length; i++) {
-      dropdownToggles[i].classList.remove(btnActiveClass);
+      dropdownToggles[i].classList.remove(btnActiveClass)
     }
   }
-
+  
   for (let i = 0; i < dropdownToggles.length; i++) {
-    dropdownToggles[i].addEventListener("click", function (e) {
-      e.stopPropagation();
-
-      const dropdownId = this.getAttribute('data-toggle-menu-id');
-      const el = document.getElementById(dropdownId);
-
+    dropdownToggles[i].addEventListener('click', function (e) {
+      e.stopPropagation()
+  
+      const dropdownId = this.getAttribute('data-toggle-menu-id')
+      const el = document.getElementById(dropdownId)
+  
       if (el) {
         /* If the button is already active, remove styling. */
         if (el.classList.contains(isVisibleClass)) {
-          dropdownHideAll();
+          dropdownHideAll()
         } else {
           /* Style button as active and show menu. */
-          this.classList.add(btnActiveClass);
-          el.classList.add(isVisibleClass);
+          this.classList.add(btnActiveClass)
+          el.classList.add(isVisibleClass)
         }
       }
-    });
+    })
   }
-
+  
   /* Hide all dropdowns when clicking anywhere except menus. */
-  document.body.addEventListener("click", function (e) {
-    if (!e.target.classList.contains("js-dropdown-menu")) {
-      dropdownHideAll();
+  document.body.addEventListener('click', function (e) {
+    if (!e.target.classList.contains('js-dropdown-menu')) {
+      dropdownHideAll()
     }
-  });
-
+  })
+  
   /* Hide all dropdowns when pressing Esc. */
   window.addEventListener('keydown', function (event) {
     if (event.key === 'Escape') {
-      dropdownHideAll();
+      dropdownHideAll()
     }
-  });
+  })
 </script>

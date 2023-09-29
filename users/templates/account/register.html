@@ -1,0 +1,79 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+  <!-- bootstrap icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" integrity="sha512-oAvZuuYVzkcTc2dH5z1ZJup5OmSQ000qlfRvuoTTiyTBjwX1faoyearj8KdMq0LgsBTHMrRuMek7s+CxF8yE+w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- bootstrap icon -->
+  <div class="join-header">
+    <div class="join-header-background">
+      <img src="{% static 'subscriptions/images/join-header.png' %}" class="join-header-background-image" />
+    </div>
+    <h1 class="text-uppercase join-header-brand">Register</h1>
+  </div>
+  <!--  -->
+
+  <div class="container-xxl mb-4">
+    <div class="row">
+      <div class="col-md-6 col-lg-4 offset-lg-4 offset-md-3">
+        <section class="checkout md-5">
+          <div>
+            <form action="{% url 'register' %}" method="POST">
+              {% csrf_token %}
+
+              <div class="form-group login-form">
+                <label>{{ form.username.label_tag }}</label>
+                <span class="bi bi-person-circle form-control-icon"></span>
+                {{ form.username }}
+                <label>{{ form.username.errors }}</label>
+              </div>
+              <div class="form-group login-form">
+                <label>{{ form.email.label_tag }}</label>
+                <span class="bi bi-envelope-fill form-control-icon"></span>
+                {{ form.email }}
+                <label>{{ form.email.errors }}</label>
+              </div>
+              <div class="form-group login-form">
+                <label>{{ form.password1.label_tag }}</label>
+                <span class="bi bi-shield-lock form-control-icon"></span>
+                {{ form.password1 }}
+                <label>{{ form.password1.errors }}</label>
+              </div>
+              <div class="form-group login-form">
+                <label>{{ form.password2.label_tag }}</label>
+                <span class="bi bi-shield-lock-fill form-control-icon"></span>
+                {{ form.password2 }}
+                <label>{{ form.password2.errors }}</label>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .login-form .form-control {
+      padding-left: 2.375rem;
+    }
+    
+    .login-form .form-control-icon {
+      position: absolute;
+      z-index: 2;
+      width: 2.375rem;
+      height: 2.375rem;
+      line-height: 2.835rem;
+      text-align: center;
+      pointer-events: none;
+      display: block;
+      color: #aaa;
+    }
+    
+    .login-form .errorlist {
+      color: red;
+    }
+  </style>
+{% endblock %}
